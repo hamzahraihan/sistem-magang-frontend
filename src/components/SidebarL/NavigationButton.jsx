@@ -1,0 +1,55 @@
+import { NavLink } from 'react-router-dom';
+import { DocumentIcon, HomeIcon, LogbookIcon, UploadIcon } from '../Icons';
+
+const NavigationButton = () => {
+  return (
+    <nav className="flex flex-col p-8 gap-4 border border-neutral-200 rounded-[48px] lg:w-full w-fit">
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? 'flex gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fi'
+            : 'flex gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+        }
+      >
+        <HomeIcon />
+        <p className="lg:flex hidden">Beranda</p>
+      </NavLink>
+      <NavLink
+        to="/laporan"
+        className={({ isActive }) =>
+          isActive
+            ? 'flex gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fi'
+            : 'flex gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+        }
+      >
+        <LogbookIcon />
+        <p className="lg:flex hidden">Logbook</p>
+      </NavLink>
+      <NavLink
+        to="/laporan"
+        className={({ isActive }) =>
+          isActive
+            ? 'flex gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fi'
+            : 'flex gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+        }
+      >
+        <UploadIcon />
+        <p className="lg:flex hidden">Upload Laporan</p>
+      </NavLink>
+      <NavLink
+        to="/laporan"
+        className={({ isActive }) =>
+          isActive
+            ? 'flex gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fi'
+            : 'flex gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+        }
+      >
+        <DocumentIcon />
+        <p className="lg:flex hidden">Berkas Magang</p>
+      </NavLink>
+    </nav>
+  );
+};
+
+export default NavigationButton;
