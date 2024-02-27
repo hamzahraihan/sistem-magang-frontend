@@ -4,6 +4,8 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/index.jsx';
 import NotFound from './pages/NotFound/index.jsx';
+import 'primereact/resources/themes/tailwind-light/theme.css';
+import 'primereact/resources/primereact.min.css';
 
 const router = createBrowserRouter([
   {
