@@ -11,11 +11,12 @@ const SidebarR = () => {
   console.log('🚀 ~ SidebarR ~ search:', search);
 
   return (
-    <div className="sticky lg:flex md:flex sm:flex flex-col gap-10 top-5 lg:items-start h-[90vh] hidden">
-      <form className="flex flex-col gap-10 w-full">
+    <div className="sticky lg:flex md:flex sm:flex flex-col top-5 lg:items-start h-[90vh] hidden">
+      <form className="flex flex-col gap-4 w-full">
         <Searchbar search={search} setSearch={setSearch} />
         <CatagoriesSelect search={search} setSearch={setSearch} />
-        <PrimaryButton cari={'Cari'} />
+        <PrimaryButton text={'Cari'} />
+        <PrimaryButton text={'Buat Post'} />
       </form>
     </div>
   );
