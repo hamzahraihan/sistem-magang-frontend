@@ -6,6 +6,10 @@ import Home from './pages/Home/index.jsx';
 import NotFound from './pages/NotFound/index.jsx';
 import 'primereact/resources/themes/tailwind-light/theme.css';
 import 'primereact/resources/primereact.min.css';
+import Login from './pages/Login/index.jsx';
+import Register from './pages/Register/index.jsx';
+import RoleChoose from './pages/Login/RoleChoose.jsx';
+import FormLogin from './pages/Login/FormLogin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +22,24 @@ const router = createBrowserRouter([
         element: <Home />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element: <Login />,
+    children: [
+      {
+        path: '/login',
+        element: <RoleChoose />,
+      },
+      {
+        path: '/login/:roleUrl',
+        element: <FormLogin />,
+      },
+    ],
+  },
+  {
+    path: '/register',
+    element: <Register />,
   },
 ]);
 
