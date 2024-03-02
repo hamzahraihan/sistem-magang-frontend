@@ -15,8 +15,8 @@ const CardPost = () => {
             Magang
           </p>
         </div>
-        <p className="font-bold">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore atque</p>
-        <p className="text-base line-clamp-3">
+        <p className="text-base font-bold">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore atque</p>
+        <p className="line-clamp-3">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda aliquid itaque obcaecati accusamus numquam. Perferendis recusandae voluptas quidem, optio omnis repudiandae et, hic sint perspiciatis aliquam repellendus! Nam
           quisquam esse eveniet nesciunt explicabo aliquid voluptates sunt dicta alias ea? Possimus quam corporis aperiam necessitatibus suscipit commodi ipsum nemo delectus modi.
         </p>
