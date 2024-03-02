@@ -11,7 +11,7 @@ const Searchbar = ({ search, setSearch }) => {
         type="search"
         name="input"
         id="default-search"
-        className="w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-[20px]"
+        className="w-full p-4 ps-10 text-gray-900 border border-gray-300 rounded-[20px]"
         placeholder="Cari..."
         onChange={(e) => setSearch({ ...search, [e.target.name]: e.target.value })}
         required
