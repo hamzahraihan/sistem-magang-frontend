@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         primaryColor: '#FFDFD6',
+        hoverColor: '#FFC1AF',
         activeColor: '#FFCEC0',
       },
       screens: {
