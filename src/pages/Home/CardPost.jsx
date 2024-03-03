@@ -1,16 +1,19 @@
+import { Link } from 'react-router-dom';
 import { ClockIcon, TagIcon } from '../../components/Icons';
 
 const CardPost = () => {
   return (
     <div className="border border-neutral-200 rounded-[32px]">
-      <div className="bg-slate-300 animate-pulse h-48 rounded-se-[32px] rounded-ss-[32px] cursor-pointer"></div>
+      <Link to="/detail-post">
+        <div className="bg-slate-300 animate-pulse h-48 rounded-se-[32px] rounded-ss-[32px] "></div>
+      </Link>
       <div className="flex flex-col gap-3 p-7">
         <div className="flex gap-2">
-          <p className="flex gap-1 items-center text-neutral-400 text-sm">
+          <p className="flex gap-1 items-center text-neutral-700 text-sm">
             <ClockIcon />
             19 November 2023
           </p>
-          <p className="flex gap-1 items-center text-neutral-400 text-sm">
+          <p className="flex gap-1 items-center text-neutral-700 text-sm">
             <TagIcon />
             Magang
           </p>
