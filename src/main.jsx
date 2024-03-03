@@ -10,6 +10,7 @@ import Login from './pages/Login/index.jsx';
 import Register from './pages/Register/index.jsx';
 import RoleChoose from './pages/Login/RoleChoose.jsx';
 import FormLogin from './pages/Login/FormLogin.jsx';
+import DetailPost from './pages/Post/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/detail-post',
+        element: <DetailPost />,
       },
     ],
   },
