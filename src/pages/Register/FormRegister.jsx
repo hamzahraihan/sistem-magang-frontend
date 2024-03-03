@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../components/Icons';
 import PrimaryButton from '../../components/PrimaryButton';
 
@@ -34,6 +35,9 @@ const FormRegister = () => {
           </div>
           <input type="password" name="password" id="password" className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs" placeholder="Password..." required />
         </div>
+        <Link className="text-xs text-teal-500 hover:no-underline underline" to="/login">
+          Sudah punya akun?
+        </Link>
         <div className="mt-auto">
           <PrimaryButton text={'Register'} />
         </div>
