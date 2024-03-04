@@ -16,7 +16,7 @@ const NavigationButton = () => {
         <p className="lg:flex hidden">Beranda</p>
       </NavLink>
       <NavLink
-        to="/laporan"
+        to="/logbook"
         className={({ isActive }) =>
           isActive
             ? 'flex items-center gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
