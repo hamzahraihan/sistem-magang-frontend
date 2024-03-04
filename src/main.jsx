@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Logbook />,
       },
       {
-        path: '/logbook/:weekParam',
+        path: '/logbook/:date',
         element: <LogbookDetail />,
       },
     ],
