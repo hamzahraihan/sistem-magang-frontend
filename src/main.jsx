@@ -11,6 +11,8 @@ import Register from './pages/Register/index.jsx';
 import RoleChoose from './pages/Login/RoleChoose.jsx';
 import FormLogin from './pages/Login/FormLogin.jsx';
 import DetailPost from './pages/Post/index.jsx';
+import Logbook from './pages/Logbook/index.jsx';
+import LogbookDetail from './pages/LogbookDetail/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: '/detail-post',
         element: <DetailPost />,
+      },
+      {
+        path: '/logbook',
+        element: <Logbook />,
+      },
+      {
+        path: '/logbook/:weekParam',
+        element: <LogbookDetail />,
       },
     ],
   },
