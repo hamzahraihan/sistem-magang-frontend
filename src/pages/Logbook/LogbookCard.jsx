@@ -9,7 +9,7 @@ const LogbookCard = (props) => {
   const { index, weekLog } = props;
 
   return (
-    <Link to={`/logbook/${formatDate(weekLog[index])}`} state={weekLog} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4">
+    <Link to={`/logbook/${formatDate(weekLog[0])}`} state={weekLog} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4">
       <div className="flex justify-between items-center gap-2">
         <div>
           <div className="flex items-center xm:text-base text-md font-bold gap-1">
