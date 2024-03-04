@@ -10,6 +10,7 @@ export default {
       },
       screens: {
         ssm: '490px',
+        xm: '1280px',
       },
     },
   },
