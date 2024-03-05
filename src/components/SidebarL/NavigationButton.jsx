@@ -8,8 +8,8 @@ const NavigationButton = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <HomeIcon />
@@ -19,19 +19,19 @@ const NavigationButton = () => {
         to="/logbook"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <LogbookIcon />
         <p className="lg:flex hidden">Logbook</p>
       </NavLink>
       <NavLink
-        to="/laporan"
+        to="/upload-report"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <UploadIcon />
@@ -41,8 +41,8 @@ const NavigationButton = () => {
         to="/laporan"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-5 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-5 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <DocumentIcon />
