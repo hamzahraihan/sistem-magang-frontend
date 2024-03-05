@@ -13,6 +13,7 @@ import FormLogin from './pages/Login/FormLogin.jsx';
 import DetailPost from './pages/Post/index.jsx';
 import Logbook from './pages/Logbook/index.jsx';
 import LogbookDetail from './pages/LogbookDetail/index.jsx';
+import UploadIntern from './pages/UploadIntern/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/logbook/:date',
         element: <LogbookDetail />,
+      },
+      {
+        path: '/upload-report',
+        element: <UploadIntern />,
       },
     ],
   },
