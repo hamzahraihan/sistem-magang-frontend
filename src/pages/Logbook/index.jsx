@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/formatDate';
 
 const Logbook = () => {
-  const [startDate, setStartDate] = useState('2023-9-20');
+  const [startDate, setStartDate] = useState('2023-9-24');
   const [endDate, setEndDate] = useState('2024-1-30');
   const [weeks, setWeeks] = useState([]);
 
