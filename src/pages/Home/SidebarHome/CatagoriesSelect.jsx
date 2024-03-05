@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 const CatagoriesSelect = ({ search, setSearch }) => {
   return (
-    <select id="large" name="category_name" className="block w-full p-4 text-gray-900 border border-gray-300 rounded-[20px]" onChange={(e) => setSearch({ ...search, [e.target.name]: e.target.value })}>
+    <select id="large" name="category_name" className="text-xs block w-full p-4 text-gray-900 border border-gray-300 rounded-[20px]" onChange={(e) => setSearch({ ...search, [e.target.name]: e.target.value })}>
       <option defaultValue={true}>Pilih Kategori</option>
       <option value="magang">Magang</option>
       <option value="diskusi">Diskusi</option>
