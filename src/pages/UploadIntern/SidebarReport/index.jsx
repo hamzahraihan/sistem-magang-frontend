@@ -9,7 +9,7 @@ const SidebarReport = () => {
       <div className="border-t border-neutral-300 w-full lg:block hidden"></div>
       <div className="flex flex-col gap-2">
         <h1 className="font-bold text-xl">Baca sebelum mengirim laporan</h1>
-        <p>Jangan lupa mengecek lagi file laporan kamu sebelum dikirim.</p>
+        <p>Jangan lupa cek lagi file laporan kamu sebelum dikirim.</p>
         <div>
           <p>File laporan yang wajib harus kamu kirim</p>
           <ul className="list-disc list-inside">
