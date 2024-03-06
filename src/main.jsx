@@ -14,6 +14,8 @@ import DetailPost from './pages/Post/index.jsx';
 import Logbook from './pages/Logbook/index.jsx';
 import LogbookDetail from './pages/LogbookDetail/index.jsx';
 import UploadIntern from './pages/UploadIntern/index.jsx';
+import Profile from './pages/Profile/index.jsx';
+import CreatePost from './pages/Post/CreatePost/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
         element: <DetailPost />,
       },
       {
+        path: '/create-post',
+        element: <CreatePost />,
+      },
+      {
         path: '/logbook',
         element: <Logbook />,
       },
@@ -40,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: '/upload-report',
         element: <UploadIntern />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
     ],
   },
