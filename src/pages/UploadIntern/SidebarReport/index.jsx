@@ -11,7 +11,7 @@ const SidebarReport = () => {
         <h1 className="font-bold text-xl">Baca sebelum mengirim laporan</h1>
         <p>Jangan lupa mengecek lagi file laporan kamu sebelum dikirim.</p>
         <div>
-          <p>File wajib yang harus kamu kirim</p>
+          <p>File laporan yang wajib harus kamu kirim</p>
           <ul className="list-disc list-inside">
             <li>File surat bersedia dosen magang</li>
             <li>File surat magang dari kampus</li>
