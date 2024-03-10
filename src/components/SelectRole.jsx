@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ConsoleIcon, LecturerIcon, UserIcon } from './Icons';
 import PropTypes from 'prop-types';
-import { useRoleContext } from '../hooks/useRoleContext';
+import { useUserContext } from '../hooks/useUserContext';
 
 const SelectRole = (props) => {
-  console.log('🚀 ~ SelectRole ~ props:', props);
-
   let roleIcon;
   let content;
   if (props.role == 'Mahasiswa') {
@@ -19,7 +17,7 @@ const SelectRole = (props) => {
     content = `Untuk pengguna dengan status ${props.role}`;
   }
 
-  const { handleRole } = useRoleContext();
+  const { handleRole } = useUserContext();
 
   return (
     <Link to={`/login/${props.role}`} className="group flex flex-col gap-2 items-center border border-gray-300 rounded-[32px] hover:bg-primaryColor transition-all p-4 w-full cursor-pointer" onClick={() => handleRole(props.role)}>
