@@ -15,7 +15,7 @@ const PrimaryButton = (props) => {
           </div>
         </Link>
       ) : (
-        <button className="text-center gap-3 p-3 items-center border rounded-xl border-neutral-200 transition-all duration-150 bg-primaryColor active:bg-activeColor cursor-pointer mt-auto w-full">
+        <button type={props.type} className="text-center gap-3 p-3 items-center border rounded-xl border-neutral-200 transition-all duration-150 bg-primaryColor active:bg-activeColor cursor-pointer mt-auto w-full">
           <p className={props.text == 'Buat Post' ? 'flex gap-2 items-center justify-center text-xs' : 'text-xs'}>
             {props.text == 'Buat Post' && <PlusIcon />}
             {props.text}
@@ -28,6 +28,7 @@ const PrimaryButton = (props) => {
 
 PrimaryButton.propTypes = {
   text: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default PrimaryButton;
