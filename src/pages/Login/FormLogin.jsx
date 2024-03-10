@@ -1,13 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../components/Icons';
 import PrimaryButton from '../../components/PrimaryButton';
-import { useRoleContext } from '../../hooks/useRoleContext';
+import { useUserContext } from '../../hooks/useUserContext';
 import { useState } from 'react';
 
 const FormLogin = () => {
   const [userInput, setUserInput] = useState({ email: '', password: '' });
   console.log('🚀 ~ FormLogin ~ userInput:', userInput);
-  const { role, handleLogin } = useRoleContext();
+  const { role, handleLogin } = useUserContext();
 
   const { roleUrl } = useParams();
 
