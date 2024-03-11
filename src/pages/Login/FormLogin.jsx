@@ -7,7 +7,7 @@ import { useState } from 'react';
 const FormLogin = () => {
   const [userInput, setUserInput] = useState({ email: '', password: '' });
   console.log('🚀 ~ FormLogin ~ userInput:', userInput);
-  const { role, handleLogin } = useUserContext();
+  const { loading, setloading, role, handleLogin } = useUserContext();
 
   const { roleUrl } = useParams();
 
@@ -57,7 +57,7 @@ const FormLogin = () => {
           />
         </div>
         <div className="mt-auto">
-          <PrimaryButton text={'Login'} />
+          <PrimaryButton loading={loading} setloading={setloading} text={'Login'} />
         </div>
       </form>
     </div>
