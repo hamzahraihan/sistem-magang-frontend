@@ -13,13 +13,17 @@ export const UserDispatch = createContext(null);
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState({ roleChoice: '' });
+  console.log('🚀 ~ UserProvider ~ role:', role);
+
+  const [user, dispatch] = useReducer(UserReducer, []);
+
+  const [userInformation, setUserInformation] = useState([]);
 
   const navigate = useNavigate();
 
-  const [user, dispatch] = useReducer(UserReducer, []);
-  console.log(user[0]);
-
   const { roleUrl } = useParams();
+  const { id } = useParams();
+  console.log('🚀 ~ UserProvider ~ id:', id);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
@@ -36,9 +40,7 @@ export const UserProvider = ({ children }) => {
       const token = JSON.stringify(localStorage.getItem(TOKEN));
       if (token) {
         const decoded = jwtDecode(token);
-        console.log('🚀 ~ useEffect ~ decode:', decoded);
         dispatch({ type: 'SET_USER_DATA', payload: decoded });
-        navigate('/');
       } else {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
       }
@@ -48,21 +50,40 @@ export const UserProvider = ({ children }) => {
   }, [cookies]);
 
   const handleLogin = async (email, password) => {
-    console.log('🚀 ~ handleLogin ~ email:', email);
+    setLoading(true);
     try {
-      setLoading(true);
       const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/account-verification`, {
         email,
         role: role?.roleChoice?.toLowerCase(),
         password,
       });
       dispatch({ type: 'SET_TOKEN', payload: data.result });
+      setLoading(false);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+      navigate('/');
     }
   };
+
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
+
+  useEffect(() => {
+    const handleUserById = async () => {
+      setLoading(true);
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${id}`);
+        setUserInformation(data.result);
+        setLoading(false);
+      } catch (error) {
+        console.error('No id params found');
+      }
+    };
+    handleUserById();
+  }, [id]);
 
   return (
     <UserContext.Provider
@@ -71,6 +92,9 @@ export const UserProvider = ({ children }) => {
         role,
         handleRole,
         handleLogin,
+        loading,
+        setLoading,
+        userInformation,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
@@ -87,6 +111,8 @@ const UserReducer = (user, action) => {
     case 'SET_TOKEN':
       document.cookie = `token=${action.payload}; expires=${expirationTime}`;
       localStorage.setItem(TOKEN, action.payload);
+      return action.payload;
+    case 'SET_USER_INFORMATION':
       return action.payload;
     case 'REMOVE_USER_DATA':
       return [];
