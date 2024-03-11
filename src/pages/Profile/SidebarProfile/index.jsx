@@ -9,7 +9,7 @@ const SidebarProfile = () => {
             <LecturerIcon />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-base">Angkatan</h1>
+            <h1 className="lg:text-base text-sm">Angkatan</h1>
             <p className="text-xs text-neutral-400">2020</p>
           </div>
         </div>
@@ -19,17 +19,17 @@ const SidebarProfile = () => {
             <ClockIcon />
           </div>
           <div className="flex flex-col">
-            <h1>Status</h1>
+            <h1 className="lg:text-base text-sm">Status</h1>
             <p className="text-xs text-neutral-400">Sedang Magang</p>
           </div>
         </div>
 
         <div className="flex gap-2 items-center border border-neutral-300 rounded-3xl w-full p-4">
-          <div className="flex justify-center items-center rounded-full bg-rose-300 h-12 w-12">
+          <div className="flex justify-center items-center rounded-full bg-rose-300 h-12 w-12 flex-shrink-0">
             <OfficeBuilding />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-base">Perusahaan/Instansi</h1>
+            <h1 className="lg:text-base text-sm">Perusahaan/Instansi</h1>
             <p className="text-xs text-neutral-400">Diskominfo</p>
           </div>
         </div>
