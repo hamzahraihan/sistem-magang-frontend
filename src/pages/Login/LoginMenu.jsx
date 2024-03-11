@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginMenu = () => {
   const { user } = useUserContext();
-  console.log('🚀 ~ LoginMenu ~ user:', user);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!user && user.length === 0 && user == undefined) {
+    if (user && user.length === 0) {
       navigate('/');
     }
   }, [navigate, user]);
