@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 const FormCreatePost = () => {
   const [value, setValue] = useState('');
+
   return (
     <div className="flex flex-col gap-2 text-base">
       <label htmlFor="title">Judul</label>
