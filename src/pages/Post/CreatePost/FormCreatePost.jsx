@@ -1,9 +1,12 @@
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import { useState } from 'react';
+import { usePostContext } from '../../../hooks/usePostContext';
 
 const FormCreatePost = () => {
   const [value, setValue] = useState('');
+
+  const { imageInputRef } = usePostContext();
 
   return (
     <div className="flex flex-col gap-2 text-base">
@@ -14,8 +17,8 @@ const FormCreatePost = () => {
       <ReactQuill theme="snow" value={value} onChange={setValue} className="pb-10" />
 
       <label htmlFor="category_name">Kategori</label>
-      <select id="large" name="category_name" className="text-base block w-full p-4 text-gray-900 border border-gray-300 rounded-lg" onChange={(e) => setSearch({ ...search, [e.target.name]: e.target.value })}>
-        <option defaultValue={true}>Pilih Kategori</option>
+      <select id="large" name="category_name" className="text-base block w-full p-4 text-gray-900 border border-gray-300 rounded-lg">
+        <option defaultValue="magang">Pilih Kategori</option>
         <option value="magang">Magang</option>
         <option value="diskusi">Diskusi</option>
         <option value="kendala">Kendala</option>
@@ -23,7 +26,7 @@ const FormCreatePost = () => {
       </select>
 
       <label htmlFor="file_url">Upload Gambar</label>
-      <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="file_url" type="file" />
+      <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="file_url" type="file" ref={imageInputRef} />
     </div>
   );
 };

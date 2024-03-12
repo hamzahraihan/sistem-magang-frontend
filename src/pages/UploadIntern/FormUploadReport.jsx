@@ -15,16 +15,15 @@ const FormUploadReport = () => {
     console.log('🚀 ~ handleFileUpload ~ files:', files);
 
     if (files.length > 0) {
-      const formData = new FormData(e.target);
+      const formData = new FormData();
 
       for (const file of files) {
         formData.append('files', file);
         console.log(formData.get('files'));
       }
-      console.log(formData);
 
       try {
-        const { data } = await axios.post('http://localhost:3000/report-intern/upload-report', formData);
+        const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/report-intern/upload-report`, formData);
         console.log('file uploaded', data);
       } catch (error) {
         console.error(error);
@@ -43,7 +42,7 @@ const FormUploadReport = () => {
       <label htmlFor="file_url">Upload File</label>
       <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="file_url" type="file" multiple ref={fileInputRef} />
       <div className="lg:hidden block pt-4">
-        <PrimaryButton type={'submit'} text={'Kirim laporan'} />
+        <PrimaryButton type="submit" text={'Kirim laporan'} />
       </div>
     </form>
   );
