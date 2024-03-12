@@ -13,7 +13,6 @@ export const UserDispatch = createContext(null);
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState({ roleChoice: '' });
-  console.log('🚀 ~ UserProvider ~ role:', role);
 
   const [loadingProfile, setLoadingProfile] = useState(false);
 
@@ -23,7 +22,6 @@ export const UserProvider = ({ children }) => {
 
   const { roleUrl } = useParams();
   const { id } = useParams();
-  console.log('🚀 ~ UserProvider ~ id:', id);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
@@ -39,7 +37,6 @@ export const UserProvider = ({ children }) => {
   };
 
   const cookies = getCookie('token');
-  console.log('Token:', cookies);
 
   const clearLocalStorage = () => {
     localStorage.clear();
@@ -100,8 +97,6 @@ export const UserProvider = ({ children }) => {
     };
     handleUserById();
   }, [id]);
-
-  console.log(cookies);
 
   return (
     <UserContext.Provider
