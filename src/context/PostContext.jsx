@@ -1,6 +1,6 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const PostContext = createContext(null);
@@ -9,13 +9,11 @@ export const PostDispatch = createContext(null);
 
 export const PostProvider = ({ children }) => {
   const [search, setSearch] = useState({ search: '', category_name: '' });
-  console.log('🚀 ~ PostProvider ~ search:', search);
-
   const [post, dispatch] = useReducer(PostReducer, []);
-
   const [loadingPost, setLoadingPost] = useState(false);
-
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
+
+  const imageInputRef = useRef(null);
 
   useEffect(() => {
     const getAllPost = async () => {
@@ -31,8 +29,32 @@ export const PostProvider = ({ children }) => {
     getAllPost();
   }, []);
 
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    const image = imageInputRef.current.files[0];
+    console.log('🚀 ~ handleImageUpload ~ images:', image);
+
+    if (image) {
+      const formData = new FormData();
+
+      formData.append('image', image);
+      console.log('🚀 ~ handleImageUpload ~ formData:', formData.get('image'));
+
+      try {
+        const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/post/create-post`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log('image uploaded', data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
-    <PostContext.Provider value={{ loadingPost, post, setSearch, search, searchParams, setSearchParams }}>
+    <PostContext.Provider value={{ loadingPost, post, setSearch, search, searchParams, setSearchParams, handleImageUpload, imageInputRef }}>
       <PostDispatch.Provider value={dispatch}>{children}</PostDispatch.Provider>
     </PostContext.Provider>
   );
