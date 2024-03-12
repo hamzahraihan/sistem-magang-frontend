@@ -2,7 +2,7 @@
 import { createContext, useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 
@@ -15,11 +15,11 @@ export const UserProvider = ({ children }) => {
   const [role, setRole] = useState({ roleChoice: '' });
   console.log('🚀 ~ UserProvider ~ role:', role);
 
+  const [loadingProfile, setLoadingProfile] = useState(false);
+
   const [user, dispatch] = useReducer(UserReducer, []);
 
   const [userInformation, setUserInformation] = useState([]);
-
-  const navigate = useNavigate();
 
   const { roleUrl } = useParams();
   const { id } = useParams();
@@ -33,7 +33,24 @@ export const UserProvider = ({ children }) => {
     setRole({ ...role, roleChoice: roleUrl });
   }, [roleUrl]);
 
-  const cookies = document.cookie;
+  const getCookie = (name) => {
+    const cookieValue = RegExp('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)').exec(document.cookie);
+    return cookieValue ? cookieValue.pop() : '';
+  };
+
+  const cookies = getCookie('token');
+  console.log('Token:', cookies);
+
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    console.log('Local storage has been deleted');
+  };
+
+  useEffect(() => {
+    if (cookies === undefined || cookies === '') {
+      clearLocalStorage();
+    }
+  }, []);
 
   useEffect(() => {
     try {
@@ -45,7 +62,7 @@ export const UserProvider = ({ children }) => {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
       }
     } catch (error) {
-      console.error('no token found');
+      console.error('Must login');
     }
   }, [cookies]);
 
@@ -63,7 +80,6 @@ export const UserProvider = ({ children }) => {
       console.error(error);
     } finally {
       setLoading(false);
-      navigate('/');
     }
   };
 
@@ -73,17 +89,19 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const handleUserById = async () => {
-      setLoading(true);
+      setLoadingProfile(true);
       try {
         const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${id}`);
         setUserInformation(data.result);
-        setLoading(false);
+        setLoadingProfile(false);
       } catch (error) {
         console.error('No id params found');
       }
     };
     handleUserById();
   }, [id]);
+
+  console.log(cookies);
 
   return (
     <UserContext.Provider
@@ -93,6 +111,7 @@ export const UserProvider = ({ children }) => {
         handleRole,
         handleLogin,
         loading,
+        loadingProfile,
         setLoading,
         userInformation,
       }}
