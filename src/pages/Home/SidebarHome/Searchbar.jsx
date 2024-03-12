@@ -1,7 +1,10 @@
-import PropTypes from 'prop-types';
 import { SearchIcon } from '../../../components/Icons';
+import { usePostContext } from '../../../hooks/usePostContext';
 
-const Searchbar = ({ search, setSearch }) => {
+const Searchbar = () => {
+  const { searchParams, setSearchParams } = usePostContext();
+
+  const searchInput = searchParams.get('search');
   return (
     <div className="w-full relative">
       <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -13,16 +16,17 @@ const Searchbar = ({ search, setSearch }) => {
         id="default-search"
         className="w-full text-xs p-4 ps-10 text-gray-900 border border-gray-300 rounded-[20px]"
         placeholder="Cari..."
-        onChange={(e) => setSearch({ ...search, [e.target.name]: e.target.value })}
+        value={searchInput}
+        onChange={(e) =>
+          setSearchParams((prev) => {
+            prev.set('search', e.target.value);
+            return prev;
+          })
+        }
         required
       />
     </div>
   );
-};
-
-Searchbar.propTypes = {
-  search: PropTypes.object,
-  setSearch: PropTypes.func,
 };
 
 export default Searchbar;
