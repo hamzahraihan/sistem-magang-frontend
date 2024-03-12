@@ -6,7 +6,7 @@ import { useUserContext } from '../../hooks/useUserContext';
 import ProfilePlaceholder from './Placeholder';
 
 const Profile = () => {
-  const { loading, userInformation } = useUserContext();
+  const { loadingProfile, userInformation } = useUserContext();
   console.log('🚀 ~ Profile ~ userInformation:', userInformation);
   return (
     <div className="col-span-3 pb-10">
@@ -15,7 +15,7 @@ const Profile = () => {
           <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
             <ArrowIcon />
           </Link>
-          {loading ? (
+          {loadingProfile ? (
             <ProfilePlaceholder />
           ) : (
             <>
