@@ -9,8 +9,8 @@ import CardPostPlaceholder from '../../components/Placeholder/CardPostPlaceholde
 
 const Profile = () => {
   const { loadingProfile, userInformation } = useUserContext();
+
   const { loadingPost, post } = usePostContext();
-  console.log('🚀 ~ Profile ~ post:', post);
 
   return (
     <div className="col-span-3 pb-10">
