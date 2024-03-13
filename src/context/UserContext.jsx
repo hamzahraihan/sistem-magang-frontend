@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
   const [loadingProfile, setLoadingProfile] = useState(false);
 
   const [user, dispatch] = useReducer(UserReducer, []);
+  console.log('🚀 ~ UserProvider ~ user:', user);
 
   const [userInformation, setUserInformation] = useState([]);
 
