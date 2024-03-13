@@ -9,7 +9,7 @@ const CatagoriesSelect = () => {
     <select
       id="large"
       name="category_name"
-      className="text-xs block w-full p-4 text-gray-900 border border-gray-300 rounded-[20px]"
+      className="text-xs block w-full p-4 text-gray-900 border border-gray-300 rounded-2xl"
       value={categoryInput}
       onChange={(e) =>
         setSearchParams((prev) => {
