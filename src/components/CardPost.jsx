@@ -7,14 +7,12 @@ const CardPost = (props) => {
   const { post } = props;
 
   const imageBackground = {
-    backgroundImage: 'url("https://drive.google.com/thumbnail?id=1mUa6TjOJqy-NQBsat4-cUU_38Tq0ZIPB")',
+    backgroundImage: `url(${`https://drive.google.com/thumbnail?id=${post.image}`})`,
   };
 
   return (
-    <div className="border border-neutral-200 rounded-[32px]">
-      <Link to={`/detail-post/${post?.post_id}`}>
-        <div className="h-48 rounded-se-[32px] rounded-ss-[32px] bg-cover bg-no-repeat bg-center" style={imageBackground}></div>
-      </Link>
+    <Link to={`/detail-post/${post?.post_id}`} className="border border-neutral-200 rounded-[32px]">
+      <div>{post.image && <div className="h-48 rounded-se-[32px] rounded-ss-[32px] bg-cover bg-no-repeat bg-center" style={imageBackground}></div>}</div>
       <div className="flex flex-col gap-3 p-7">
         <div className="flex gap-2">
           <p className="flex gap-1 items-center text-neutral-700 text-sm">
@@ -27,7 +25,7 @@ const CardPost = (props) => {
           </p>
         </div>
         <p className="text-base font-bold">{post?.title}</p>
-        <p className="line-clamp-3">{post?.description}</p>
+        <p className="line-clamp-3" dangerouslySetInnerHTML={{ __html: post?.description }} />
 
         <p className="text-neutral-400 underline">
           {post?.Mahasiswa?.first_name}
@@ -35,7 +33,7 @@ const CardPost = (props) => {
           {post?.Admin?.first_name}
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
