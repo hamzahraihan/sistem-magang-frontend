@@ -1,9 +1,10 @@
 import CardPost from '../../components/CardPost';
+import CardPostPlaceholder from '../../components/Placeholder/CardPostPlaceholder';
 import { usePostContext } from '../../hooks/usePostContext';
 import SidebarHome from './SidebarHome';
 
 const Home = () => {
-  const { post, searchParams } = usePostContext();
+  const { loadingPost, post, searchParams } = usePostContext();
 
   const searchInput = searchParams.get('search');
   const categoryInput = searchParams.get('category_name');
@@ -21,7 +22,7 @@ const Home = () => {
       <div className="grid grid-cols-3 gap-5">
         <div className="flex flex-col gap-4 lg:col-span-2 col-span-3 pb-10">
           <p className="font-bold lg:text-2xl text-2xl">Informasi</p>
-          {getPost.length === 0 ? <div>Tidak ditemukan</div> : getPost.map((item) => <CardPost key={item.post_id} post={item} />)}
+          {loadingPost ? <CardPostPlaceholder /> : getPost.length === 0 ? <div>Tidak ditemukan</div> : getPost.map((item) => <CardPost key={item.post_id} post={item} />)}
         </div>
         <SidebarHome />
       </div>
