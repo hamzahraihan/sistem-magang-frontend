@@ -4,10 +4,14 @@ import SidebarProfile from './SidebarProfile';
 import CardPost from '../../components/CardPost';
 import { useUserContext } from '../../hooks/useUserContext';
 import ProfilePlaceholder from './Placeholder';
+import { usePostContext } from '../../hooks/usePostContext';
+import CardPostPlaceholder from '../../components/Placeholder/CardPostPlaceholder';
 
 const Profile = () => {
   const { loadingProfile, userInformation } = useUserContext();
-  console.log('🚀 ~ Profile ~ userInformation:', userInformation);
+  const { loadingPost, post } = usePostContext();
+  console.log('🚀 ~ Profile ~ post:', post);
+
   return (
     <div className="col-span-3 pb-10">
       <div className="grid grid-cols-3 gap-5 ">
@@ -30,7 +34,7 @@ const Profile = () => {
             </>
           )}
           <p className="text-xl font-bold">Post Terbaru</p>
-          <CardPost />
+          {loadingPost ? <CardPostPlaceholder /> : post.map((item) => <CardPost key={item.post_id} post={item} />)}
         </div>
         <SidebarProfile />
       </div>
