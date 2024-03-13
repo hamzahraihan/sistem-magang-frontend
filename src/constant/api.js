@@ -1,0 +1,16 @@
+import axios from 'axios';
+
+export const getUserPostById = async (id) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/${id}`);
+  return data.result;
+};
+
+export const getAllPost = async () => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post`);
+  return data.result;
+};
+
+export const getUserPostByUserId = async (id) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/user/${id}`);
+  return data.result;
+};
