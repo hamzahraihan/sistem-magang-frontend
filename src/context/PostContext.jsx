@@ -2,6 +2,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { useUserContext } from '../hooks/useUserContext';
+import { getAllPost, getUserPostById, getUserPostByUserId } from '../constant/api';
 
 export const PostContext = createContext(null);
 
@@ -10,46 +12,112 @@ export const PostDispatch = createContext(null);
 export const PostProvider = ({ children }) => {
   const [search, setSearch] = useState({ search: '', category_name: '' });
   const [post, dispatch] = useReducer(PostReducer, []);
+  console.log('🚀 ~ PostProvider ~ post:', post);
   const [loadingPost, setLoadingPost] = useState(false);
-  console.log('🚀 ~ PostProvider ~ loadingPost:', loadingPost);
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
+  const [postInputData, setPostInputData] = useState({
+    title: '',
+    category_name: '',
+    description: '',
+  });
+  const [postById, setPostById] = useState({});
+  const { user } = useUserContext();
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    setUserData(user[0]);
+  }, [user]);
 
   const imageInputRef = useRef(null);
 
   const { id } = useParams();
 
+  // useEffect(() => {
+  //   const getPostById = async () => {
+  //     setLoadingPost(true);
+  //     try {
+  //       let data;
+  //       if (id) {
+  //         data = await getUserPostById(id);
+  //       } else {
+  //         data = await getAllPost();
+  //       }
+  //       dispatch({ type: 'SET_POST_DATA', payload: data });
+  //       setLoadingPost(false);
+  //     } catch (error) {
+  //       console.error(error);
+  //       setLoadingPost(false);
+  //     }
+  //   };
+  //   getPostById();
+  // }, [id]);
   useEffect(() => {
-    const getAllPost = async () => {
+    const getPostById = async () => {
       setLoadingPost(true);
       try {
-        if (id) {
-          const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/user/${id}`);
-          setLoadingPost(false);
-          return dispatch({ type: 'SET_POST_BY_USER', payload: data.result });
-        }
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post`);
-        dispatch({ type: 'SET_POST_DATA', payload: data.result });
+        let data = await getUserPostById(id);
+        setPostById(data);
         setLoadingPost(false);
       } catch (error) {
         console.error(error);
+        setLoadingPost(false);
       }
     };
-    getAllPost();
+    getPostById();
   }, [id]);
 
-  const handleImageUpload = async (e) => {
+  useEffect(() => {
+    const handleGetPost = async () => {
+      setLoadingPost(true);
+      try {
+        let data;
+        if (id) {
+          data = await getUserPostByUserId(id);
+        } else {
+          data = await getAllPost();
+        }
+        dispatch({ type: 'SET_POST_DATA', payload: data });
+        setLoadingPost(false);
+      } catch (error) {
+        console.error(error);
+        setLoadingPost(false);
+      }
+    };
+    handleGetPost();
+  }, [id]);
+
+  const handleCreatePost = async (e) => {
     e.preventDefault();
     const image = imageInputRef.current.files[0];
 
     if (image) {
       const formData = new FormData();
       formData.append('image', image);
+      formData.append('title', postInputData.title);
+      formData.append('description', postInputData.description);
+      formData.append('category_name', postInputData.category_name);
+      // Append user id based on the role condition
+      if (userData.role === 'dosen') {
+        formData.append('dosen_id', userData.id);
+        formData.append('mahasiswa_id', null);
+        formData.append('admin_id', null);
+      } else if (userData.role === 'mahasiswa') {
+        formData.append('dosen_id', null);
+        formData.append('mahasiswa_id', userData.id);
+        formData.append('admin_id', null);
+      } else if (userData.role === 'admin') {
+        formData.append('dosen_id', null);
+        formData.append('mahasiswa_id', null);
+        formData.append('admin_id', userData.id);
+      }
+
       try {
         const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/post/create-post`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
+        dispatch({ type: 'ADD_NEW_POST', payload: data.result });
         console.log('image uploaded', data);
       } catch (error) {
         console.error(error);
@@ -58,7 +126,21 @@ export const PostProvider = ({ children }) => {
   };
 
   return (
-    <PostContext.Provider value={{ loadingPost, post, setSearch, search, searchParams, setSearchParams, handleImageUpload, imageInputRef }}>
+    <PostContext.Provider
+      value={{
+        loadingPost,
+        post,
+        setSearch,
+        search,
+        searchParams,
+        setSearchParams,
+        handleCreatePost,
+        imageInputRef,
+        postInputData,
+        postById,
+        setPostInputData,
+      }}
+    >
       <PostDispatch.Provider value={dispatch}>{children}</PostDispatch.Provider>
     </PostContext.Provider>
   );
@@ -68,8 +150,8 @@ const PostReducer = (post, action) => {
   switch (action.type) {
     case 'SET_POST_DATA':
       return action.payload;
-    case 'SET_POST_BY_USER':
-      return action.payload;
+    case 'ADD_NEW_POST':
+      return [...post, action.payload];
     case 'DELETE_POST_BY_ID':
       return action.payload;
     case 'SEARCH_POST':
