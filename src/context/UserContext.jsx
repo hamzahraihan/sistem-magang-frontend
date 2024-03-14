@@ -2,7 +2,7 @@
 import { createContext, useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 
@@ -13,14 +13,14 @@ export const UserDispatch = createContext(null);
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState({ roleChoice: '' });
-
   const [loadingProfile, setLoadingProfile] = useState(false);
-
   const [user, dispatch] = useReducer(UserReducer, []);
   console.log('🚀 ~ UserProvider ~ user:', user);
-
+  const [dosenData, setDosenData] = useState([]);
   const [userInformation, setUserInformation] = useState([]);
+  const [loadingRegister, setLoadingRegister] = useState(false);
 
+  const navigate = useNavigate();
   const { roleUrl } = useParams();
   const { id } = useParams();
 
@@ -99,6 +99,58 @@ export const UserProvider = ({ children }) => {
     handleUserById();
   }, [id]);
 
+  useEffect(() => {
+    const handleGetDosen = async () => {
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/dosen`);
+        setDosenData(data.result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    handleGetDosen();
+  }, []);
+
+  const handleRegisterAccount = async ({ dosen_id, first_name, last_name, email, nim, angkatan, kelas, password, gender }) => {
+    try {
+      setLoadingRegister(true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/users/mahasiswa`,
+        {
+          dosen_id,
+          first_name,
+          last_name,
+          email,
+          role: 'mahasiswa',
+          nim,
+          jurusan: 'Sistem Informasi',
+          angkatan,
+          kelas,
+          status: 'Belum magang',
+          password,
+          image: '',
+          gender,
+          phone: '',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (response.status == 409) {
+        alert('Email already registered');
+      }
+      setLoadingRegister(false);
+      navigate('/login');
+    } catch (error) {
+      if (error.response.status === 409) {
+        alert('Email sudah diregistrasi');
+      }
+      setLoadingRegister(false);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -108,8 +160,11 @@ export const UserProvider = ({ children }) => {
         handleLogin,
         loading,
         loadingProfile,
+        loadingRegister,
         setLoading,
         userInformation,
+        dosenData,
+        handleRegisterAccount,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
