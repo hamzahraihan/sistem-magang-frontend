@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../components/Icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useUserContext } from '../../hooks/useUserContext';
@@ -56,6 +56,9 @@ const FormLogin = () => {
             required
           />
         </div>
+        <Link className="text-xs text-teal-500 hover:no-underline underline" to="/register">
+          Belum punya akun?
+        </Link>
         <div className="mt-auto">
           <PrimaryButton loading={loading} setloading={setloading} text={'Login'} />
         </div>
