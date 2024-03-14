@@ -29,8 +29,16 @@ const Home = () => {
     <div className="col-span-3">
       <div className="grid grid-cols-3 gap-5">
         <div className="flex flex-col gap-4 lg:col-span-2 col-span-3 pb-10">
-          <p className="font-bold lg:text-2xl text-2xl">Informasi</p>
-          {loadingPost ? <CardPostPlaceholder /> : filteredPost.length === 0 ? <div>Tidak ditemukan</div> : filteredPost.map((item) => <CardPost key={item.post_id} post={item} />)}
+          <p className="font-bold lg:text-2xl text-2xl ">Post Terbaru</p>
+          {loadingPost ? (
+            <CardPostPlaceholder />
+          ) : filteredPost.length === 0 ? (
+            <div>Tidak ditemukan</div>
+          ) : (
+            filteredPost
+              .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)) // Sorting by date
+              .map((item) => <CardPost key={item.post_id} post={item} />)
+          )}
         </div>
         <SidebarHome />
       </div>
