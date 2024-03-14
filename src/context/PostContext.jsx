@@ -12,7 +12,7 @@ export const PostDispatch = createContext(null);
 export const PostProvider = ({ children }) => {
   const [search, setSearch] = useState({ search: '', category_name: '' });
   const [post, dispatch] = useReducer(PostReducer, []);
-  console.log('🚀 ~ PostProvider ~ post:', post);
+
   const [loadingPost, setLoadingPost] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
   const [postInputData, setPostInputData] = useState({
@@ -20,6 +20,7 @@ export const PostProvider = ({ children }) => {
     category_name: '',
     description: '',
   });
+  const [postByUser, setPostByUser] = useState([]);
   const [postById, setPostById] = useState({});
   const { user } = useUserContext();
   const [userData, setUserData] = useState({});
@@ -32,25 +33,6 @@ export const PostProvider = ({ children }) => {
 
   const { id } = useParams();
 
-  // useEffect(() => {
-  //   const getPostById = async () => {
-  //     setLoadingPost(true);
-  //     try {
-  //       let data;
-  //       if (id) {
-  //         data = await getUserPostById(id);
-  //       } else {
-  //         data = await getAllPost();
-  //       }
-  //       dispatch({ type: 'SET_POST_DATA', payload: data });
-  //       setLoadingPost(false);
-  //     } catch (error) {
-  //       console.error(error);
-  //       setLoadingPost(false);
-  //     }
-  //   };
-  //   getPostById();
-  // }, [id]);
   useEffect(() => {
     const getPostById = async () => {
       setLoadingPost(true);
@@ -70,20 +52,30 @@ export const PostProvider = ({ children }) => {
     const handleGetPost = async () => {
       setLoadingPost(true);
       try {
-        let data;
-        if (id) {
-          data = await getUserPostByUserId(id);
-        } else {
-          data = await getAllPost();
-        }
-        dispatch({ type: 'SET_POST_DATA', payload: data });
+        const data = await getAllPost();
         setLoadingPost(false);
+        return dispatch({ type: 'SET_POST_DATA', payload: data });
       } catch (error) {
         console.error(error);
         setLoadingPost(false);
       }
     };
     handleGetPost();
+  }, []);
+
+  useEffect(() => {
+    const handleGetPostByUser = async () => {
+      setLoadingPost(true);
+      try {
+        const data = await getUserPostByUserId(id);
+        setLoadingPost(false);
+        setPostByUser(data);
+      } catch (error) {
+        console.error(error);
+        setLoadingPost(false);
+      }
+    };
+    handleGetPostByUser();
   }, [id]);
 
   const handleCreatePost = async (e) => {
@@ -137,6 +129,7 @@ export const PostProvider = ({ children }) => {
         handleCreatePost,
         imageInputRef,
         postInputData,
+        postByUser,
         postById,
         setPostInputData,
       }}
