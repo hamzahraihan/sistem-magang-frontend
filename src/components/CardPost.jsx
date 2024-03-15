@@ -7,7 +7,7 @@ const CardPost = (props) => {
   const { post } = props;
 
   const imageBackground = {
-    backgroundImage: 'url(https://drive.google.com/thumbnail?id=' + post.image + '&sz=w1000)',
+    backgroundImage: `url(https://drive.google.com/thumbnail?id=${post?.image}&sz=w1000)`,
   };
 
   return (
