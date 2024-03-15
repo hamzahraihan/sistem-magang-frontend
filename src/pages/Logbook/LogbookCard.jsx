@@ -7,7 +7,6 @@ import { formatDate } from '../../utils/formatDate';
 
 const LogbookCard = (props) => {
   const { index, weekLog } = props;
-  console.log('🚀 ~ LogbookCard ~ weekLog:', weekLog);
 
   return (
     <Link to={`/logbook/${formatDate(weekLog[0])}`} state={weekLog} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4">
@@ -28,7 +27,6 @@ const LogbookCard = (props) => {
         <div className="lg:flex md:flex sm:flex gap-3 min-[490px]:flex hidden">
           {weekLog.slice(0, 5).map((item, index) => (
             <div key={index} className="flex justify-center items-center h-10 w-10 border border-neutral-200 rounded-full">
-              {console.log(item)}
               <p>{dayName[item?.getDay()][0]}</p>
             </div>
           ))}

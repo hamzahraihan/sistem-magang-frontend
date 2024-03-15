@@ -2,10 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowIcon } from '../../components/Icons';
 import SidebarLogbookDetail from './SidebarLogbookDetail';
 import LogbookWeek from './LogbookWeek';
+import { formatDate } from '../../utils/formatDate';
 
 const LogbookDetail = () => {
   const { state } = useLocation();
-  console.log('🚀 ~ LogbookDetail ~ state:', state);
+  console.log('🚀 ~ LogbookDetail ~ state:', formatDate(state[0]));
 
   return (
     <div className="col-span-3 pb-10">

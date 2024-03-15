@@ -1,5 +1,5 @@
-import PrimaryButton from '../../../components/PrimaryButton';
-import dayName from '../../../utils/dayName';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import dayName from '../../../../utils/dayName';
 
 const LogbookOverallCard = (props) => {
   const { weekLog } = props;
