@@ -21,7 +21,8 @@ export const PostProvider = ({ children }) => {
     description: '',
   });
   const [postByUser, setPostByUser] = useState([]);
-  const [postById, setPostById] = useState({});
+  const [postById, setPostById] = useState([]);
+  console.log('🚀 ~ PostProvider ~ postById:', postById);
   const { user } = useUserContext();
   const [userData, setUserData] = useState({});
 
