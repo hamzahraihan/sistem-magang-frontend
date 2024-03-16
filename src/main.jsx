@@ -17,6 +17,9 @@ import UploadIntern from './pages/UploadIntern/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import CreatePost from './pages/Post/CreatePost/index.jsx';
 import LogbookDetail from './pages/Logbook/LogbookDetail/index.jsx';
+import Internship from './pages/Internship/index.jsx';
+import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
+import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +40,18 @@ const router = createBrowserRouter([
         element: <CreatePost />,
       },
       {
-        path: '/tanggal_magang',
+        path: '/kegiatan-magang',
+        element: <Internship />,
+        children: [
+          {
+            path: '/kegiatan-magang',
+            element: <InternshipActivity />,
+          },
+          {
+            path: '/kegiatan-magang/daftar-magang',
+            element: <CreateInternship />,
+          },
+        ],
       },
       {
         path: '/logbook',
