@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { DocumentIcon, HomeIcon, LogbookIcon, UploadIcon } from '../Icons';
+import { DocumentIcon, HomeIcon, LogbookIcon, OfficeBrifcase, UploadIcon } from '../Icons';
 
 const NavigationButton = () => {
   return (
@@ -14,6 +14,17 @@ const NavigationButton = () => {
       >
         <HomeIcon />
         <p className="lg:flex hidden">Beranda</p>
+      </NavLink>
+      <NavLink
+        to="/kegiatan-magang"
+        className={({ isActive }) =>
+          isActive
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+        }
+      >
+        <OfficeBrifcase />
+        <p className="lg:flex hidden">Daftar Magang</p>
       </NavLink>
       <NavLink
         to="/logbook"
