@@ -4,12 +4,25 @@ import Description from './Description';
 import CommentSection from './CommentSection';
 import SidebarPost from './SidebarPost';
 import { usePostContext } from '../../hooks/usePostContext';
+import { useEffect, useState } from 'react';
 
 const DetailPost = () => {
+  const [background, setBackground] = useState(null);
   const { loadingPost, postById } = usePostContext();
-  const imageBackground = {
-    backgroundImage: `url(https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000)`,
-  };
+  console.log('🚀 ~ DetailPost ~ postById:', postById);
+  useEffect(() => {
+    if (loadingPost) {
+      const lowImageBackground = {
+        backgroundImage: `url(https://drive.google.com/thumbnail?id=${postById[0]?.image})`,
+      };
+      setBackground(lowImageBackground);
+    }
+    const highImageBackground = {
+      backgroundImage: `url(https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000)`,
+    };
+    setBackground(highImageBackground);
+  }, [postById, loadingPost]);
+
   return (
     <div className="col-span-3">
       <div className="grid grid-cols-3 gap-5">
@@ -21,12 +34,11 @@ const DetailPost = () => {
             <div className="bg-slate-400 animate-pulse h-96 rounded-[32px] bg-cover bg-center bg-no-repeat"></div>
           ) : (
             postById[0]?.image && (
-              <a href={`https://drive.google.com/uc?export=preview&id=${postById[0].image}`} target="_blank">
-                <div className="h-96 rounded-[32px] bg-cover bg-center bg-no-repeat" style={imageBackground}></div>
+              <a href={`https://drive.google.com/uc?export=preview&id=${postById[0]?.image}`} target="_blank">
+                <img className="rounded-[32px] bg-cover bg-center bg-no-repeat" src={`https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000`} alt="post-background" />
               </a>
             )
           )}
-
           <Description />
           <CommentSection />
         </div>
