@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const PrimaryButton = (props) => {
   return (
     <>
-      {props.text == 'Buat Post' ? (
-        <Link to="/create-post">
+      {props.text == 'Buat Post' || props.text == 'Daftar Magang' ? (
+        <Link to={props.text === 'Buat Post' ? '/create-post' : props.text === 'Daftar Magang' && '/kegiatan-magang/daftar-magang'}>
           <div className="text-center gap-3 p-3 items-center border rounded-2xl border-neutral-200 transition-all duration-150 bg-primaryColor active:bg-activeColor cursor-pointer mt-auto w-full">
             <p className={props.text == 'Buat Post' ? 'flex gap-2 items-center justify-center text-xs' : 'text-xs'}>
               {props.text == 'Buat Post' && <PlusIcon />}
