@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [dosenData, setDosenData] = useState([]);
   const [userInformation, setUserInformation] = useState([]);
   const [loadingRegister, setLoadingRegister] = useState(false);
+  const [userLoggedInData, setUserLoggedInData] = useState(undefined);
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
@@ -50,11 +51,17 @@ export const UserProvider = ({ children }) => {
     }
   }, []);
 
+  const handleLogout = () => {
+    setUserLoggedInData(undefined);
+    dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
+  };
+
   useEffect(() => {
     try {
       const token = JSON.stringify(localStorage.getItem(TOKEN));
       if (token) {
         const decoded = jwtDecode(token);
+        setUserLoggedInData(decoded);
         dispatch({ type: 'SET_USER_DATA', payload: decoded });
       } else {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
@@ -80,10 +87,6 @@ export const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   useEffect(() => {
     const handleUserById = async () => {
@@ -165,6 +168,8 @@ export const UserProvider = ({ children }) => {
         userInformation,
         dosenData,
         handleRegisterAccount,
+        handleLogout,
+        userLoggedInData,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
@@ -185,7 +190,9 @@ const UserReducer = (user, action) => {
     case 'SET_USER_INFORMATION':
       return action.payload;
     case 'REMOVE_USER_DATA':
-      return [];
+      document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      localStorage.clear();
+      return action.payload;
     default:
       return user;
   }
