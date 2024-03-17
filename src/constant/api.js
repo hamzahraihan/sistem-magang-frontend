@@ -14,3 +14,8 @@ export const getUserPostByUserId = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/user/${id}`);
   return data.result;
 };
+
+export const getInternshipByUser = async (id) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`);
+  return data.result;
+};
