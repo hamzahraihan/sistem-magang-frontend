@@ -3,6 +3,7 @@ import SidebarL from './components/SidebarL/index.jsx';
 import { PrimeReactProvider } from 'primereact/api';
 import UserProvider from './context/UserContext.jsx';
 import PostProvider from './context/PostContext.jsx';
+import { InternshipProvider } from './context/InternshipContext.jsx';
 
 function App() {
   return (
@@ -10,8 +11,10 @@ function App() {
       <PrimeReactProvider>
         <UserProvider>
           <PostProvider>
-            <SidebarL />
-            <Outlet />
+            <InternshipProvider>
+              <SidebarL />
+              <Outlet />
+            </InternshipProvider>
           </PostProvider>
         </UserProvider>
       </PrimeReactProvider>
