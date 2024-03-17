@@ -4,12 +4,13 @@ import NavigationButton from './NavigationButton';
 import ProfileButton from './ProfileButton';
 
 const SidebarL = () => {
-  const { user } = useUserContext();
+  const { user, userLoggedInData } = useUserContext();
+  console.log('🚀 ~ SidebarL ~ user:', user);
   return (
     <div className="sticky lg:flex md:flex sm:flex flex-col gap-4 top-5 lg:items-start items-center h-screen pb-10 hidden">
       <ProfileButton />
       <NavigationButton />
-      {user.length > 0 && <LogoutButton />}
+      {userLoggedInData && <LogoutButton />}
     </div>
   );
 };
