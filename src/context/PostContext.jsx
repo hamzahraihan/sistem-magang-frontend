@@ -24,11 +24,6 @@ export const PostProvider = ({ children }) => {
   const [postById, setPostById] = useState([]);
   console.log('🚀 ~ PostProvider ~ postById:', postById);
   const { user } = useUserContext();
-  const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    setUserData(user[0]);
-  }, [user]);
 
   const imageInputRef = useRef(null);
 
@@ -90,18 +85,18 @@ export const PostProvider = ({ children }) => {
       formData.append('description', postInputData.description);
       formData.append('category_name', postInputData.category_name);
       // Append user id based on the role condition
-      if (userData.role === 'dosen') {
-        formData.append('dosen_id', userData.id);
+      if (user[0].role === 'dosen') {
+        formData.append('dosen_id', user[0].id);
         formData.append('mahasiswa_id', null);
         formData.append('admin_id', null);
-      } else if (userData.role === 'mahasiswa') {
+      } else if (user[0].role === 'mahasiswa') {
         formData.append('dosen_id', null);
-        formData.append('mahasiswa_id', userData.id);
+        formData.append('mahasiswa_id', user[0].id);
         formData.append('admin_id', null);
-      } else if (userData.role === 'admin') {
+      } else if (user[0].role === 'admin') {
         formData.append('dosen_id', null);
         formData.append('mahasiswa_id', null);
-        formData.append('admin_id', userData.id);
+        formData.append('admin_id', user[0].id);
       }
 
       try {
