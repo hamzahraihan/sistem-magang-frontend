@@ -2,7 +2,8 @@ import axios from 'axios';
 import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
-import { getInternshipByUser } from '../constant/api';
+import { getInternshipByUser, getInternshipUser } from '../constant/api';
+import { useLocation } from 'react-router-dom';
 
 export const InternshipContext = createContext();
 
@@ -11,7 +12,9 @@ export const InternshipDispatch = createContext();
 export const InternshipProvider = ({ children }) => {
   const [internship, dispatch] = useReducer(InternshipReducer, []);
   const [loading, setLoading] = useState(false);
-  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+  const [internshipByID, setInternshipByID] = useState({});
+
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
     location: '',
@@ -23,6 +26,9 @@ export const InternshipProvider = ({ children }) => {
   });
   console.log(internshipInputData);
   const { userLoggedInData } = useUserContext();
+
+  const { state } = useLocation();
+  console.log('🚀 ~ InternshipProvider ~ state:', state?.internshipID);
 
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
@@ -41,6 +47,20 @@ export const InternshipProvider = ({ children }) => {
     };
     getUserInternship();
   }, [userLoggedInData]);
+
+  useEffect(() => {
+    const getInternshipById = async () => {
+      setLoadingDetail(true);
+      try {
+        const data = await getInternshipUser(state?.internshipID);
+        setInternshipByID(data);
+        setLoadingDetail(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getInternshipById();
+  }, [state?.internshipID]);
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
@@ -83,12 +103,14 @@ export const InternshipProvider = ({ children }) => {
       value={{
         handleCreateInternship,
         internship,
+        internshipByID,
         internshipInputData,
         setInternshipInputData,
         internFileInputRef,
         campusFileInputRef,
         lectureFileInputRef,
         loading,
+        loadingDetail,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
