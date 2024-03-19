@@ -20,6 +20,7 @@ import LogbookDetail from './pages/Logbook/LogbookDetail/index.jsx';
 import Internship from './pages/Internship/index.jsx';
 import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
 import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
+import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
           {
             path: '/kegiatan-magang/daftar-magang',
             element: <CreateInternship />,
+          },
+          {
+            path: '/kegiatan-magang/detail/:id',
+            element: <DetailInternship />,
           },
         ],
       },
