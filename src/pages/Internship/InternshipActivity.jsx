@@ -20,7 +20,12 @@ const InternshipActivity = () => {
           <InternshipNotFound />
         ) : (
           internship.map((item) => (
-            <Link to={`/kegiatan-magang/detail/${item.internship_id}`} className="flex border items-center border-gray-200 rounded-xl p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white transition-all" key={item.internship_id}>
+            <Link
+              to={`/kegiatan-magang/detail`}
+              state={{ internshipID: item.internship_id }}
+              className="flex border items-center border-gray-200 rounded-xl p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white transition-all"
+              key={item.internship_id}
+            >
               <div className="flex flex-1 flex-col">
                 <p className="text-bold">Magang Mandiri</p>
                 <p className="font-bold text-base">{item.instance}</p>
