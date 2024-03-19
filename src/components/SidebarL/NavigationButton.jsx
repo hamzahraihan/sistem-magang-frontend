@@ -8,8 +8,8 @@ const NavigationButton = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <HomeIcon />
@@ -19,8 +19,8 @@ const NavigationButton = () => {
         to="/kegiatan-magang"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <OfficeBrifcase />
@@ -30,8 +30,8 @@ const NavigationButton = () => {
         to="/logbook"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <LogbookIcon />
@@ -41,8 +41,8 @@ const NavigationButton = () => {
         to="/upload-report"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <UploadIcon />
@@ -52,8 +52,8 @@ const NavigationButton = () => {
         to="/laporan"
         className={({ isActive }) =>
           isActive
-            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
-            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
+            : 'flex items-center gap-2 p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
         }
       >
         <DocumentIcon />
