@@ -53,7 +53,7 @@ const router = createBrowserRouter([
             element: <CreateInternship />,
           },
           {
-            path: '/kegiatan-magang/detail/:id',
+            path: '/kegiatan-magang/detail/',
             element: <DetailInternship />,
           },
         ],
