@@ -10,7 +10,7 @@ import CardPostPlaceholder from '../../components/Placeholder/CardPostPlaceholde
 const Profile = () => {
   const { loadingProfile, userInformation } = useUserContext();
 
-  const { loadingPost, postByUser } = usePostContext();
+  const { loadingPostByUser, postByUser } = usePostContext();
 
   return (
     <div className="col-span-3 pb-10">
@@ -34,7 +34,7 @@ const Profile = () => {
             </>
           )}
           <p className="text-xl font-bold">Post Terbaru</p>
-          {loadingPost ? <CardPostPlaceholder /> : postByUser.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((item) => <CardPost key={item.post_id} post={item} />)}
+          {loadingPostByUser ? <CardPostPlaceholder /> : postByUser.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((item) => <CardPost key={item.post_id} post={item} />)}
         </div>
         <SidebarProfile />
       </div>
