@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#FFDFD6',
-        hoverColor: '#FFC1AF',
-        activeColor: '#FFCEC0',
+        primaryColor: '#921300',
+        hoverColor: '#B26E64',
+        activeColor: '#B26E64',
       },
       screens: {
         ssm: '490px',
