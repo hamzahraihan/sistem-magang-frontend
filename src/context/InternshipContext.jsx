@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useEffect, useReducer, useRef, useState } from 'react';
+import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
 import { getInternshipByUser, getInternshipUser } from '../constant/api';
@@ -28,7 +28,11 @@ export const InternshipProvider = ({ children }) => {
   const { userLoggedInData } = useUserContext();
 
   const { state } = useLocation();
-  console.log('🚀 ~ InternshipProvider ~ state:', state?.internshipID);
+
+  const internID = useMemo(() => {
+    return state ? state.internshipID : null;
+  }, [state]);
+  console.log('🚀 ~ internID ~ internID:', internID);
 
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
@@ -52,7 +56,7 @@ export const InternshipProvider = ({ children }) => {
     const getInternshipById = async () => {
       setLoadingDetail(true);
       try {
-        const data = await getInternshipUser(state?.internshipID);
+        const data = await getInternshipUser(internID);
         setInternshipByID(data);
         setLoadingDetail(false);
       } catch (error) {
@@ -60,7 +64,7 @@ export const InternshipProvider = ({ children }) => {
       }
     };
     getInternshipById();
-  }, [state?.internshipID]);
+  }, [internID]);
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
