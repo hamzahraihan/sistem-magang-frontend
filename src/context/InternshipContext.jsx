@@ -10,6 +10,7 @@ export const InternshipDispatch = createContext();
 
 export const InternshipProvider = ({ children }) => {
   const [internship, dispatch] = useReducer(InternshipReducer, []);
+  const [loading, setLoading] = useState(false);
   console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
@@ -29,9 +30,11 @@ export const InternshipProvider = ({ children }) => {
 
   useEffect(() => {
     const getUserInternship = async () => {
+      setLoading(true);
       try {
         const data = await getInternshipByUser(userLoggedInData?.id);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -85,6 +88,7 @@ export const InternshipProvider = ({ children }) => {
         internFileInputRef,
         campusFileInputRef,
         lectureFileInputRef,
+        loading,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
