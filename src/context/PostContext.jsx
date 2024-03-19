@@ -14,6 +14,9 @@ export const PostProvider = ({ children }) => {
   const [post, dispatch] = useReducer(PostReducer, []);
 
   const [loadingPost, setLoadingPost] = useState(false);
+  const [loadingPostByUser, setLoadingPostByUser] = useState(false);
+  const [loadingPostByID, setLoadingPostByID] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
   const [postInputData, setPostInputData] = useState({
     title: '',
@@ -31,14 +34,14 @@ export const PostProvider = ({ children }) => {
 
   useEffect(() => {
     const getPostById = async () => {
-      setLoadingPost(true);
+      setLoadingPostByID(true);
       try {
         let data = await getUserPostById(id);
         setPostById(data);
-        setLoadingPost(false);
+        setLoadingPostByID(false);
       } catch (error) {
         console.error(error);
-        setLoadingPost(false);
+        setLoadingPostByID(false);
       }
     };
     getPostById();
@@ -61,14 +64,14 @@ export const PostProvider = ({ children }) => {
 
   useEffect(() => {
     const handleGetPostByUser = async () => {
-      setLoadingPost(true);
+      setLoadingPostByUser(true);
       try {
         const data = await getUserPostByUserId(id);
-        setLoadingPost(false);
+        setLoadingPostByUser(false);
         setPostByUser(data);
       } catch (error) {
         console.error(error);
-        setLoadingPost(false);
+        setLoadingPostByUser(false);
       }
     };
     handleGetPostByUser();
@@ -117,6 +120,8 @@ export const PostProvider = ({ children }) => {
     <PostContext.Provider
       value={{
         loadingPost,
+        loadingPostByUser,
+        loadingPostByID,
         post,
         setSearch,
         search,
