@@ -15,6 +15,7 @@
     "flowbite-react": "^0.7.3",
     "jwt-decode": "^4.0.0",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "match-sorter": "^6.3.4",
     "primereact": "^10.5.1",
     "prop-types": "^15.8.1",
