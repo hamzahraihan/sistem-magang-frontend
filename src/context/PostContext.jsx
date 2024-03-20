@@ -1,7 +1,7 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { createContext, useEffect, useReducer, useRef, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { useUserContext } from '../hooks/useUserContext';
 import { getAllPost, getUserPostById, getUserPostByUserId } from '../constant/api';
 
@@ -30,13 +30,22 @@ export const PostProvider = ({ children }) => {
 
   const imageInputRef = useRef(null);
 
-  const { id } = useParams();
+  const { state } = useLocation();
+
+  const id = useMemo(() => {
+    return state ? state.userId : null;
+  }, [state]);
+
+  const postId = useMemo(() => {
+    return state ? state.post_id : null;
+  }, [state]);
+  console.log('🚀 ~ postId ~ postId:', postId);
 
   useEffect(() => {
     const getPostById = async () => {
       setLoadingPostByID(true);
       try {
-        let data = await getUserPostById(id);
+        let data = await getUserPostById(postId);
         setPostById(data);
         setLoadingPostByID(false);
       } catch (error) {
@@ -45,7 +54,7 @@ export const PostProvider = ({ children }) => {
       }
     };
     getPostById();
-  }, [id]);
+  }, [postId]);
 
   useEffect(() => {
     const handleGetPost = async () => {
