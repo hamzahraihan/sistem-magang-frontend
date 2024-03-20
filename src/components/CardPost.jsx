@@ -8,12 +8,13 @@ const CardPost = (props) => {
   const { post } = props;
 
   const imageBackground = {
-    backgroundImage: `url(https://drive.google.com/thumbnail?id=${post?.image}&sz=w1000)`,
+    backgroundImage: `url(https://drive.google.com/thumbnail?id=${post?.image}&sz=w680)`,
   };
 
   return (
     <Link to={`/detail-post/${_.kebabCase(post?.title)}`} state={{ post_id: post?.post_id }} className="border border-neutral-200 rounded-[32px]">
-      <div>{post.image && <div className="h-48 rounded-se-[32px] rounded-ss-[32px] bg-cover bg-no-repeat bg-center" style={imageBackground}></div>}</div>
+      {post.image && <div className="h-48 rounded-se-[32px] rounded-ss-[32px] bg-cover bg-no-repeat bg-center" style={imageBackground}></div>}
+
       <div className="flex flex-col gap-3 p-7">
         <div className="flex gap-2">
           <p className="flex gap-1 items-center text-neutral-700 text-sm">
