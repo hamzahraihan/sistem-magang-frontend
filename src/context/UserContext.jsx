@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 
@@ -23,7 +23,11 @@ export const UserProvider = ({ children }) => {
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
-  const { id } = useParams();
+  const { state } = useLocation();
+
+  const id = useMemo(() => {
+    return state ? state.userId : null;
+  }, [state]);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
