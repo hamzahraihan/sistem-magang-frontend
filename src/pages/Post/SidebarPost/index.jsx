@@ -23,7 +23,7 @@ const SidebarPost = () => {
             {postById[0]?.Admin?.email}
           </p>
         </div>
-        <div className="flex flex-col gap-3 pb-10">
+        <div className="flex flex-col gap-3 pb-10 w-full">
           <p className="text-lg font-bold">Post Lainnya</p>
           {loadingPost ? (
             <Spinner />
