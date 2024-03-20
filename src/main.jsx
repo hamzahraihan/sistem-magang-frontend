@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/detail-post/:id',
+        path: '/detail-post/:slug',
         element: <DetailPost />,
       },
       {
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
         element: <UploadIntern />,
       },
       {
-        path: '/profile/:roleUrl/:id',
+        path: '/profile/:roleUrl/:slug',
         element: <Profile />,
       },
     ],
