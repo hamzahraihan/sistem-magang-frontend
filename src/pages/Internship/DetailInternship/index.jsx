@@ -5,11 +5,19 @@ import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
-import InternshipDocs from './InternshipDocs';
+import { useState } from 'react';
+import { Button } from 'flowbite-react';
+import ModalInternshipDocs from './ModalInternshipDocs';
 
 const DetailInternship = () => {
   const { loadingDetail, internshipByID } = useInternshipContext();
-  console.log('🚀 ~ DetailInternship ~ internshipByID:', internshipByID);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalType, setModalType] = useState('');
+
+  const handleOpenModal = (type) => {
+    setOpenModal(true);
+    setModalType(type);
+  };
 
   return (
     <div className="grid grid-cols-3 gap-5">
@@ -44,12 +52,20 @@ const DetailInternship = () => {
                 <p className="font-bold">{internshipByID.type}</p>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <h1 className="font-bold text-base">Dokumen Persyaratan Magang</h1>
-              <InternshipDocs text="Surat bersedia dosen magang" docsID={internshipByID.lecture_agreement} />
-              <InternshipDocs text="Surat magang dari kampus" docsID={internshipByID.campus_approval} />
-              <InternshipDocs text="Surat magang dari perusahaan" docsID={internshipByID.intern_agreement} />
-            </div>
+
+            <Button color="bg-primaryColor" className="bg-primaryColor hover:bg-hoverColor active:bg-primaryColor text-white w-fit" onClick={() => handleOpenModal('lecture_docu')}>
+              Surat bersedia dosen magang
+            </Button>
+
+            {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
+
+            <Button color="bg-primaryColor" className="bg-primaryColor hover:bg-hoverColor active:bg-primaryColor text-white w-fit" onClick={() => handleOpenModal('campus_docu')}>
+              Surat magang dari kampus
+            </Button>
+
+            <Button color="bg-primaryColor" className="bg-primaryColor hover:bg-hoverColor active:bg-primaryColor text-white w-fit" onClick={() => handleOpenModal('instance_docu')}>
+              Surat magang dari perusahaan
+            </Button>
           </div>
         )}
       </div>
