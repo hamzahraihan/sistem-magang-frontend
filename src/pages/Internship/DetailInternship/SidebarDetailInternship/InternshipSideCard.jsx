@@ -5,7 +5,7 @@ import { formatDate } from '../../../../utils/formatDate';
 import { Spinner } from '../../../../components/Icons';
 
 const InternshipSideCard = () => {
-  const { loadingDetail, internship } = useInternshipContext();
+  const { loading, internship } = useInternshipContext();
 
   const imageBackground = {
     backgroundImage: `url(${InternshipSVG})`,
@@ -13,11 +13,11 @@ const InternshipSideCard = () => {
 
   return (
     <>
-      {loadingDetail ? (
+      {loading ? (
         <Spinner />
       ) : (
         internship.map((item) => (
-          <Link key={item.internship_id} className="flex flex-col gap-2 border border-neutral-200 rounded-[32px] h-full w-full">
+          <Link to={`/kegiatan-magang/detail`} state={{ internshipID: item.internship_id }} key={item.internship_id} className="flex flex-col gap-2 border border-neutral-200 rounded-[32px] h-full w-full">
             <div className="h-28 bg-no-repeat bg-cover bg-center rounded-se-[32px] rounded-ss-[32px]" style={imageBackground}></div>
             <div className="flex flex-col gap-1 p-4 ">
               <div className="flex gap-2">
