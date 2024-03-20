@@ -7,7 +7,7 @@ const ProfileButton = () => {
   const { userLoggedInData } = useUserContext();
 
   const slugify = () => {
-    const full_name = userLoggedInData.first_name + userLoggedInData.last_name;
+    const full_name = `${userLoggedInData.first_name} ${userLoggedInData.last_name}`;
     const slug_name = _.kebabCase(full_name);
     return slug_name;
   };
