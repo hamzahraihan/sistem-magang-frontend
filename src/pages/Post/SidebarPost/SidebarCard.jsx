@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ClockIcon, TagIcon } from '../../../components/Icons';
 import { formatDate } from '../../../utils/formatDate';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 const SidebarCard = (props) => {
   const { post } = props;
@@ -10,7 +11,7 @@ const SidebarCard = (props) => {
   };
   return (
     <div className="border border-neutral-200 rounded-[32px]">
-      <Link to={`/detail-post/${post.post_id}`}>
+      <Link to={`/detail-post/${_.kebabCase(post?.title)}`} state={{ post_id: post?.post_id }}>
         <div className="bg-no-repeat bg-cover bg-center h-32 rounded-se-[32px] rounded-ss-[32px]" style={imageBackground}></div>
       </Link>
       <div className="flex flex-col gap-3 p-7">
