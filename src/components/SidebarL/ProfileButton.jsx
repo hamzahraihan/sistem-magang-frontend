@@ -1,14 +1,20 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
+import _ from 'lodash';
 
 const ProfileButton = () => {
   const { userLoggedInData } = useUserContext();
-  console.log('🚀 ~ ProfileButton ~ userLoggedInData:', userLoggedInData);
 
+  const slugify = () => {
+    const full_name = userLoggedInData.first_name + userLoggedInData.last_name;
+    const slug_name = _.kebabCase(full_name);
+    return slug_name;
+  };
   return (
     <Link
-      to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${userLoggedInData?.id}` : '/login'}
+      to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'}
+      state={{ userId: userLoggedInData?.id }}
       className="flex flex-row lg:gap-5  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit"
     >
       <div className="rounded-full bg-slate-400 animate-pulse  h-10 w-10 flex-shrink-0"></div>
