@@ -4,15 +4,12 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home/index.jsx';
 import NotFound from './pages/NotFound/index.jsx';
-import 'primereact/resources/themes/tailwind-light/theme.css';
-import 'primereact/resources/primereact.min.css';
 import Login from './pages/Login/index.jsx';
 import Register from './pages/Register/index.jsx';
 import RoleChoose from './pages/Login/RoleChoose.jsx';
 import FormLogin from './pages/Login/FormLogin.jsx';
 import DetailPost from './pages/Post/index.jsx';
 import Logbook from './pages/Logbook/index.jsx';
-
 import UploadIntern from './pages/UploadIntern/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import CreatePost from './pages/Post/CreatePost/index.jsx';
@@ -21,6 +18,7 @@ import Internship from './pages/Internship/index.jsx';
 import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
 import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
 import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
+import MicroModal from 'micromodal';
 
 const router = createBrowserRouter([
   {
@@ -95,5 +93,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
 ]);
+
+MicroModal.init();
 
 ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
