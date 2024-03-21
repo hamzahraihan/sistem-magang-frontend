@@ -18,7 +18,6 @@ import Internship from './pages/Internship/index.jsx';
 import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
 import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
 import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
-import MicroModal from 'micromodal';
 
 const router = createBrowserRouter([
   {
@@ -93,7 +92,5 @@ const router = createBrowserRouter([
     element: <Register />,
   },
 ]);
-
-MicroModal.init();
 
 ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
