@@ -1,5 +1,6 @@
 import { Modal } from 'flowbite-react';
 import InternshipDocs from './InternshipDocs';
+import PropTypes from 'prop-types';
 
 const ModalInternshipDocs = ({ id, isOpen, closeModal, modalType }) => {
   let modalTitle, modalContent;
@@ -28,6 +29,13 @@ const ModalInternshipDocs = ({ id, isOpen, closeModal, modalType }) => {
       </Modal.Body>
     </Modal>
   );
+};
+
+ModalInternshipDocs.propTypes = {
+  id: PropTypes.number,
+  isOpen: PropTypes.bool,
+  closeModal: PropTypes.func,
+  modalType: PropTypes.string,
 };
 
 export default ModalInternshipDocs;
