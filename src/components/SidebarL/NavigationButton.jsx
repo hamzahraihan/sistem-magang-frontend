@@ -24,7 +24,7 @@ const NavigationButton = () => {
         }
       >
         <OfficeBrifcase />
-        <p className="lg:flex hidden">Daftar Magang</p>
+        <p className="lg:flex hidden">Kegiatan Magang</p>
       </NavLink>
       <NavLink
         to="/logbook"
