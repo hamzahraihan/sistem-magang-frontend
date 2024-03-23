@@ -68,7 +68,7 @@ const DetailInternship = () => {
 
             {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
 
-            <Link to="/logbook" className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all">
+            <Link to="/kegiatan-magang/logbook" state={{ internshipID: internshipByID.internship_id }} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all">
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
             </Link>
