@@ -56,11 +56,11 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/logbook',
+        path: '/kegiatan-magang/logbook',
         element: <Logbook />,
       },
       {
-        path: '/logbook/:date',
+        path: '/kegiatan-magang/logbook/:date',
         element: <LogbookDetail />,
       },
       {
