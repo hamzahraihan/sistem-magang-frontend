@@ -26,7 +26,7 @@ const NavigationButton = () => {
         <OfficeBrifcase />
         <p className="lg:flex hidden">Kegiatan Magang</p>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to="/logbook"
         className={({ isActive }) =>
           isActive
@@ -36,7 +36,7 @@ const NavigationButton = () => {
       >
         <LogbookIcon />
         <p className="lg:flex hidden">Logbook</p>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to="/upload-report"
         className={({ isActive }) =>
