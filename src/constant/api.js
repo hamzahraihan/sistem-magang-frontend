@@ -24,3 +24,8 @@ export const getInternshipUser = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/${id}`);
   return data.result;
 };
+
+export const getWeeklyLogAPI = async (id) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/weekly/${id}`);
+  return data.result;
+};
