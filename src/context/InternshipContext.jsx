@@ -24,7 +24,6 @@ export const InternshipProvider = ({ children }) => {
     start_intern: '',
     end_intern: '',
   });
-  console.log(internshipInputData);
   const { userLoggedInData } = useUserContext();
 
   const { state } = useLocation();
@@ -32,7 +31,6 @@ export const InternshipProvider = ({ children }) => {
   const internID = useMemo(() => {
     return state ? state.internshipID : null;
   }, [state]);
-  console.log('🚀 ~ internID ~ internID:', internID);
 
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
@@ -95,6 +93,66 @@ export const InternshipProvider = ({ children }) => {
             'Content-Type': 'multipart/form-data',
           },
         });
+
+        const { start_intern, end_intern } = data.result;
+
+        const startIntern = new Date(start_intern);
+        const endIntern = new Date(end_intern);
+
+        const weeksArray = [];
+
+        let currentWeek = [];
+        let currentDate = new Date(startIntern);
+
+        while (currentDate <= endIntern) {
+          currentWeek.push(new Date(currentDate));
+
+          // Jika hari ini adalah hari Minggu atau hari terakhir dalam bulan, tambahkan array minggu ke dalam array hasil
+          if (currentDate.getDay() === 0 || currentDate.getMonth() !== new Date(currentDate).getMonth()) {
+            weeksArray.push(currentWeek);
+            currentWeek = [];
+          }
+
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        for (const [index, week] of weeksArray.entries()) {
+          const { data: LogbookData } = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/logbook/weekly/create`,
+            {
+              internship_id: data.result.internship_id,
+              mahasiswa_id: userLoggedInData?.id,
+              log_description: '',
+              week: index,
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+
+          console.log('Logbook created:', LogbookData);
+
+          for (const [index, day] of week.entries()) {
+            const { data: LogdailyData } = await axios.post(
+              `${import.meta.env.VITE_BASE_URL}/logbook/daily/create`,
+              {
+                logbook_id: LogbookData.result.logbook_id,
+                isComplete: false,
+                log_description: '',
+                date_intern: day,
+              },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+            );
+            console.log('Logdaily created', LogdailyData);
+          }
+        }
+
         console.log('file uploaded', data);
       } catch (error) {
         console.error(error.message);
