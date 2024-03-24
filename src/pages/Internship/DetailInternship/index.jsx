@@ -1,18 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ArrowIcon, Spinner } from '../../../components/Icons';
 import { useInternshipContext } from '../../../hooks/useInternshipContext';
 import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
 import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'flowbite-react';
 import ModalInternshipDocs from './ModalInternshipDocs';
+import { useUserContext } from '../../../hooks/useUserContext';
 
 const DetailInternship = () => {
   const { loadingDetail, internshipByID } = useInternshipContext();
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
+
+  const { userLoggedInData } = useUserContext();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleOpenModal = (type) => {
     setOpenModal(true);
@@ -68,7 +75,11 @@ const DetailInternship = () => {
 
             {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
 
-            <Link to="/kegiatan-magang/logbook" state={{ internshipID: internshipByID.internship_id }} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all">
+            <Link
+              to={`/kegiatan-magang/logbook/${userLoggedInData.id}/${internshipByID?.internship_id}`}
+              state={{ internshipID: internshipByID.internship_id }}
+              className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all"
+            >
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
             </Link>
