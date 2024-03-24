@@ -21,7 +21,7 @@ const InternshipActivity = () => {
         ) : (
           internship.map((item) => (
             <Link
-              to={`/kegiatan-magang/detail`}
+              to={`/kegiatan-magang/detail/${item.internship_id}`}
               state={{ internshipID: item.internship_id }}
               className="flex border items-center border-gray-200 rounded-xl p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white transition-all"
               key={item.internship_id}
