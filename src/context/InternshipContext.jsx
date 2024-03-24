@@ -38,33 +38,33 @@ export const InternshipProvider = ({ children }) => {
   const lectureFileInputRef = useRef(null);
   const internFileInputRef = useRef(null);
 
-  useEffect(() => {
-    const getUserInternship = async () => {
-      setLoading(true);
-      try {
-        const data = await getInternshipByUser(userLoggedInData?.id);
-        dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUserInternship();
-  }, [userLoggedInData]);
+  // useEffect(() => {
+  //   const getUserInternship = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const data = await getInternshipByUser(userLoggedInData?.id);
+  //       dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getUserInternship();
+  // }, [userLoggedInData]);
 
-  useEffect(() => {
-    const getInternshipById = async () => {
-      setLoadingDetail(true);
-      try {
-        const data = await getInternshipUser(internID || id);
-        setInternshipByID(data);
-        setLoadingDetail(false);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getInternshipById();
-  }, [internID, id]);
+  // useEffect(() => {
+  //   const getInternshipById = async () => {
+  //     setLoadingDetail(true);
+  //     try {
+  //       const data = await getInternshipUser(internID || id);
+  //       setInternshipByID(data);
+  //       setLoadingDetail(false);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getInternshipById();
+  // }, [internID, id]);
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
