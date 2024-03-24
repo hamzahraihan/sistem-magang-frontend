@@ -50,17 +50,17 @@ const router = createBrowserRouter([
             element: <CreateInternship />,
           },
           {
-            path: '/kegiatan-magang/detail/',
+            path: '/kegiatan-magang/detail/:id',
             element: <DetailInternship />,
           },
         ],
       },
       {
-        path: '/kegiatan-magang/logbook',
+        path: '/kegiatan-magang/logbook/:mahasiswa_id/:id',
         element: <Logbook />,
       },
       {
-        path: '/kegiatan-magang/logbook/:date',
+        path: '/kegiatan-magang/logbook/aktivitas/:mahasiswa_id/:id',
         element: <LogbookDetail />,
       },
       {
