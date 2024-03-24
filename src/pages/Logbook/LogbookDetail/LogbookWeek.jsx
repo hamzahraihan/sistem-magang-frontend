@@ -1,23 +1,18 @@
-import PropTypes from 'prop-types';
-
-import dayName from '../../../utils/dayName';
-import monthName from '../../../utils/monthName';
 import PrimaryButton from '../../../components/PrimaryButton';
+import { useLogbookContext } from '../../../hooks/useLogbookContext';
+import { weekDay } from '../../../utils/formatDate';
 
-const LogbookWeek = (props) => {
-  const { state } = props;
+const LogbookWeek = () => {
+  const { dailyLog } = useLogbookContext();
 
   return (
     <div className="flex flex-col gap-5">
-      {state.slice(0, 5).map((item, index) => (
-        <div key={index} className="flex flex-col justify-center border border-neutral-300 rounded-[32px]">
+      {dailyLog.slice(0, 5).map((item) => (
+        <div key={item.logdaily_id} className="flex flex-col justify-center border border-neutral-300 rounded-[32px]">
           <div className="flex border-b items-center gap-2 border-neutral-200 rounded-tl-[32px] rounded-tr-[32px] p-4 font-bold">
-            <div className="h-10 w-10 rounded-full bg-rose-200 border border-neutral-200"></div>
+            <div className={`h-10 w-10 rounded-full ${dailyLog.isComplete && 'bg-hoverColor'} border border-neutral-200`}></div>
             <div className="flex flex-col">
-              <p>
-                {item.getDate()} {monthName[item.getMonth()]} {item.getFullYear()}
-              </p>
-              <p>{dayName[item.getDay()]}</p>
+              <p>{weekDay(item.date_intern)}</p>
             </div>
           </div>
           <div className="flex m-auto p-4 w-fit">
@@ -27,10 +22,6 @@ const LogbookWeek = (props) => {
       ))}
     </div>
   );
-};
-
-LogbookWeek.propTypes = {
-  state: PropTypes.array,
 };
 
 export default LogbookWeek;
