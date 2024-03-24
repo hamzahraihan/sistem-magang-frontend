@@ -3,7 +3,7 @@ import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
 import { getInternshipByUser, getInternshipUser } from '../constant/api';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const InternshipContext = createContext();
 
@@ -26,6 +26,8 @@ export const InternshipProvider = ({ children }) => {
   });
   const { userLoggedInData } = useUserContext();
 
+  const { id } = useParams();
+  console.log('🚀 ~ InternshipProvider ~ id:', id);
   const { state } = useLocation();
 
   const internID = useMemo(() => {
@@ -54,7 +56,7 @@ export const InternshipProvider = ({ children }) => {
     const getInternshipById = async () => {
       setLoadingDetail(true);
       try {
-        const data = await getInternshipUser(internID);
+        const data = await getInternshipUser(internID || id);
         setInternshipByID(data);
         setLoadingDetail(false);
       } catch (error) {
@@ -62,7 +64,7 @@ export const InternshipProvider = ({ children }) => {
       }
     };
     getInternshipById();
-  }, [internID]);
+  }, [internID, id]);
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
