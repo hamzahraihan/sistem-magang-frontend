@@ -1,23 +1,20 @@
 import { ArrowIcon } from '../../components/Icons';
 import PropTypes from 'prop-types';
-import monthName from '../../utils/monthName';
-import dayName from '../../utils/dayName';
 import { Link } from 'react-router-dom';
-import { formatDate } from '../../utils/formatDate';
+import { formatDate, weekDay } from '../../utils/formatDate';
+import { useUserContext } from '../../hooks/useUserContext';
 
-const LogbookCard = (props) => {
-  const { index, weekLog } = props;
+const LogbookCard = ({ index, week }) => {
+  const { Logdailies } = week;
+  const { userLoggedInData } = useUserContext();
 
   return (
-    <Link to={`/kegiatan-magang/logbook/${formatDate(weekLog[0])}`} state={weekLog} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4">
+    <Link to={`/kegiatan-magang/logbook/aktivitas/${userLoggedInData.id}/${week.logbook_id}`} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4">
       <div className="flex justify-between items-center gap-2">
         <div>
           <div className="flex items-center xm:text-base text-md font-bold gap-1">
             <p>
-              {weekLog[0].getDate()} {monthName[weekLog[0].getMonth()].slice(0, 3)}
-            </p>
-            <p>
-              {weekLog[4] && '-'} {weekLog[4]?.getDate()} {weekLog[4] && monthName[weekLog[4].getMonth()].slice(0, 3)} {weekLog[4]?.getFullYear()}
+              {formatDate(new Date(week.Logdailies[6].date_intern))} - {formatDate(week.Logdailies[2].date_intern)}
             </p>
             <ArrowIcon />
           </div>
@@ -25,11 +22,13 @@ const LogbookCard = (props) => {
         </div>
 
         <div className="lg:flex md:flex sm:flex gap-3 min-[490px]:flex hidden">
-          {weekLog.slice(0, 5).map((item, index) => (
-            <div key={index} className="flex justify-center items-center h-10 w-10 border border-neutral-200 rounded-full">
-              <p>{dayName[item?.getDay()][0]}</p>
-            </div>
-          ))}
+          {Logdailies.slice(2, 7)
+            .reverse()
+            .map((item) => (
+              <div key={item.logday_id} className="flex justify-center items-center h-10 w-10 border border-neutral-200 rounded-full">
+                <p>{weekDay(item.date_intern)[0]}</p>
+              </div>
+            ))}
         </div>
       </div>
     </Link>
@@ -38,7 +37,7 @@ const LogbookCard = (props) => {
 
 LogbookCard.propTypes = {
   index: PropTypes.number,
-  weekLog: PropTypes.array,
+  week: PropTypes.object,
 };
 
 export default LogbookCard;
