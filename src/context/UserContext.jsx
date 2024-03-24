@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 
@@ -13,21 +13,13 @@ export const UserDispatch = createContext(null);
 export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useState({ roleChoice: '' });
-  const [loadingProfile, setLoadingProfile] = useState(false);
   const [user, dispatch] = useReducer(UserReducer, []);
-  console.log('🚀 ~ UserProvider ~ user:', user);
   const [dosenData, setDosenData] = useState([]);
-  const [userInformation, setUserInformation] = useState([]);
   const [loadingRegister, setLoadingRegister] = useState(false);
-  const [userLoggedInData, setUserLoggedInData] = useState(undefined);
+  const [userLoggedInData, setUserLoggedInData] = useState(user.id ? user : undefined);
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
-  const { state } = useLocation();
-
-  const id = useMemo(() => {
-    return state ? state.userId : null;
-  }, [state]);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
@@ -61,8 +53,8 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    const token = JSON.stringify(localStorage.getItem(TOKEN));
     try {
-      const token = JSON.stringify(localStorage.getItem(TOKEN));
       if (token) {
         const decoded = jwtDecode(token);
         setUserLoggedInData(decoded);
@@ -91,20 +83,6 @@ export const UserProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    const handleUserById = async () => {
-      setLoadingProfile(true);
-      try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${id}`);
-        setUserInformation(data.result);
-        setLoadingProfile(false);
-      } catch (error) {
-        console.error('No id params found');
-      }
-    };
-    handleUserById();
-  }, [id]);
 
   useEffect(() => {
     const handleGetDosen = async () => {
@@ -166,10 +144,8 @@ export const UserProvider = ({ children }) => {
         handleRole,
         handleLogin,
         loading,
-        loadingProfile,
         loadingRegister,
         setLoading,
-        userInformation,
         dosenData,
         handleRegisterAccount,
         handleLogout,
