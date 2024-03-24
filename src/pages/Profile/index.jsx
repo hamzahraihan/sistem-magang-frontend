@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../components/Icons';
 import SidebarProfile from './SidebarProfile';
 import CardPost from '../../components/CardPost';
-import { useUserContext } from '../../hooks/useUserContext';
 import ProfilePlaceholder from './Placeholder';
 import { usePostContext } from '../../hooks/usePostContext';
 import CardPostPlaceholder from '../../components/Placeholder/CardPostPlaceholder';
+import useFetchUserByID from '../../features/user/useFetchUserById';
 
 const Profile = () => {
-  const { loadingProfile, userInformation } = useUserContext();
+  const { loading, userByID } = useFetchUserByID();
 
   const { loadingPostByUser, postByUser } = usePostContext();
 
@@ -19,7 +19,7 @@ const Profile = () => {
           <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
             <ArrowIcon />
           </Link>
-          {loadingProfile ? (
+          {loading ? (
             <ProfilePlaceholder />
           ) : (
             <>
@@ -27,9 +27,9 @@ const Profile = () => {
               <div className="flex flex-col gap-2 justify-center items-center m-auto">
                 <img className="border border-neutral-400 h-52 w-52  bg-slate-500 animate-pulse rounded-full" alt="profile-pict"></img>
                 <p className="font-bold text-base rounded-xl bg-activeColor py-2 px-4 w-fit">
-                  {userInformation.first_name} {userInformation.last_name}
+                  {userByID.first_name} {userByID.last_name}
                 </p>
-                <p className="text-neutral-400">{userInformation.email}</p>
+                <p className="text-neutral-400">{userByID.email}</p>
               </div>
             </>
           )}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { formatDate, weekDay } from '../../utils/formatDate';
 import { useUserContext } from '../../hooks/useUserContext';
 
-const LogbookCard = ({ index, week }) => {
+const LogbookCard = ({ week }) => {
   const { Logdailies } = week;
   const { userLoggedInData } = useUserContext();
 
@@ -18,7 +18,7 @@ const LogbookCard = ({ index, week }) => {
             </p>
             <ArrowIcon />
           </div>
-          <p className="text-xs text-neutral-400">Minggu ke-{index + 1}</p>
+          <p className="text-xs text-neutral-400">Minggu ke-{week.week + 1}</p>
         </div>
 
         <div className="lg:flex md:flex sm:flex gap-3 min-[490px]:flex hidden">
@@ -36,7 +36,6 @@ const LogbookCard = ({ index, week }) => {
 };
 
 LogbookCard.propTypes = {
-  index: PropTypes.number,
   week: PropTypes.object,
 };
 
