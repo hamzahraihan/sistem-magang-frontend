@@ -1,9 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getInternshipUser } from '../constant/api';
-import { useLocation } from 'react-router-dom';
-import { useUserContext } from '../hooks/useUserContext';
-import axios from 'axios';
+import { getDailyLogAPI, getInternshipUser, getWeeklyLogAPI } from '../constant/api';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const LogbookContext = createContext(null);
 
@@ -11,29 +9,37 @@ export const LogbookDispatch = createContext(null);
 
 const LogbookProvider = ({ children }) => {
   const [logbook, dispatch] = useReducer(LogbookReducer, []);
-
   const [weeks, setWeeks] = useState([]);
-  console.log('🚀 ~ LogbookProvider ~ weeks:', weeks);
+  const [dailyLog, setDailyLog] = useState([]);
 
-  // weeks.forEach((element, index) => {
-  //   element.forEach((week) => {
-  //     console.log(week);
-  //   });
-  // });
-
-  const { userLoggedInData } = useUserContext();
+  const [loadingWeek, setLoadingWeek] = useState(false);
+  const [loadingDaily, setLoadingDaily] = useState(false);
 
   const { state } = useLocation();
-
+  const { id } = useParams();
   const internID = useMemo(() => {
-    return state ? state.internshipID : null;
-  }, [state]);
+    return state ? state.internshipID : id;
+  }, [state, id]);
 
   useEffect(() => {
-    const getWeeklyLog = async () => {
+    const getInternshipLogbook = async () => {
       try {
         const data = await getInternshipUser(internID);
         dispatch({ type: 'SET_LOGBOOK_DATA', payload: data });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getInternshipLogbook();
+  }, [internID]);
+
+  useEffect(() => {
+    const getWeeklyLog = async () => {
+      setLoadingWeek(true);
+      try {
+        const data = await getWeeklyLogAPI(internID);
+        setWeeks(data);
+        setLoadingWeek(false);
       } catch (error) {
         console.error(error);
       }
@@ -42,59 +48,21 @@ const LogbookProvider = ({ children }) => {
   }, [internID]);
 
   useEffect(() => {
-    const generateWeeksBetweenDates = () => {
-      const start = new Date(logbook.start_intern);
-      const end = new Date(logbook.end_intern);
-
-      const weeksArray = [];
-
-      let currentWeek = [];
-      let currentDate = new Date(start);
-
-      while (currentDate <= end) {
-        currentWeek.push(new Date(currentDate));
-
-        // Jika hari ini adalah hari Minggu atau hari terakhir dalam bulan, tambahkan array minggu ke dalam array hasil
-        if (currentDate.getDay() === 0 || currentDate.getMonth() !== new Date(currentDate).getMonth()) {
-          weeksArray.push(currentWeek);
-          currentWeek = [];
-        }
-
-        currentDate.setDate(currentDate.getDate() + 1);
+    const getDailyLog = async () => {
+      setLoadingDaily(true);
+      try {
+        const data = await getDailyLogAPI(internID);
+        setDailyLog(data);
+        setLoadingDaily(false);
+      } catch (error) {
+        console.error(error);
       }
-
-      setWeeks(weeksArray);
     };
-    generateWeeksBetweenDates();
-  }, [logbook, internID]);
-
-  const handleCreateLogbook = async (internshipForm) => {
-    console.log('🚀 ~ handleCreateLogbook ~ internshipForm:', internshipForm);
-    try {
-      for (const [index, week] of weeks.entries()) {
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_BASE_URL}/logbook/weekly/create`,
-          {
-            internship_id: internshipForm.internship_id,
-            mahasiswa_id: userLoggedInData?.id,
-            log_description: '',
-            week: index,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-        console.log('Logbook created:', data);
-      }
-    } catch (error) {
-      console.error('Error creating logbook:', error);
-    }
-  };
+    getDailyLog();
+  }, [internID]);
 
   return (
-    <LogbookContext.Provider value={{ logbook, weeks, handleCreateLogbook }}>
+    <LogbookContext.Provider value={{ logbook, weeks, dailyLog, loadingWeek, loadingDaily }}>
       <LogbookDispatch.Provider value={dispatch}>{children}</LogbookDispatch.Provider>
     </LogbookContext.Provider>
   );
