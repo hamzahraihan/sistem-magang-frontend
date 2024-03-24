@@ -11,6 +11,7 @@ const ProfileButton = () => {
     const slug_name = _.kebabCase(full_name);
     return slug_name;
   };
+
   return (
     <Link
       to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'}
