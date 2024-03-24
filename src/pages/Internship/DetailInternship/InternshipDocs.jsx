@@ -11,7 +11,6 @@ const InternshipDocs = (props) => {
 
 InternshipDocs.propTypes = {
   docsID: PropTypes.string,
-  text: PropTypes.string,
 };
 
 export default InternshipDocs;

@@ -1,13 +1,13 @@
 import { ArrowIcon } from '../../components/Icons';
 import InternshipPlaceholder from '../../components/Placeholder/InternshipPlaceholder';
-import { useInternshipContext } from '../../hooks/useInternshipContext';
+import useFetchInternship from '../../features/internship/useFetchInternship';
 import { formatDate } from '../../utils/formatDate';
 import InternshipNotFound from './InternshipNotFound';
 import SidebarInternship from './SidebarInternship';
 import { Link } from 'react-router-dom';
 
 const InternshipActivity = () => {
-  const { internship, loading } = useInternshipContext();
+  const { loading, internship } = useFetchInternship();
   return (
     <div className="grid grid-cols-3 gap-5">
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">

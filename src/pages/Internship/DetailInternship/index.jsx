@@ -1,6 +1,5 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowIcon, Spinner } from '../../../components/Icons';
-import { useInternshipContext } from '../../../hooks/useInternshipContext';
 import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
@@ -9,12 +8,14 @@ import { useEffect, useState } from 'react';
 import { Button } from 'flowbite-react';
 import ModalInternshipDocs from './ModalInternshipDocs';
 import { useUserContext } from '../../../hooks/useUserContext';
+import useFetchInternshipById from '../../../features/internship/useFetchInternshipById';
+import _ from 'lodash';
 
 const DetailInternship = () => {
-  const { loadingDetail, internshipByID } = useInternshipContext();
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
+  const { loading, internshipByID } = useFetchInternshipById();
   const { userLoggedInData } = useUserContext();
 
   useEffect(() => {
@@ -32,14 +33,14 @@ const DetailInternship = () => {
         <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
           <ArrowIcon />
         </Link>
-        {loadingDetail ? (
+        {loading ? (
           <Spinner />
         ) : !internshipByID ? (
           <InternshipNotFound />
         ) : (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-4">
-              <h1 className="font-bold text-2xl">{capitalizeFirstLetter(internshipByID.instance)}</h1>
+              <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
               <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Periode magang</p>
                 <p className="font-bold">
@@ -76,7 +77,7 @@ const DetailInternship = () => {
             {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
 
             <Link
-              to={`/kegiatan-magang/logbook/${userLoggedInData.id}/${internshipByID?.internship_id}`}
+              to={`/kegiatan-magang/logbook/${userLoggedInData?.id}/${internshipByID?.internship_id}`}
               state={{ internshipID: internshipByID.internship_id }}
               className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all"
             >
