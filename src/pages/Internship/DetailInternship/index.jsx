@@ -3,7 +3,6 @@ import { ArrowIcon, Spinner } from '../../../components/Icons';
 import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
-import { capitalizeFirstLetter } from '../../../utils/capitalizeFirstLetter';
 import { useEffect, useState } from 'react';
 import { Button } from 'flowbite-react';
 import ModalInternshipDocs from './ModalInternshipDocs';
