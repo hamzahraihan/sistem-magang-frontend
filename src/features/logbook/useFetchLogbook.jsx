@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getInternshipUser } from '../../constant/api';
-import { useLogbookContext, useLogbookDipatch } from '../../hooks/useLogbookContext';
+import { useLogbookContext, useLogbookDispatch } from '../../hooks/useLogbookContext';
 
 const useFetchLogbook = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useLogbookDipatch();
+  const dispatch = useLogbookDispatch();
   const { logbook } = useLogbookContext();
   const { state } = useLocation();
   const { id } = useParams();
