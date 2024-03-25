@@ -43,7 +43,7 @@ export const getWeeklyLogAPI = async (id, signal) => {
   return data.result;
 };
 
-export const getDailyLogAPI = async (id) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`);
+export const getDailyLogAPI = async (id, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`, { signal });
   return data.result;
 };
