@@ -5,6 +5,6 @@ export const useLogbookContext = () => {
   return useContext(LogbookContext);
 };
 
-export const useLogbookDipatch = () => {
+export const useLogbookDispatch = () => {
   return useContext(LogbookDispatch);
 };
