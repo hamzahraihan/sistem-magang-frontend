@@ -17,15 +17,16 @@ const useFetchInternshipById = () => {
 
   useEffect(() => {
     const getInternshipById = async () => {
+      setLoading(true);
       const cancelToken = axios.CancelToken.source();
       console.log('🚀 ~ getInternshipById ~ cancelToken:', cancelToken);
-      setLoading(true);
       try {
         const data = await getInternshipUser(internID);
         setInternshipByID(data);
         setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
       return () => {
         cancelToken.cancel();
