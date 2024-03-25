@@ -1,6 +1,6 @@
 import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDailyLogAPI, getInternshipUser, getWeeklyLogAPI } from '../constant/api';
+import { getDailyLogAPI, getWeeklyLogAPI } from '../constant/api';
 import { useLocation, useParams } from 'react-router-dom';
 
 export const LogbookContext = createContext(null);
@@ -22,29 +22,26 @@ const LogbookProvider = ({ children }) => {
   }, [state, id]);
 
   useEffect(() => {
-    const getInternshipLogbook = async () => {
-      try {
-        const data = await getInternshipUser(internID);
-        dispatch({ type: 'SET_LOGBOOK_DATA', payload: data });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getInternshipLogbook();
-  }, [internID]);
-
-  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getWeeklyLog = async () => {
       setLoadingWeek(true);
       try {
-        const data = await getWeeklyLogAPI(internID);
+        const data = await getWeeklyLogAPI(internID, signal);
         setWeeks(data);
         setLoadingWeek(false);
       } catch (error) {
-        console.error(error);
+        if (error.name == 'CanceledError') {
+          console.error('Previous request was aborted');
+        } else {
+          console.error(error);
+        }
       }
     };
     getWeeklyLog();
+    return () => {
+      controller.abort();
+    };
   }, [internID]);
 
   useEffect(() => {
