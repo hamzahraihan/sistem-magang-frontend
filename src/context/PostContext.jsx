@@ -25,7 +25,6 @@ export const PostProvider = ({ children }) => {
   });
   const [postByUser, setPostByUser] = useState([]);
   const [postById, setPostById] = useState([]);
-  console.log('🚀 ~ PostProvider ~ postById:', postById);
   const { user } = useUserContext();
 
   const imageInputRef = useRef(null);
@@ -39,7 +38,6 @@ export const PostProvider = ({ children }) => {
   const postId = useMemo(() => {
     return state ? state.post_id : null;
   }, [state]);
-  console.log('🚀 ~ postId ~ postId:', postId);
 
   useEffect(() => {
     const getPostById = async () => {
