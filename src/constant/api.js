@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { ACCOUNT_KEY, TOKEN } from './key';
+
+const token = localStorage.getItem(TOKEN);
+const currentUser = JSON.parse(localStorage.getItem(ACCOUNT_KEY));
+console.log('🚀 ~ currentUser:', currentUser);
 
 export const getUserPostById = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/${id}`);
@@ -16,17 +21,25 @@ export const getUserPostByUserId = async (id) => {
 };
 
 export const getInternshipByUser = async (id) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`);
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+  });
   return data.result;
 };
 
-export const getInternshipUser = async (id) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/${id}`);
+export const getInternshipUser = async (id, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/${id}`, {
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
-export const getWeeklyLogAPI = async (id) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/weekly/${id}`);
+export const getWeeklyLogAPI = async (id, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/weekly/${id}`, { signal });
   return data.result;
 };
 
