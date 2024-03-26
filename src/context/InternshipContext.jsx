@@ -2,14 +2,15 @@ import axios from 'axios';
 import { createContext, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
+import { TOKEN } from '../constant/key';
 
 export const InternshipContext = createContext();
 
 export const InternshipDispatch = createContext();
 
 export const InternshipProvider = ({ children }) => {
+  const token = localStorage.getItem(TOKEN);
   const [internship, dispatch] = useReducer(InternshipReducer, []);
-
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
     location: '',
@@ -52,6 +53,7 @@ export const InternshipProvider = ({ children }) => {
         const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/internship`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
           },
         });
 
