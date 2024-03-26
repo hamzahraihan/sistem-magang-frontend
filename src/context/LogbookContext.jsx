@@ -21,6 +21,14 @@ const LogbookReducer = (logbook, action) => {
       return action.payload;
     case 'ADD_LOGBOOK_DATA':
       return [...logbook, action.payload];
+    case 'EDIT_LOGBOOK_DATA':
+      return logbook.map((log) => {
+        if (log.id == action.payload.id) {
+          return action.payload;
+        } else {
+          return log;
+        }
+      });
     default:
       break;
   }
