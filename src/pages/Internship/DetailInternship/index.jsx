@@ -3,7 +3,7 @@ import { ArrowIcon, Spinner } from '../../../components/Icons';
 import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'flowbite-react';
 import ModalInternshipDocs from './ModalInternshipDocs';
 import { useUserContext } from '../../../hooks/useUserContext';
@@ -17,10 +17,6 @@ const DetailInternship = () => {
   const { loading, internshipByID } = useFetchInternshipById();
   const { userLoggedInData } = useUserContext();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const handleOpenModal = (type) => {
     setOpenModal(true);
     setModalType(type);
@@ -29,7 +25,7 @@ const DetailInternship = () => {
   return (
     <div className="grid grid-cols-3 gap-5">
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">
-        <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
+        <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all" onClick={window.scrollTo(0, 0)}>
           <ArrowIcon />
         </Link>
         {loading ? (
