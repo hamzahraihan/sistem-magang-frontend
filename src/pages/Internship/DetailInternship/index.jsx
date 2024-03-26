@@ -49,12 +49,12 @@ const DetailInternship = () => {
                 <p className="font-bold">{internshipByID.location}</p>
               </div>
               <div className="flex flex-col text-sm">
-                <p className="text-gray-400">Deskripsi Perusahaan</p>
-                <p className="font-bold">{internshipByID.description}</p>
-              </div>
-              <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Tipe Magang</p>
                 <p className="font-bold">{internshipByID.type}</p>
+              </div>
+              <div className="flex flex-col text-sm">
+                <p className="text-gray-400">Deskripsi Perusahaan</p>
+                <p>{internshipByID.description}</p>
               </div>
             </div>
 
