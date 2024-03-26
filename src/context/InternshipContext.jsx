@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { createContext, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
-import { getInternshipByUser, getInternshipUser } from '../constant/api';
-import { useLocation, useParams } from 'react-router-dom';
 
 export const InternshipContext = createContext();
 
@@ -11,9 +9,6 @@ export const InternshipDispatch = createContext();
 
 export const InternshipProvider = ({ children }) => {
   const [internship, dispatch] = useReducer(InternshipReducer, []);
-  const [loading, setLoading] = useState(false);
-  const [loadingDetail, setLoadingDetail] = useState(false);
-  const [internshipByID, setInternshipByID] = useState({});
 
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
@@ -26,45 +21,9 @@ export const InternshipProvider = ({ children }) => {
   });
   const { userLoggedInData } = useUserContext();
 
-  const { id } = useParams();
-  console.log('🚀 ~ InternshipProvider ~ id:', id);
-  const { state } = useLocation();
-
-  const internID = useMemo(() => {
-    return state ? state.internshipID : null;
-  }, [state]);
-
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
   const internFileInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   const getUserInternship = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const data = await getInternshipByUser(userLoggedInData?.id);
-  //       dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getUserInternship();
-  // }, [userLoggedInData]);
-
-  // useEffect(() => {
-  //   const getInternshipById = async () => {
-  //     setLoadingDetail(true);
-  //     try {
-  //       const data = await getInternshipUser(internID || id);
-  //       setInternshipByID(data);
-  //       setLoadingDetail(false);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getInternshipById();
-  // }, [internID, id]);
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
@@ -167,14 +126,11 @@ export const InternshipProvider = ({ children }) => {
       value={{
         handleCreateInternship,
         internship,
-        internshipByID,
         internshipInputData,
         setInternshipInputData,
         internFileInputRef,
         campusFileInputRef,
         lectureFileInputRef,
-        loading,
-        loadingDetail,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
