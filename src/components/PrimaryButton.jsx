@@ -3,7 +3,6 @@ import { PlusIcon, Spinner } from './Icons';
 import { Link } from 'react-router-dom';
 
 const PrimaryButton = (props) => {
-  console.log('🚀 ~ PrimaryButton ~ props:', props);
   return (
     <>
       {props.text == 'Buat Post' || props.text == 'Daftar Magang' ? (
@@ -20,6 +19,7 @@ const PrimaryButton = (props) => {
           type={props.type}
           className="text-center gap-3 p-3 items-center  rounded-2xl  transition-all duration-150 hover:bg-hoverColor bg-primaryColor text-white active:bg-primaryColor cursor-pointer mt-auto w-full disabled:bg-primaryColor/50 disabled:cursor-default"
           disabled={props.loading || props.disable}
+          onClick={props.onClick}
         >
           <p className={props.text == 'Buat Post' ? 'flex gap-2 items-center justify-center text-xs' : 'text-xs'}>
             {props.loading ? (
@@ -45,6 +45,7 @@ PrimaryButton.propTypes = {
   type: PropTypes.string,
   loading: PropTypes.bool,
   disable: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default PrimaryButton;
