@@ -19,8 +19,8 @@ const useFetchUserByID = () => {
       setLoading(true);
       try {
         const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${id}`);
-        setUserByID(data.result);
         setLoading(false);
+        setUserByID(data.result);
       } catch (error) {
         console.error('No id params found');
       }
