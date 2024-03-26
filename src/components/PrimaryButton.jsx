@@ -3,11 +3,12 @@ import { PlusIcon, Spinner } from './Icons';
 import { Link } from 'react-router-dom';
 
 const PrimaryButton = (props) => {
+  console.log('🚀 ~ PrimaryButton ~ props:', props);
   return (
     <>
       {props.text == 'Buat Post' || props.text == 'Daftar Magang' ? (
         <Link to={props.text === 'Buat Post' ? '/create-post' : props.text === 'Daftar Magang' && '/kegiatan-magang/daftar-magang'}>
-          <div className="text-center gap-3 p-3 items-center border rounded-2xl border-neutral-200 transition-all duration-150 bg-primaryColor hover:bg-hoverColor active:bg-primaryColor cursor-pointer mt-auto w-full text-white">
+          <div className="text-center gap-3 p-3 items-center  rounded-2xl  transition-all duration-150 bg-primaryColor hover:bg-hoverColor active:bg-primaryColor cursor-pointer mt-auto w-full text-white">
             <p className={props.text == 'Buat Post' ? 'flex gap-2 items-center justify-center text-xs' : 'text-xs'}>
               {props.text == 'Buat Post' && <PlusIcon />}
               {props.text}
@@ -17,8 +18,8 @@ const PrimaryButton = (props) => {
       ) : (
         <button
           type={props.type}
-          className="text-center gap-3 p-3 items-center border rounded-2xl border-neutral-200 transition-all duration-150 hover:bg-hoverColor bg-primaryColor text-white active:bg-primaryColor cursor-pointer mt-auto w-full disabled:bg-primaryColor/50 "
-          disabled={props.loading}
+          className="text-center gap-3 p-3 items-center  rounded-2xl  transition-all duration-150 hover:bg-hoverColor bg-primaryColor text-white active:bg-primaryColor cursor-pointer mt-auto w-full disabled:bg-primaryColor/50 disabled:cursor-default"
+          disabled={props.loading || props.disable}
         >
           <p className={props.text == 'Buat Post' ? 'flex gap-2 items-center justify-center text-xs' : 'text-xs'}>
             {props.loading ? (
@@ -43,6 +44,7 @@ PrimaryButton.propTypes = {
   text: PropTypes.string,
   type: PropTypes.string,
   loading: PropTypes.bool,
+  disable: PropTypes.bool,
 };
 
 export default PrimaryButton;
