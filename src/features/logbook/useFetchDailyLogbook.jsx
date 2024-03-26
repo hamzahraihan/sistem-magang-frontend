@@ -1,16 +1,14 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getDailyLogAPI } from '../../constant/api';
+import { useLogbookDailyContext, useLogbookDailyDispatch } from '../../hooks/useLogbookDailyContext';
 
 const useFetchDailyLogbook = () => {
-  const [daily, setDaily] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useLogbookDailyDispatch();
+  const { logbookDaily } = useLogbookDailyContext();
 
-  const { state } = useLocation();
   const { id } = useParams();
-  const internID = useMemo(() => {
-    return state ? state.internshipID : id;
-  }, [state, id]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -18,9 +16,9 @@ const useFetchDailyLogbook = () => {
     const getDailyLog = async () => {
       setLoading(true);
       try {
-        const data = await getDailyLogAPI(internID, signal);
-        setDaily(data);
+        const data = await getDailyLogAPI(id, signal);
         setLoading(false);
+        dispatch({ type: 'SET_DAILYLOG', payload: data });
       } catch (error) {
         console.error(error);
       }
@@ -29,8 +27,8 @@ const useFetchDailyLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [internID]);
-  return { daily, loading };
+  }, [dispatch, id]);
+  return { logbookDaily, loading };
 };
 
 export default useFetchDailyLogbook;
