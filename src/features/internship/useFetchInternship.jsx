@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInternshipContext';
 import { getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
@@ -9,21 +9,19 @@ const useFetchInternship = () => {
   const { internship } = useInternshipContext();
   const dispatch = useInternshipDispatch();
 
-  const currentUser = useMemo(() => userLoggedInData, [userLoggedInData]);
-
   useEffect(() => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(currentUser?.id);
-        dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
+        const data = await getInternshipByUser(userLoggedInData?.id);
         setLoading(false);
+        dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
         console.error(error);
       }
     };
     getUserInternship();
-  }, [dispatch, currentUser]);
+  }, [dispatch, userLoggedInData]);
 
   return { loading, internship };
 };
