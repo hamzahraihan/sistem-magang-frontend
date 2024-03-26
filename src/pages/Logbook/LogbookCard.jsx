@@ -25,7 +25,7 @@ const LogbookCard = ({ week }) => {
           {Logdailies.slice(2, 7)
             .reverse()
             .map((item) => (
-              <div key={item.logday_id} className="flex justify-center items-center h-10 w-10 border border-neutral-200 rounded-full">
+              <div key={item.logday_id} className={`flex justify-center items-center h-10 w-10 border border-neutral-200 ${item.isComplete && 'bg-hoverColor border-none text-white'} rounded-full`}>
                 <p>{weekDay(item.date_intern)[0]}</p>
               </div>
             ))}
