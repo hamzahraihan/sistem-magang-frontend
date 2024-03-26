@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useInternshipContext } from '../../../../hooks/useInternshipContext';
 import InternshipSVG from '../../../../assets/svg/Freelancer-bro.svg';
 import { formatDate } from '../../../../utils/formatDate';
 import { Spinner } from '../../../../components/Icons';
 import _ from 'lodash';
+import useFetchInternship from '../../../../features/internship/useFetchInternship';
 
 const InternshipSideCard = () => {
-  const { loading, internship } = useInternshipContext();
+  const { loading, internship } = useFetchInternship();
 
   const imageBackground = {
     backgroundImage: `url(${InternshipSVG})`,
