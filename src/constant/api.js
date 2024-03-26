@@ -22,7 +22,10 @@ export const getUserPostByUserId = async (id) => {
 
 export const getInternshipByUser = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   });
   return data.result;
 };
