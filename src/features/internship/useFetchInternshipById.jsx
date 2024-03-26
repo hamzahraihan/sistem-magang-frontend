@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getInternshipUser } from '../../constant/api';
 import { useLocation, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 const useFetchInternshipById = () => {
   const [internshipByID, setInternshipByID] = useState([]);
@@ -13,26 +12,25 @@ const useFetchInternshipById = () => {
   const internID = useMemo(() => {
     return state ? state.internshipID : id;
   }, [state, id]);
-  console.log('🚀 ~ internID ~ internID:', internID);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getInternshipById = async () => {
       setLoading(true);
-      const cancelToken = axios.CancelToken.source();
-      console.log('🚀 ~ getInternshipById ~ cancelToken:', cancelToken);
       try {
-        const data = await getInternshipUser(internID);
+        const data = await getInternshipUser(internID, signal);
         setLoading(false);
         setInternshipByID(data);
       } catch (error) {
         console.error(error);
         setLoading(false);
       }
-      return () => {
-        cancelToken.cancel();
-      };
     };
     getInternshipById();
+    return () => {
+      controller.abort();
+    };
   }, [internID]);
   return { internshipByID, loading };
 };
