@@ -29,7 +29,9 @@ const DetailInternship = () => {
           <ArrowIcon />
         </Link>
         {loading ? (
-          <Spinner />
+          <div className="flex items-center justify-center h-80 w-full">
+            <Spinner />
+          </div>
         ) : !internshipByID ? (
           <InternshipNotFound />
         ) : (
