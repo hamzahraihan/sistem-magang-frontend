@@ -25,9 +25,10 @@ const Placeholder = () => {
 };
 
 const LogbookOverallCard = () => {
-  const { daily, loading } = useFetchDailyLogbook();
+  const { logbookDaily, loading } = useFetchDailyLogbook();
+  console.log('🚀 ~ LogbookOverallCard ~ logbookDaily:', logbookDaily);
   const handleDisableButton = () => {
-    const checkCompleteLog = daily.every((element) => element.isComplete);
+    const checkCompleteLog = logbookDaily.slice(0, 5).every((element) => element.isComplete);
     if (checkCompleteLog) {
       console.log('all data is complete');
       return false;
@@ -44,7 +45,7 @@ const LogbookOverallCard = () => {
         {loading ? (
           <Placeholder />
         ) : (
-          daily.slice(0, 5).map((item) => (
+          logbookDaily.slice(0, 5).map((item) => (
             <div key={item.logday_id} className={`flex items-center justify-center border border-neutral-300 ${item.isComplete && 'bg-hoverColor text-white border-none'} rounded-full h-10 w-10 text-base`}>
               <p>{weekDay(item.date_intern)[0]}</p>
             </div>
