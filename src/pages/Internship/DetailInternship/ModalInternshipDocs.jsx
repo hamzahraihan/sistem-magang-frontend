@@ -32,7 +32,7 @@ const ModalInternshipDocs = ({ id, isOpen, closeModal, modalType }) => {
 };
 
 ModalInternshipDocs.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.object,
   isOpen: PropTypes.bool,
   closeModal: PropTypes.func,
   modalType: PropTypes.string,
