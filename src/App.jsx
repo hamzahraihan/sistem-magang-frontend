@@ -4,6 +4,7 @@ import UserProvider from './context/UserContext.jsx';
 import PostProvider from './context/PostContext.jsx';
 import { InternshipProvider } from './context/InternshipContext.jsx';
 import LogbookProvider from './context/LogbookContext.jsx';
+import LogbookDailyProvider from './context/LogbookDailyContext.jsx';
 
 function App() {
   return (
@@ -11,10 +12,12 @@ function App() {
       <UserProvider>
         <PostProvider>
           <LogbookProvider>
-            <InternshipProvider>
-              <SidebarL />
-              <Outlet />
-            </InternshipProvider>
+            <LogbookDailyProvider>
+              <InternshipProvider>
+                <SidebarL />
+                <Outlet />
+              </InternshipProvider>
+            </LogbookDailyProvider>
           </LogbookProvider>
         </PostProvider>
       </UserProvider>
