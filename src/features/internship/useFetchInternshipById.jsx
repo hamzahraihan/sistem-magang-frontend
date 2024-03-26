@@ -22,8 +22,8 @@ const useFetchInternshipById = () => {
       console.log('🚀 ~ getInternshipById ~ cancelToken:', cancelToken);
       try {
         const data = await getInternshipUser(internID);
-        setInternshipByID(data);
         setLoading(false);
+        setInternshipByID(data);
       } catch (error) {
         console.error(error);
         setLoading(false);
