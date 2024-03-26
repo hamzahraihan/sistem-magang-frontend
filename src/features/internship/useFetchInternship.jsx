@@ -15,7 +15,7 @@ const useFetchInternship = () => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(currentUser.id);
+        const data = await getInternshipByUser(currentUser?.id);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
         setLoading(false);
       } catch (error) {
