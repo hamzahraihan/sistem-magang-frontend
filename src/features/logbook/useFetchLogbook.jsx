@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getInternshipUser } from '../../constant/api';
 import { useLogbookContext, useLogbookDispatch } from '../../hooks/useLogbookContext';
 
@@ -7,11 +7,8 @@ const useFetchLogbook = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useLogbookDispatch();
   const { logbook } = useLogbookContext();
-  const { state } = useLocation();
+
   const { id } = useParams();
-  const internID = useMemo(() => {
-    return state ? state.internshipID : id;
-  }, [state, id]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -19,7 +16,7 @@ const useFetchLogbook = () => {
     const getInternshipLogbook = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipUser(internID, signal);
+        const data = await getInternshipUser(id, signal);
         dispatch({ type: 'SET_LOGBOOK_DATA', payload: data });
         setLoading(false);
       } catch (error) {
@@ -30,7 +27,7 @@ const useFetchLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, internID]);
+  }, [dispatch, id]);
   return { logbook, loading };
 };
 
