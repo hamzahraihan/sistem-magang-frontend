@@ -1,5 +1,6 @@
 import PrimaryButton from '../../../../components/PrimaryButton';
 import useFetchDailyLogbook from '../../../../features/logbook/useFetchDailyLogbook';
+import useFetchWeeklyLogbook from '../../../../features/logbook/useFetchWeeklyLogbook';
 import { weekDay } from '../../../../utils/formatDate';
 
 const Placeholder = () => {
@@ -26,7 +27,10 @@ const Placeholder = () => {
 
 const LogbookOverallCard = () => {
   const { logbookDaily, loading } = useFetchDailyLogbook();
-  console.log('🚀 ~ LogbookOverallCard ~ logbookDaily:', logbookDaily);
+
+  const { weeks } = useFetchWeeklyLogbook();
+  console.log('🚀 ~ LogbookOverallCard ~ logbook:', weeks);
+
   const handleDisableButton = () => {
     const checkCompleteLog = logbookDaily.slice(0, 5).every((element) => element.isComplete);
     if (checkCompleteLog) {
