@@ -8,7 +8,7 @@ const useFetchDailyLogbook = () => {
   const dispatch = useLogbookDailyDispatch();
   const { logbookDaily } = useLogbookDailyContext();
 
-  const { id } = useParams();
+  const { dailyLog_id } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -16,7 +16,7 @@ const useFetchDailyLogbook = () => {
     const getDailyLog = async () => {
       setLoading(true);
       try {
-        const data = await getDailyLogAPI(id, signal);
+        const data = await getDailyLogAPI(dailyLog_id, signal);
         setLoading(false);
         dispatch({ type: 'SET_DAILYLOG', payload: data });
       } catch (error) {
@@ -27,7 +27,7 @@ const useFetchDailyLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, id]);
+  }, [dispatch, dailyLog_id]);
   return { logbookDaily, loading };
 };
 
