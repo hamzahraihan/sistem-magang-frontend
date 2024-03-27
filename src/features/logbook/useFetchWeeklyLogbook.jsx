@@ -1,15 +1,11 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getWeeklyLogAPI } from '../../constant/api';
 
 const useFetchWeeklyLogbook = () => {
   const [weeks, setWeeks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { state } = useLocation();
-  const { id } = useParams();
-  const internID = useMemo(() => {
-    return state ? state.internshipID : id;
-  }, [state, id]);
+  const { internship_id } = useParams();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -17,7 +13,7 @@ const useFetchWeeklyLogbook = () => {
     const getWeeklyLog = async () => {
       setLoading(true);
       try {
-        const data = await getWeeklyLogAPI(internID, signal);
+        const data = await getWeeklyLogAPI(internship_id, signal);
         setWeeks(data);
         setLoading(false);
       } catch (error) {
@@ -32,7 +28,7 @@ const useFetchWeeklyLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [internID]);
+  }, [internship_id]);
   return { loading, weeks };
 };
 
