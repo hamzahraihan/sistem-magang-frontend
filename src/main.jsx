@@ -56,11 +56,11 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/kegiatan-magang/logbook/:mahasiswa_id/:id',
+        path: '/kegiatan-magang/logbook/:mahasiswa_id/:internship_id',
         element: <Logbook />,
       },
       {
-        path: '/kegiatan-magang/logbook/aktivitas/:mahasiswa_id/:id',
+        path: '/kegiatan-magang/logbook/aktivitas/:internship_id/:mahasiswa_id/:dailyLog_id',
         element: <LogbookDetail />,
       },
       {
