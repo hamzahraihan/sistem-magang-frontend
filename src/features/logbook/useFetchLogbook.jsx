@@ -8,7 +8,8 @@ const useFetchLogbook = () => {
   const dispatch = useLogbookDispatch();
   const { logbook } = useLogbookContext();
 
-  const { id } = useParams();
+  const { internship_id } = useParams();
+  console.log('🚀 ~ useFetchLogbook ~ internship_id:', internship_id);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -16,7 +17,7 @@ const useFetchLogbook = () => {
     const getInternshipLogbook = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipUser(id, signal);
+        const data = await getInternshipUser(internship_id, signal);
         dispatch({ type: 'SET_LOGBOOK_DATA', payload: data });
         setLoading(false);
       } catch (error) {
@@ -27,7 +28,7 @@ const useFetchLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, id]);
+  }, [dispatch, internship_id]);
   return { logbook, loading };
 };
 
