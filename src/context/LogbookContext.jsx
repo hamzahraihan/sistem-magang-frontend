@@ -7,6 +7,7 @@ export const LogbookDispatch = createContext(null);
 
 const LogbookProvider = ({ children }) => {
   const [logbook, dispatch] = useReducer(LogbookReducer, []);
+  console.log('🚀 ~ LogbookProvider ~ logbook:', logbook);
 
   return (
     <LogbookContext.Provider value={{ logbook }}>
