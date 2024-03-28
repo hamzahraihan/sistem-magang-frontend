@@ -3,8 +3,8 @@ import { Spinner } from '../../../components/Icons';
 import PrimaryButton from '../../../components/PrimaryButton';
 import useFetchDailyLogbook from '../../../features/logbook/useFetchDailyLogbook';
 import { weekDay } from '../../../utils/formatDate';
-import ModalLogbookForm from './ModalLogbookForm';
 import { useLogbookDailyContext } from '../../../hooks/useLogbookDailyContext';
+import ModalDailyForm from './ModalDailyForm';
 
 const LogbookWeek = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -53,7 +53,7 @@ const LogbookWeek = () => {
           </div>
         ))
       )}
-      {openModal && <ModalLogbookForm logdayID={logId} date={dateIntern} isOpen={openModal} closeModal={() => setOpenModal(false)} />}
+      {openModal && <ModalDailyForm logdayID={logId} date={dateIntern} isOpen={openModal} closeModal={() => setOpenModal(false)} />}
     </div>
   );
 };
