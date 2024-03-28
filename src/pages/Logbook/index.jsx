@@ -8,7 +8,7 @@ import useFetchLogbook from '../../features/logbook/useFetchLogbook';
 import useFetchWeeklyLogbook from '../../features/logbook/useFetchWeeklyLogbook';
 
 const Logbook = () => {
-  const { weeks, loading } = useFetchWeeklyLogbook();
+  const { loading, logbookWeekly } = useFetchWeeklyLogbook();
   const { loading: loadingDate, logbook } = useFetchLogbook();
   const { internship_id } = useParams();
 
@@ -28,7 +28,7 @@ const Logbook = () => {
               </>
             )}
           </p>
-          {loading ? <Spinner /> : weeks.map((week) => <LogbookCard key={week.week} week={week} />)}
+          {loading ? <Spinner /> : logbookWeekly.map((week) => <LogbookCard key={week.week} week={week} />)}
         </div>
         <SidebarLogbook />
       </div>
