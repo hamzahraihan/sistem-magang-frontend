@@ -17,7 +17,7 @@ const LogbookDailyProvider = ({ children }) => {
   const editLogbook = async ({ logday_id, log_description }) => {
     setLoadingUpdate(true);
     try {
-      const data = await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_BASE_URL}/logbook/daily/edit/${logday_id}`,
         {
           log_description,
@@ -29,7 +29,7 @@ const LogbookDailyProvider = ({ children }) => {
           },
         }
       );
-      console.log(data);
+      console.log(response);
       setLoadingUpdate(false);
     } catch (error) {
       console.error(error);
