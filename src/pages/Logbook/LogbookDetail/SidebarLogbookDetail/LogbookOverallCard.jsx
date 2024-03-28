@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import ModalWeeklyForm from './ModalWeeklyForm';
-import { useParams } from 'react-router-dom';
 import useFetchDailyLogbook from '../../../../features/logbook/useFetchDailyLogbook';
 import { weekDay } from '../../../../utils/formatDate';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import useFetchWeeklyActivity from '../../../../features/logbook/useFetchWeeklyActivity';
+import { useLogbookWeeklyActivityContext } from '../../../../hooks/useLogbookWeeklyActivityContext';
+import { CancelIcon, CheckIcon, ClockIcon } from '../../../../components/Icons';
 
 const Placeholder = () => {
   return (
@@ -32,8 +33,15 @@ const Placeholder = () => {
 const LogbookOverallCard = () => {
   const { logbookDaily, loading } = useFetchDailyLogbook();
   const [openModal, setOpenModal] = useState(false);
+  const [id, setId] = useState(null);
   const { weeklyActivity } = useFetchWeeklyActivity();
-  console.log('🚀 ~ LogbookOverallCard ~ weeklyActivity:', weeklyActivity);
+  const { loadingUpdate } = useLogbookWeeklyActivityContext();
+
+  useEffect(() => {
+    if (!loadingUpdate) {
+      setOpenModal(false);
+    }
+  }, [loadingUpdate]);
 
   const handleDisableButton = () => {
     const checkCompleteLog = logbookDaily.slice(0, 5).every((element) => element.isComplete);
@@ -47,10 +55,9 @@ const LogbookOverallCard = () => {
   };
   handleDisableButton();
 
-  const { logbook_id } = useParams();
-
-  const handleOpenModal = () => {
+  const handleOpenModal = (id) => {
     setOpenModal(true);
+    setId(id);
   };
 
   return (
@@ -67,19 +74,36 @@ const LogbookOverallCard = () => {
         )}
       </div>
       {weeklyActivity.log_description ? (
-        <div>
+        <div className="flex flex-col gap-2">
+          <p
+            className={`flex items-center gap-1 p-2 rounded-2xl bg-gray-200 
+          ${weeklyActivity.status == 'Belum disetujui' && 'text-gray-500'} 
+          ${weeklyActivity.status == 'Tidak disetujui' && 'text-hoverColor'} 
+          ${weeklyActivity.status == 'Sudah disetujui' && 'text-green-500'} 
+          text-sm`}
+          >
+            {weeklyActivity.status == 'Belum disetujui' && <ClockIcon />}
+            {weeklyActivity.status == 'Tidak disetujui' && <CancelIcon />}
+            {weeklyActivity.status == 'Sudah disetujui' && <CheckIcon />}
+            Status: {weeklyActivity.status}
+          </p>
+          {weeklyActivity.status == 'Tidak disetujui' && (
+            <>
+              <PrimaryButton text={'Laporan Mingguan'} onClick={() => handleOpenModal(weeklyActivity.logbook_id)} disable={handleDisableButton()} />
+            </>
+          )}
           <p className="text-gray-400 text-sm">Hasil kerja kamu minggu ini</p>
           <p>{weeklyActivity.log_description}</p>
         </div>
       ) : (
         <>
-          <PrimaryButton text={'Laporan Mingguan'} onClick={() => handleOpenModal()} disable={handleDisableButton()} />
+          <PrimaryButton text={'Laporan Mingguan'} onClick={() => handleOpenModal(weeklyActivity.logbook_id)} disable={handleDisableButton()} />
           <div className="p-2 bg-gray-100 rounded-2xl">
             <p className="text-gray-400 text-center">Laporan mingguan baru bisa digunakan setelah laporan harian terisi semua</p>
           </div>
         </>
       )}
-      {openModal && <ModalWeeklyForm id={logbook_id} isOpen={openModal} closeModal={() => setOpenModal(false)} />}
+      {openModal && <ModalWeeklyForm id={id} isOpen={openModal} closeModal={() => setOpenModal(false)} />}
     </div>
   );
 };
