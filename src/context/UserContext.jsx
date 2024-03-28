@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   const [user, dispatch] = useReducer(UserReducer, []);
   const [dosenData, setDosenData] = useState([]);
   const [loadingRegister, setLoadingRegister] = useState(false);
-  const [userLoggedInData, setUserLoggedInData] = useState(user.id ? user : undefined);
+  const [userLoggedInData, setUserLoggedInData] = useState(user?.id ? user : undefined);
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
