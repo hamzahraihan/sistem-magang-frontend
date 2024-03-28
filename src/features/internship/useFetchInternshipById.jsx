@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getInternshipUser } from '../../constant/api';
 import { useLocation, useParams } from 'react-router-dom';
+import { getInternshipByIdAPI } from '../../constant/api';
+import { TOKEN } from '../../constant/key';
 
 const useFetchInternshipById = () => {
   const [internshipByID, setInternshipByID] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const token = localStorage.getItem(TOKEN);
+  console.log('🚀 ~ useFetchInternshipById ~ token:', token);
 
   const { id } = useParams();
   const { state } = useLocation();
@@ -19,7 +23,7 @@ const useFetchInternshipById = () => {
     const getInternshipById = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipUser(internID, signal);
+        const data = await getInternshipByIdAPI(internID, signal, token);
         setLoading(false);
         setInternshipByID(data);
       } catch (error) {
@@ -31,7 +35,7 @@ const useFetchInternshipById = () => {
     return () => {
       controller.abort();
     };
-  }, [internID]);
+  }, [internID, token]);
   return { internshipByID, loading };
 };
 
