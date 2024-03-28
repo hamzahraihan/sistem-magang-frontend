@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getInternshipUser } from '../../constant/api';
+import { getInternshipByIdAPI } from '../../constant/api';
 import { useLogbookContext, useLogbookDispatch } from '../../hooks/useLogbookContext';
 
 const useFetchLogbook = () => {
@@ -9,7 +9,6 @@ const useFetchLogbook = () => {
   const { logbook } = useLogbookContext();
 
   const { internship_id } = useParams();
-  console.log('🚀 ~ useFetchLogbook ~ internship_id:', internship_id);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -17,7 +16,7 @@ const useFetchLogbook = () => {
     const getInternshipLogbook = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipUser(internship_id, signal);
+        const data = await getInternshipByIdAPI(internship_id, signal);
         dispatch({ type: 'SET_LOGBOOK_DATA', payload: data });
         setLoading(false);
       } catch (error) {
