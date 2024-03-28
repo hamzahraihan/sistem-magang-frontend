@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         element: <Logbook />,
       },
       {
-        path: '/kegiatan-magang/logbook/aktivitas/:internship_id/:mahasiswa_id/:dailyLog_id',
+        path: '/kegiatan-magang/logbook/aktivitas/:internship_id/:mahasiswa_id/:logbook_id',
         element: <LogbookDetail />,
       },
       {
