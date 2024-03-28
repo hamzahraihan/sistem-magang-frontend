@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getWeeklyLogAPI } from '../../constant/api';
+import { useLogbookWeeklyContext, useLogbookWeeklyDispatch } from '../../hooks/useLogbookWeeklyContext';
 
 const useFetchWeeklyLogbook = () => {
-  const [weeks, setWeeks] = useState([]);
   const [loading, setLoading] = useState(false);
   const { internship_id } = useParams();
+  const dispatch = useLogbookWeeklyDispatch();
+  const { logbookWeekly } = useLogbookWeeklyContext();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -14,7 +16,7 @@ const useFetchWeeklyLogbook = () => {
       setLoading(true);
       try {
         const data = await getWeeklyLogAPI(internship_id, signal);
-        setWeeks(data);
+        dispatch({ type: 'SET_WEEKLYLOG', payload: data });
         setLoading(false);
       } catch (error) {
         if (error.name == 'CanceledError') {
@@ -28,8 +30,8 @@ const useFetchWeeklyLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [internship_id]);
-  return { loading, weeks };
+  }, [dispatch, internship_id]);
+  return { loading, logbookWeekly };
 };
 
 export default useFetchWeeklyLogbook;
