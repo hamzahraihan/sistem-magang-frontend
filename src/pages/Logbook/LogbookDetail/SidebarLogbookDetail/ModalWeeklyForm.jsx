@@ -1,13 +1,15 @@
 import { Modal, Textarea } from 'flowbite-react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useLogbookWeeklyContext, useLogbookWeeklyDispatch } from '../../../../hooks/useLogbookWeeklyContext';
 import PrimaryButton from '../../../../components/PrimaryButton';
+import { useLogbookWeeklyActivityContext, useLogbookWeeklyActivityDispatch } from '../../../../hooks/useLogbookWeeklyActivityContext';
 
 const ModalWeeklyForm = ({ isOpen, closeModal, id }) => {
   const [logDescription, setLogDescription] = useState('');
-  const { handleUpdateWeeklyLog, loadingUpdate } = useLogbookWeeklyContext();
-  const dispatch = useLogbookWeeklyDispatch();
+
+  const { handleUpdateWeeklyLog, loadingUpdate } = useLogbookWeeklyActivityContext();
+  const dispatch = useLogbookWeeklyActivityDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const update = {
@@ -15,7 +17,7 @@ const ModalWeeklyForm = ({ isOpen, closeModal, id }) => {
       log_description: logDescription,
       status: 'Belum disetujui',
     };
-    dispatch({ type: 'EDIT_DAILYLOG', payload: update });
+    dispatch({ type: 'EDIT_WEEK_ACTIVITY', payload: update });
     handleUpdateWeeklyLog(update);
   };
   return (
