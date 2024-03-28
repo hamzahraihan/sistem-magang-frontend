@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInternshipContext';
 import { getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
+import { TOKEN } from '../../constant/key';
 
 const useFetchInternship = () => {
   const [loading, setLoading] = useState(false);
@@ -9,11 +10,13 @@ const useFetchInternship = () => {
   const { internship } = useInternshipContext();
   const dispatch = useInternshipDispatch();
 
+  const token = localStorage.getItem(TOKEN);
+
   useEffect(() => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(userLoggedInData?.id);
+        const data = await getInternshipByUser(userLoggedInData?.id, token);
         setLoading(false);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
@@ -21,7 +24,7 @@ const useFetchInternship = () => {
       }
     };
     getUserInternship();
-  }, [dispatch, userLoggedInData]);
+  }, [dispatch, userLoggedInData, token]);
 
   return { loading, internship };
 };
