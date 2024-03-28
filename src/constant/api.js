@@ -1,9 +1,4 @@
 import axios from 'axios';
-import { ACCOUNT_KEY, TOKEN } from './key';
-
-const token = localStorage.getItem(TOKEN);
-const currentUser = JSON.parse(localStorage.getItem(ACCOUNT_KEY));
-console.log('🚀 ~ currentUser:', currentUser);
 
 export const getUserPostById = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/${id}`);
@@ -20,7 +15,7 @@ export const getUserPostByUserId = async (id) => {
   return data.result;
 };
 
-export const getInternshipByUser = async (id) => {
+export const getInternshipByUser = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -30,7 +25,7 @@ export const getInternshipByUser = async (id) => {
   return data.result;
 };
 
-export const getInternshipUser = async (id, signal) => {
+export const getInternshipByIdAPI = async (id, signal, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/${id}`, {
     signal,
     headers: {
@@ -48,5 +43,10 @@ export const getWeeklyLogAPI = async (id, signal) => {
 
 export const getDailyLogAPI = async (id, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`, { signal });
+  return data.result;
+};
+
+export const getWeeklyLogByIdAPI = async (id, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, { signal });
   return data.result;
 };
