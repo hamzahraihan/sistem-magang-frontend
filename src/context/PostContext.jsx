@@ -4,6 +4,8 @@ import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useUserContext } from '../hooks/useUserContext';
 import { getAllPost, getUserPostById, getUserPostByUserId } from '../constant/api';
+import { TOKEN } from '../constant/key';
+import toast from 'react-hot-toast';
 
 export const PostContext = createContext(null);
 
@@ -26,6 +28,7 @@ export const PostProvider = ({ children }) => {
   const [postByUser, setPostByUser] = useState([]);
   const [postById, setPostById] = useState([]);
   const { user } = useUserContext();
+  const token = localStorage.getItem(TOKEN);
 
   const imageInputRef = useRef(null);
 
@@ -88,38 +91,40 @@ export const PostProvider = ({ children }) => {
     e.preventDefault();
     const image = imageInputRef.current.files[0];
 
-    if (image) {
-      const formData = new FormData();
-      formData.append('image', image);
-      formData.append('title', postInputData.title);
-      formData.append('description', postInputData.description);
-      formData.append('category_name', postInputData.category_name);
-      // Append user id based on the role condition
-      if (user[0].role === 'dosen') {
-        formData.append('dosen_id', user[0].id);
-        formData.append('mahasiswa_id', null);
-        formData.append('admin_id', null);
-      } else if (user[0].role === 'mahasiswa') {
-        formData.append('dosen_id', null);
-        formData.append('mahasiswa_id', user[0].id);
-        formData.append('admin_id', null);
-      } else if (user[0].role === 'admin') {
-        formData.append('dosen_id', null);
-        formData.append('mahasiswa_id', null);
-        formData.append('admin_id', user[0].id);
-      }
+    const formData = new FormData();
+    formData.append('image', image);
+    formData.append('title', postInputData.title);
+    formData.append('description', postInputData.description);
+    formData.append('category_name', postInputData.category_name);
+    // Append user id based on the role condition
+    if (user[0]?.role === 'dosen') {
+      formData.append('dosen_id', user[0].id);
+      formData.append('mahasiswa_id', null);
+      formData.append('admin_id', null);
+    } else if (user[0]?.role === 'mahasiswa') {
+      formData.append('dosen_id', null);
+      formData.append('mahasiswa_id', user[0].id);
+      formData.append('admin_id', null);
+    } else if (user[0]?.role === 'admin') {
+      formData.append('dosen_id', null);
+      formData.append('mahasiswa_id', null);
+      formData.append('admin_id', user[0].id);
+    }
 
-      try {
-        const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/post/create-post`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        dispatch({ type: 'ADD_NEW_POST', payload: data.result });
-        console.log('image uploaded', data);
-      } catch (error) {
-        console.error(error);
+    try {
+      const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/post/create-post`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch({ type: 'ADD_NEW_POST', payload: data.result });
+      console.log('image uploaded', data);
+    } catch (error) {
+      if (error.response.status == 403) {
+        toast.error('Kamu belum login');
       }
+      console.error(error);
     }
   };
 
