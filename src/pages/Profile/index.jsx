@@ -9,6 +9,7 @@ import useFetchUserByID from '../../features/user/useFetchUserById';
 
 const Profile = () => {
   const { loading, userByID } = useFetchUserByID();
+  console.log('🚀 ~ Profile ~ userByID:', userByID);
 
   const { loadingPostByUser, postByUser } = usePostContext();
 
