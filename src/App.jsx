@@ -7,6 +7,7 @@ import LogbookProvider from './context/LogbookContext.jsx';
 import LogbookDailyProvider from './context/LogbookDailyContext.jsx';
 import LogbookWeeklyProvider from './context/LogbookWeeklyContext.jsx';
 import LogbookWeeklyActivityProvider from './context/LogbookWeelyActivityContext.jsx';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                   <InternshipProvider>
                     <SidebarL />
                     <Outlet />
+                    <Toaster position="bottom-right" />
                   </InternshipProvider>
                 </LogbookWeeklyActivityProvider>
               </LogbookDailyProvider>
