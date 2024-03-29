@@ -6,7 +6,7 @@ import FormUploadReport from './FormUploadReport';
 const UploadIntern = () => {
   return (
     <div className="col-span-3 pb-10">
-      <div className="grid grid-cols-3 gap-5 ">
+      <form className="grid grid-cols-3 gap-5">
         <div className="lg:order-first flex flex-col gap-4 lg:col-span-2 col-span-3 order-last">
           <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
             <ArrowIcon />
@@ -15,7 +15,7 @@ const UploadIntern = () => {
           <FormUploadReport />
         </div>
         <SidebarReport />
-      </div>
+      </form>
     </div>
   );
 };
