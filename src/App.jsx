@@ -8,6 +8,7 @@ import LogbookDailyProvider from './context/LogbookDailyContext.jsx';
 import LogbookWeeklyProvider from './context/LogbookWeeklyContext.jsx';
 import LogbookWeeklyActivityProvider from './context/LogbookWeelyActivityContext.jsx';
 import { Toaster } from 'react-hot-toast';
+import ReportInternProvider from './context/ReportInternContext.jsx';
 
 function App() {
   return (
@@ -19,9 +20,11 @@ function App() {
               <LogbookDailyProvider>
                 <LogbookWeeklyActivityProvider>
                   <InternshipProvider>
-                    <SidebarL />
-                    <Outlet />
-                    <Toaster position="bottom-right" />
+                    <ReportInternProvider>
+                      <SidebarL />
+                      <Outlet />
+                      <Toaster position="top-center" />
+                    </ReportInternProvider>
                   </InternshipProvider>
                 </LogbookWeeklyActivityProvider>
               </LogbookDailyProvider>
