@@ -25,6 +25,7 @@ const useFetchInternship = () => {
           toast.error('Kamu belum login');
         }
         console.error(error);
+        setLoading(false);
       }
     };
     getUserInternship();
