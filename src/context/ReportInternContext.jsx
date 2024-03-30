@@ -26,7 +26,11 @@ const ReportInternProvider = ({ children }) => {
       }
 
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report-intern/upload-report`, formData);
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report-intern/upload-report`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         console.log('file uploaded', response);
       } catch (error) {
         console.error(error);
