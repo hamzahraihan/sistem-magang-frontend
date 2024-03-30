@@ -2,6 +2,7 @@ import { createContext, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import { TOKEN } from '../constant/key';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export const LogbookDailyContext = createContext(null);
 
@@ -32,6 +33,9 @@ const LogbookDailyProvider = ({ children }) => {
       console.log(response);
       setLoadingUpdate(false);
     } catch (error) {
+      if (error.response.status === 403) {
+        toast.error('Data tidak disimpan karena kamu belum login');
+      }
       console.error(error);
       setLoadingUpdate(false);
     }
