@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
   const [dosenData, setDosenData] = useState([]);
   const [loadingRegister, setLoadingRegister] = useState(false);
   const [userLoggedInData, setUserLoggedInData] = useState(user?.id ? user : undefined);
+  const [accessToken, setAccessToken] = useState('');
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
@@ -37,7 +38,9 @@ export const UserProvider = ({ children }) => {
   const cookies = getCookie('token');
 
   const clearLocalStorage = () => {
-    localStorage.clear();
+    setUserLoggedInData(undefined);
+    setAccessToken(undefined);
+    dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
     console.log('Local storage has been deleted');
   };
 
@@ -49,15 +52,17 @@ export const UserProvider = ({ children }) => {
 
   const handleLogout = () => {
     setUserLoggedInData(undefined);
+    setAccessToken(undefined);
     dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
   };
 
   useEffect(() => {
-    const token = JSON.stringify(localStorage.getItem(TOKEN));
+    const token = localStorage.getItem(TOKEN);
     try {
       if (token) {
         const decoded = jwtDecode(token);
         setUserLoggedInData(decoded);
+        setAccessToken(token);
         dispatch({ type: 'SET_USER_DATA', payload: decoded });
       } else {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
@@ -150,6 +155,7 @@ export const UserProvider = ({ children }) => {
         handleRegisterAccount,
         handleLogout,
         userLoggedInData,
+        accessToken,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
