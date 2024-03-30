@@ -20,7 +20,8 @@ const DetailPost = () => {
           ) : (
             postById[0]?.image && (
               <a href={`https://drive.google.com/uc?export=preview&id=${postById[0]?.image}`} target="_blank">
-                <img className="rounded-[32px] bg-cover bg-center bg-no-repeat w-full" src={`https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000`} alt="post-background" />
+                {/* <img className="rounded-[32px] bg-cover bg-center bg-no-repeat w-full" src={`https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000`} alt="post-background" /> */}
+                <iframe className="w-full h-96" src={`https://drive.google.com/file/d/${postById[0]?.image}/preview`} title="image"></iframe>
               </a>
             )
           )}
