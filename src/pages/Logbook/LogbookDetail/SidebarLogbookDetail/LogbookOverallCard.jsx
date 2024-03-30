@@ -6,7 +6,7 @@ import { weekDay } from '../../../../utils/formatDate';
 import PrimaryButton from '../../../../components/PrimaryButton';
 import useFetchWeeklyActivity from '../../../../features/logbook/useFetchWeeklyActivity';
 import { useLogbookWeeklyActivityContext } from '../../../../hooks/useLogbookWeeklyActivityContext';
-import { CancelIcon, CheckIcon, ClockIcon } from '../../../../components/Icons';
+import { CancelIcon, CheckIcon, ClockIcon, Spinner } from '../../../../components/Icons';
 
 const Placeholder = () => {
   return (
@@ -34,7 +34,7 @@ const LogbookOverallCard = () => {
   const { logbookDaily, loading } = useFetchDailyLogbook();
   const [openModal, setOpenModal] = useState(false);
   const [id, setId] = useState(null);
-  const { weeklyActivity } = useFetchWeeklyActivity();
+  const { weeklyActivity, loading: loadingWeekly } = useFetchWeeklyActivity();
   const { loadingUpdate } = useLogbookWeeklyActivityContext();
 
   useEffect(() => {
@@ -73,7 +73,9 @@ const LogbookOverallCard = () => {
           ))
         )}
       </div>
-      {weeklyActivity.log_description ? (
+      {loadingWeekly ? (
+        <Spinner />
+      ) : weeklyActivity.log_description ? (
         <div className="flex flex-col gap-2">
           <p
             className={`flex items-center gap-1 p-2 rounded-2xl bg-gray-200 
