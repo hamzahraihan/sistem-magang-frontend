@@ -1,7 +1,8 @@
-import { createContext, useReducer, useRef } from 'react';
+import { createContext, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../hooks/useUserContext';
 
 export const ReportInternContext = createContext(null);
 
@@ -9,31 +10,54 @@ export const ReportInternDispatch = createContext(null);
 
 const ReportInternProvider = ({ children }) => {
   const [reportIntern, dispatch] = useReducer(ReportInternReducer, []);
+  const [loadingUpload, setLoadingUpload] = useState(false);
 
-  const fileInputRef = useRef(null);
+  const { userLoggedInData } = useUserContext();
 
-  const handleFileUpload = async (e) => {
-    e.preventDefault();
-    const files = fileInputRef.current.files;
-    console.log('🚀 ~ handleFileUpload ~ files:', files);
+  const internCompletedFileInputRef = useRef(null);
+  const finalReportFileInputRef = useRef(null);
+  const internScoreFileInputRef = useRef(null);
 
-    if (files.length > 0) {
+  const { accessToken } = useUserContext();
+
+  const handleFileUpload = async ({ title, note }) => {
+    setLoadingUpload(true);
+    const toastId = toast.loading('Sedang proses upload');
+
+    const internCompleteFile = internCompletedFileInputRef.current.files[0];
+    const finalReportFile = finalReportFileInputRef.current.files[0];
+    const internScoreFile = internScoreFileInputRef.current.files[0];
+
+    if (internCompleteFile && finalReportFile && internScoreFile) {
       const formData = new FormData();
 
-      for (const file of files) {
-        formData.append('files', file);
-        console.log(formData.get('files'));
+      if (!userLoggedInData) {
+        setLoadingUpload(false);
+        return toast.error('Kamu belum login');
       }
+      formData.append('mahasiswa_id', userLoggedInData.id);
+      formData.append('title', title);
+      formData.append('note', note);
+      formData.append('files', internCompleteFile);
+      formData.append('files', internScoreFile);
+      formData.append('files', finalReportFile);
 
       try {
         const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report-intern/upload-report`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
           },
         });
         console.log('file uploaded', response);
+        toast.success('Upload berhasil');
+        toast.dismiss(toastId);
+        setLoadingUpload(false);
       } catch (error) {
         console.error(error);
+        toast.dismiss(toastId);
+        toast.error('Upload gagal');
+        setLoadingUpload(false);
       }
     } else {
       toast.error('Wajib kirim semua file');
@@ -41,7 +65,16 @@ const ReportInternProvider = ({ children }) => {
   };
 
   return (
-    <ReportInternContext.Provider value={{ reportIntern, handleFileUpload, fileInputRef }}>
+    <ReportInternContext.Provider
+      value={{
+        reportIntern,
+        handleFileUpload,
+        internCompletedFileInputRef,
+        finalReportFileInputRef,
+        internScoreFileInputRef,
+        loadingUpload,
+      }}
+    >
       <ReportInternDispatch.Provider value={dispatch}>{children}</ReportInternDispatch.Provider>
     </ReportInternContext.Provider>
   );
