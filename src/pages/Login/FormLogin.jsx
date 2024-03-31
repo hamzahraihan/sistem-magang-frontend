@@ -2,18 +2,38 @@ import { Link, useParams } from 'react-router-dom';
 import { EmailIcon, PasswordIcon } from '../../components/Icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useUserContext } from '../../hooks/useUserContext';
-import { useState } from 'react';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const FormLogin = () => {
-  const [userInput, setUserInput] = useState({ email: '', password: '' });
-  console.log('🚀 ~ FormLogin ~ userInput:', userInput);
   const { loading, setloading, role, handleLogin } = useUserContext();
 
   const { roleUrl } = useParams();
 
-  const handleSubmitLoginData = (e) => {
-    e.preventDefault();
-    handleLogin(userInput.email, userInput.password);
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    onSubmit: (values) => {
+      handleLogin(values);
+    },
+    validationSchema: yup.object().shape({
+      email: yup.string().required('Email wajib diisi').email(),
+      // .test('is-student-unsika', 'Email wajib menggunakan @student.unsika.ac.id', (value) => {
+      //   if (value) {
+      //     const [, domain] = value.split('@');
+      //     return domain === 'student.unsika.ac.id';
+      //   }
+      //   return false;
+      // }),
+      password: yup.string().required('Password wajib diisi'),
+    }),
+  });
+
+  const handleInputForm = (event) => {
+    const { target } = event;
+    formik.setFieldValue(target.name, target.value);
   };
 
   return (
@@ -23,39 +43,25 @@ const FormLogin = () => {
         <p className="text-xs text-gray-400">Silahkan isi data dirimu untuk membuat akun magang mandiri</p>
       </div>
 
-      <form className="flex flex-col gap-3 w-full h-full" onSubmit={handleSubmitLoginData}>
+      <form className="flex flex-col gap-3 w-full h-full" onSubmit={formik.handleSubmit}>
         <div className="flex flex-col relative">
           <label htmlFor="email">Email</label>
           <div className="absolute inset-y-11 start-0 flex items-center ps-3 pointer-events-none">
             <EmailIcon />
           </div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs"
-            placeholder="Email..."
-            value={userInput.email}
-            onChange={(e) => setUserInput({ ...userInput, [e.target.name]: e.target.value })}
-            required
-          />
+          <input type="email" name="email" id="email" className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs" placeholder="Email..." value={formik.values.email} onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.email}</p>
         </div>
+
         <div className="flex flex-col relative">
           <label htmlFor="password">Password</label>
           <div className="absolute inset-y-11 start-0 flex items-center ps-3 pointer-events-none">
             <PasswordIcon />
           </div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs"
-            placeholder="Password..."
-            value={userInput.password}
-            onChange={(e) => setUserInput({ ...userInput, [e.target.name]: e.target.value })}
-            required
-          />
+          <input type="password" name="password" id="password" className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs" placeholder="Password..." value={formik.values.password} onChange={handleInputForm} required />
         </div>
+        <p className="text-xs text-red-800">{formik.errors.password}</p>
+
         <Link className="text-xs text-teal-500 hover:no-underline underline" to="/register">
           Belum punya akun?
         </Link>
