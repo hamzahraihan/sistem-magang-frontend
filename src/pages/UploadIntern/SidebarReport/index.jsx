@@ -3,8 +3,8 @@ import PrimaryButton from '../../../components/PrimaryButton';
 const SidebarReport = () => {
   return (
     <div className="lg:col-span-1 gap-4 col-span-3 flex flex-col top-5 lg:items-start  ">
-      <div className="lg:block w-full hidden">
-        <PrimaryButton text={'Kirim Laporan'} />
+      <div className="lg:block w-full ">
+        <PrimaryButton text="Buat laporan magang" />
       </div>
       <div className="border-t border-neutral-300 w-full lg:block hidden"></div>
       <div className="flex flex-col gap-2">
@@ -13,8 +13,6 @@ const SidebarReport = () => {
         <div>
           <p>File laporan yang wajib harus kamu kirim</p>
           <ul className="list-disc list-inside">
-            <li>File surat bersedia dosen magang</li>
-            <li>File surat magang dari kampus</li>
             <li>File surat selesai magang</li>
             <li>File laporan akhir magang</li>
             <li>File penilaian dari perusahaan</li>
