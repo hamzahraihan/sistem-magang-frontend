@@ -27,7 +27,7 @@ const NavigationButton = () => {
         <p className="lg:flex hidden">Kegiatan Magang</p>
       </NavLink>
       <NavLink
-        to="/upload-report"
+        to="/report"
         className={({ isActive }) =>
           isActive
             ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
