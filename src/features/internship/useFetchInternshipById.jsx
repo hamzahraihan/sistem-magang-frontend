@@ -7,9 +7,6 @@ const useFetchInternshipById = () => {
   const [internshipByID, setInternshipByID] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem(TOKEN);
-  console.log('🚀 ~ useFetchInternshipById ~ token:', token);
-
   const { id } = useParams();
   const { state } = useLocation();
 
@@ -18,6 +15,7 @@ const useFetchInternshipById = () => {
   }, [state, id]);
 
   useEffect(() => {
+    const token = localStorage.getItem(TOKEN);
     const controller = new AbortController();
     const signal = controller.signal;
     const getInternshipById = async () => {
@@ -35,7 +33,7 @@ const useFetchInternshipById = () => {
     return () => {
       controller.abort();
     };
-  }, [internID, token]);
+  }, [internID]);
   return { internshipByID, loading };
 };
 
