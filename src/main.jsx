@@ -10,7 +10,6 @@ import RoleChoose from './pages/Login/RoleChoose.jsx';
 import FormLogin from './pages/Login/FormLogin.jsx';
 import DetailPost from './pages/Post/index.jsx';
 import Logbook from './pages/Logbook/index.jsx';
-import UploadIntern from './pages/UploadIntern/index.jsx';
 import Profile from './pages/Profile/index.jsx';
 import CreatePost from './pages/Post/CreatePost/index.jsx';
 import LogbookDetail from './pages/Logbook/LogbookDetail/index.jsx';
@@ -18,6 +17,8 @@ import Internship from './pages/Internship/index.jsx';
 import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
 import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
 import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
+import ReportForm from './pages/UploadIntern/Upload/index.jsx';
+import UploadIntern from './pages/UploadIntern/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -64,8 +65,12 @@ const router = createBrowserRouter([
         element: <LogbookDetail />,
       },
       {
-        path: '/upload-report',
+        path: '/report',
         element: <UploadIntern />,
+      },
+      {
+        path: '/report/upload',
+        element: <ReportForm />,
       },
       {
         path: '/profile/:roleUrl/:slug',
