@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
+import toast from 'react-hot-toast';
 
 export const UserContext = createContext(null);
 
@@ -40,6 +41,7 @@ export const UserProvider = ({ children }) => {
   const clearLocalStorage = () => {
     setUserLoggedInData(undefined);
     setAccessToken(undefined);
+    localStorage.clear();
     dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
     console.log('Local storage has been deleted');
   };
@@ -72,7 +74,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [cookies]);
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async ({ email, password }) => {
     setLoading(true);
     try {
       const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/account-verification`, {
@@ -83,6 +85,9 @@ export const UserProvider = ({ children }) => {
       dispatch({ type: 'SET_TOKEN', payload: data.result });
       setLoading(false);
     } catch (error) {
+      if (error.response.status == 404) {
+        toast.error('Password atau email salah');
+      }
       console.error(error);
     } finally {
       setLoading(false);
@@ -168,7 +173,7 @@ const UserReducer = (user, action) => {
   switch (action.type) {
     case 'SET_USER_DATA':
       localStorage.setItem(ACCOUNT_KEY, JSON.stringify(action.payload));
-      return [...user, action.payload];
+      return action.payload;
     case 'SET_TOKEN':
       document.cookie = `token=${action.payload}; expires=${expirationTime}`;
       localStorage.setItem(TOKEN, action.payload);
