@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import LoginMenu from './LoginMenu';
 import UserProvider from '../../context/UserContext';
+import { Toaster } from 'react-hot-toast';
 
 const index = () => {
   return (
@@ -9,6 +10,7 @@ const index = () => {
         <UserProvider>
           <LoginMenu />
           <Outlet />
+          <Toaster />
         </UserProvider>
       </div>
     </div>
