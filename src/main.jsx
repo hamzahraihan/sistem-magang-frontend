@@ -69,7 +69,7 @@ const router = createBrowserRouter([
         element: <UploadIntern />,
       },
       {
-        path: '/report/upload',
+        path: '/report/upload/:internship_id',
         element: <ReportForm />,
       },
       {
