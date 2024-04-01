@@ -81,6 +81,14 @@ const DetailInternship = () => {
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
             </Link>
+            <Link
+              to={`/report/upload/${internshipByID?.internship_id}`}
+              state={{ internshipID: internshipByID.internship_id }}
+              className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all "
+            >
+              <p className="flex flex-1 font-bold text-base ">Laporan Akhir</p>
+              <ArrowIcon />
+            </Link>
           </div>
         )}
       </div>
