@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../components/Icons';
 import SidebarReport from './SidebarReport';
-import InternshipList from './InternshipList';
+import ReportList from './ReportList';
+import useFetchReportByInternship from '../../features/report/useFetchReportByInternship';
+import ReportNotFound from './ReportNotFound';
 
 const UploadIntern = () => {
+  const { reportIntern } = useFetchReportByInternship();
+
   return (
     <div className="col-span-3 pb-10">
       <div className="grid grid-cols-3 gap-5">
@@ -12,7 +16,7 @@ const UploadIntern = () => {
             <ArrowIcon />
           </Link>
           <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
-          <InternshipList />
+          {reportIntern ? <ReportList /> : <ReportNotFound />}
         </div>
         <SidebarReport />
       </div>
