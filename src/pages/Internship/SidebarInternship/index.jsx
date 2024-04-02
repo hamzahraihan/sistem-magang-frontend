@@ -2,7 +2,7 @@ import PrimaryButton from '../../../components/PrimaryButton';
 
 const SidebarInternship = () => {
   return (
-    <div className="lg:flex lg:col-span-1 col-span-3 flex-col top-5 lg:items-start">
+    <div className="lg:flex lg:col-span-1 col-span-3 flex-col top-5 lg:items-start lg:order-last order-first w-full ">
       <div className="flex flex-col items-center w-full gap-5">
         <h1 className="text-xl font-bold text-start w-full">Daftar Magang</h1>
         <p className="text-neutral-500">
