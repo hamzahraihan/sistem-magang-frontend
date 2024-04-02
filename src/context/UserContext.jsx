@@ -175,7 +175,7 @@ const UserReducer = (user, action) => {
       localStorage.setItem(ACCOUNT_KEY, JSON.stringify(action.payload));
       return action.payload;
     case 'SET_TOKEN':
-      document.cookie = `token=${action.payload}; expires=${expirationTime}`;
+      document.cookie = `token=${action.payload}; expires=${expirationTime}; path=/;`;
       localStorage.setItem(TOKEN, action.payload);
       return action.payload;
     case 'SET_USER_INFORMATION':
