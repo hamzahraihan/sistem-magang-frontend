@@ -4,11 +4,13 @@ import CatagoriesSelect from './CatagoriesSelect';
 
 const SidebarHome = () => {
   return (
-    <div className="sticky lg:flex flex-col top-5 lg:items-start h-[90vh] hidden">
+    <div className="lg:col-span-1 col-span-3 flex flex-col items-start h-full lg:order-last order-first w-full">
       <form className="flex flex-col gap-4 w-full">
         <Searchbar />
         <CatagoriesSelect />
-        <PrimaryButton text={'Buat Post'} />
+        <div className="w-full">
+          <PrimaryButton text="Buat Post" />
+        </div>
       </form>
     </div>
   );
