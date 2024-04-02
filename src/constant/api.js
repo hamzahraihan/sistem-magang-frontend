@@ -15,8 +15,9 @@ export const getUserPostByUserId = async (id) => {
   return data.result;
 };
 
-export const getInternshipByUser = async (id, token) => {
+export const getInternshipByUser = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
+    signal,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -63,6 +64,16 @@ export const getReportByInternshipIdAPI = async (id, token) => {
 
 export const getReportByMahasiswaAPI = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/mahasiswa/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
+
+export const getReportByIdAPI = async (id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/${id}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
