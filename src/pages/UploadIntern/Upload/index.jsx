@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { ArrowIcon } from '../../../components/Icons';
 import FormUploadReport from './FormUploadReport';
 import { useReportInternContext } from '../../../hooks/useReportInternContext';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import SidebarUploadReport from './SidebarUploadReport';
+import _ from 'lodash';
 
 const ReportForm = () => {
   const { handleFileUpload } = useReportInternContext();
-
+  const { internship_id } = useParams();
   const validFileExt = { files: ['doc', 'docx', 'pdf'] };
   const isValidFileType = (fileName) => {
     return fileName && validFileExt['files'].indexOf(fileName.split('.').pop()) > -1;
@@ -23,6 +24,7 @@ const ReportForm = () => {
 
   const formik = useFormik({
     initialValues: {
+      internship_id: _.toInteger(internship_id),
       title: '',
       note: '',
       intern_complete_file: null,
@@ -33,6 +35,7 @@ const ReportForm = () => {
       handleFileUpload(values);
     },
     validationSchema: yup.object().shape({
+      internship_id: yup.number().required(),
       title: yup.string().required('Wajib diisi'),
       note: yup.string().required('Wajib diisi'),
       intern_complete_file: yup
@@ -57,7 +60,7 @@ const ReportForm = () => {
     <div className="col-span-3 pb-10">
       <form className="grid grid-cols-3 gap-5" onSubmit={formik.handleSubmit}>
         <div className="lg:order-first flex flex-col gap-4 lg:col-span-2 col-span-3 order-last">
-          <Link to="/report" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
+          <Link to={`/kegiatan-magang/detail/${internship_id}`} className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
             <ArrowIcon />
           </Link>
           <h1 className="text-xl font-bold">Upload Berkas</h1>
