@@ -9,12 +9,15 @@ import ModalInternshipDocs from './ModalInternshipDocs';
 import { useUserContext } from '../../../hooks/useUserContext';
 import useFetchInternshipById from '../../../features/internship/useFetchInternshipById';
 import _ from 'lodash';
+import useFetchReportByInternship from '../../../features/report/useFetchReportByInternship';
 
 const DetailInternship = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
   const { loading, internshipByID } = useFetchInternshipById();
+  const { reportIntern } = useFetchReportByInternship();
+  console.log('🚀 ~ DetailInternship ~ reportIntern:', reportIntern);
   const { userLoggedInData } = useUserContext();
 
   const handleOpenModal = (type) => {
