@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getReportByMahasiswaAPI } from '../../constant/api';
+import { getReportByInternshipIdAPI } from '../../constant/api';
 import { useReportInternContext, useReportInternDispatch } from '../../hooks/useReportInternContext';
-import { useUserContext } from '../../hooks/useUserContext';
 import { TOKEN } from '../../constant/key';
+import { useParams } from 'react-router-dom';
 
 const useFetchReportByInternship = () => {
   const [loading, setLoading] = useState(false);
   const { reportIntern } = useReportInternContext();
-  const { userLoggedInData } = useUserContext();
+  const { internship_id } = useParams();
   const dispatch = useReportInternDispatch();
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const useFetchReportByInternship = () => {
       setLoading(true);
       const token = localStorage.getItem(TOKEN);
       try {
-        const data = await getReportByMahasiswaAPI(userLoggedInData?.id, token);
+        const data = await getReportByInternshipIdAPI(internship_id, token);
         dispatch({ type: 'SET_REPORT_DATA', payload: data });
         setLoading(false);
       } catch (error) {
@@ -24,7 +24,7 @@ const useFetchReportByInternship = () => {
       }
     };
     getReportInternship();
-  }, [dispatch, userLoggedInData]);
+  }, [dispatch, internship_id]);
   return { loading, reportIntern };
 };
 
