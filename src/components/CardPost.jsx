@@ -3,6 +3,7 @@ import { ClockIcon, TagIcon } from './Icons';
 import { formatDate } from '../utils/formatDate';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import DOMPurify from 'dompurify';
 
 const CardPost = (props) => {
   const { post } = props;
@@ -10,6 +11,13 @@ const CardPost = (props) => {
   const imageBackground = {
     backgroundImage: `url(https://drive.google.com/thumbnail?id=${post?.image}&sz=w680)`,
   };
+
+  const options = {
+    ALLOWED_TAGS: ['p', 'br', 'b', 'i', 'strong', 'em'],
+    ALLOWED_ATTR: ['href', 'title', 'alt'],
+  };
+
+  const sanitizeContent = DOMPurify.sanitize(post?.description, options);
 
   return (
     <Link to={`/detail-post/${_.kebabCase(post?.title)}`} state={{ post_id: post?.post_id }} className="border border-neutral-200 rounded-[32px]">
@@ -27,7 +35,7 @@ const CardPost = (props) => {
           </p>
         </div>
         <p className="text-base font-bold">{post?.title}</p>
-        <p className="line-clamp-3" dangerouslySetInnerHTML={{ __html: post?.description }} />
+        <p className="line-clamp-3" dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
 
         <p className="text-neutral-400 underline">
           {post?.Mahasiswa?.first_name}
