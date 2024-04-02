@@ -20,7 +20,7 @@ const ReportInternProvider = ({ children }) => {
 
   const { accessToken } = useUserContext();
 
-  const handleFileUpload = async ({ title, note }) => {
+  const handleFileUpload = async ({ internship_id, title, note }) => {
     setLoadingUpload(true);
     const toastId = toast.loading('Sedang proses upload');
 
@@ -35,6 +35,7 @@ const ReportInternProvider = ({ children }) => {
         setLoadingUpload(false);
         return toast.error('Kamu belum login');
       }
+      formData.append('internship_id', internship_id);
       formData.append('mahasiswa_id', userLoggedInData.id);
       formData.append('title', title);
       formData.append('note', note);
@@ -43,7 +44,7 @@ const ReportInternProvider = ({ children }) => {
       formData.append('files', finalReportFile);
 
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report-intern/upload-report`, formData, {
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report/upload-report`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`,
@@ -83,7 +84,7 @@ const ReportInternProvider = ({ children }) => {
 const ReportInternReducer = (reportIntern, action) => {
   switch (action.type) {
     case 'SET_REPORT_DATA':
-      return action.type;
+      return action.payload;
     case 'ADD_REPORT_DATA':
       return [...reportIntern, action.payload];
     default:
