@@ -13,10 +13,12 @@ const useFetchInternship = () => {
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN);
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(userLoggedInData?.id, token);
+        const data = await getInternshipByUser(userLoggedInData?.id, token, signal);
         setLoading(false);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
@@ -28,6 +30,9 @@ const useFetchInternship = () => {
       }
     };
     getUserInternship();
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, userLoggedInData]);
 
   return { loading, internship };
