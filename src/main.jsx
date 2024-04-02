@@ -17,8 +17,9 @@ import Internship from './pages/Internship/index.jsx';
 import InternshipActivity from './pages/Internship/InternshipActivity.jsx';
 import CreateInternship from './pages/Internship/CreateInternship/index.jsx';
 import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
-import ReportForm from './pages/UploadIntern/Upload/index.jsx';
-import UploadIntern from './pages/UploadIntern/index.jsx';
+import ReportForm from './pages/Report/Upload/index.jsx';
+import Report from './pages/Report/index.jsx';
+import DetailReport from './pages/Report/Detail/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -66,11 +67,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/report',
-        element: <UploadIntern />,
+        element: <Report />,
       },
       {
         path: '/report/upload/:internship_id',
         element: <ReportForm />,
+      },
+      {
+        path: '/report/detail/:report_id',
+        element: <DetailReport />,
       },
       {
         path: '/profile/:roleUrl/:slug',
