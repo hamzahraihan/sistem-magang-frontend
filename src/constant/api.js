@@ -50,3 +50,23 @@ export const getWeeklyLogByIdAPI = async (id, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, { signal });
   return data.result;
 };
+
+export const getReportByInternshipIdAPI = async (id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/internship/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
+
+export const getReportByMahasiswaAPI = async (id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/mahasiswa/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
