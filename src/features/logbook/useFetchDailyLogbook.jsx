@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getDailyLogAPI } from '../../constant/api';
 import { useLogbookDailyContext, useLogbookDailyDispatch } from '../../hooks/useLogbookDailyContext';
+import { TOKEN } from '../../constant/key';
 
 const useFetchDailyLogbook = () => {
   const [loading, setLoading] = useState(false);
@@ -15,8 +16,9 @@ const useFetchDailyLogbook = () => {
     const signal = controller.signal;
     const getDailyLog = async () => {
       setLoading(true);
+      const token = localStorage.getItem(TOKEN);
       try {
-        const data = await getDailyLogAPI(logbook_id, signal);
+        const data = await getDailyLogAPI(logbook_id, token, signal);
         setLoading(false);
         dispatch({ type: 'SET_DAILYLOG', payload: data });
       } catch (error) {
