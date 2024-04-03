@@ -37,18 +37,36 @@ export const getInternshipByIdAPI = async (id, signal, token) => {
   return data.result;
 };
 
-export const getWeeklyLogAPI = async (id, signal) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/weekly/${id}`, { signal });
+export const getWeeklyLogAPI = async (id, token, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/weekly/${id}`, {
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
-export const getDailyLogAPI = async (id, signal) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`, { signal });
+export const getDailyLogAPI = async (id, token, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`, {
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
-export const getWeeklyLogByIdAPI = async (id, signal) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, { signal });
+export const getWeeklyLogByIdAPI = async (id, token, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, {
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
