@@ -23,7 +23,7 @@ const useFetchLogbook = () => {
         setLoading(false);
       } catch (error) {
         if (error.response.status === 403) {
-          toast.error('Kamu belum login');
+          toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
         }
         console.error(error);
       }
