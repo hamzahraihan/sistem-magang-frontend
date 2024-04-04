@@ -9,7 +9,7 @@ const CatagoriesSelect = () => {
     <select
       id="large"
       name="category_name"
-      className="text-xs block w-full p-4 text-gray-900 border border-gray-300 rounded-2xl"
+      className="text-xs w-full p-4 text-gray-900 border border-gray-300 rounded-2xl"
       value={categoryInput}
       onChange={(e) =>
         setSearchParams((prev) => {
@@ -18,7 +18,7 @@ const CatagoriesSelect = () => {
         })
       }
     >
-      <option value="" defaultValue>
+      <option value={null} defaultValue>
         Pilih Kategori
       </option>
       <option value="magang">Magang</option>
