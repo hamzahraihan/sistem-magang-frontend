@@ -10,11 +10,11 @@ const useFetchLogbook = () => {
   const dispatch = useLogbookDispatch();
   const { logbook } = useLogbookContext();
   const { internship_id } = useParams();
-  const token = localStorage.getItem(TOKEN);
 
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
+    const token = localStorage.getItem(TOKEN);
     const getInternshipLogbook = async () => {
       setLoading(true);
       try {
@@ -32,7 +32,7 @@ const useFetchLogbook = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, internship_id, token]);
+  }, [dispatch, internship_id]);
   return { logbook, loading };
 };
 
