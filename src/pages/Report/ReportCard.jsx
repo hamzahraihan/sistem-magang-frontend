@@ -6,7 +6,6 @@ import useFetchReportByMahasiswa from '../../features/report/useFetchReportByMah
 
 const ReportCard = () => {
   const { reportIntern, loading } = useFetchReportByMahasiswa();
-  console.log('🚀 ~ ReportCard ~ reportIntern:', reportIntern);
 
   return (
     <>
