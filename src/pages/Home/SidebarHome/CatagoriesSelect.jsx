@@ -18,7 +18,7 @@ const CatagoriesSelect = () => {
         })
       }
     >
-      <option value={null} defaultValue>
+      <option value="" defaultValue>
         Pilih Kategori
       </option>
       <option value="magang">Magang</option>
