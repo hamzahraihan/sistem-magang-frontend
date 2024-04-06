@@ -1,38 +1,23 @@
-import { ClockIcon, LecturerIcon, OfficeBuilding } from '../../../components/Icons';
+import { Link } from 'react-router-dom';
+import { ArrowIcon } from '../../../components/Icons';
+import StatusCard from './StatusCard';
+import useFetchUserByID from '../../../features/user/useFetchUserById';
 
 const SidebarProfile = () => {
+  const { userByID } = useFetchUserByID();
+
+  const { Internships } = userByID;
+  console.log('🚀 ~ SidebarProfile ~ Internships:', Internships);
+
   return (
     <div className="lg:col-span-1 gap-4 col-span-3 flex flex-col top-5 lg:items-start w-full ">
+      <Link to="/" className="flex lg:hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
+        <ArrowIcon />
+      </Link>
       <div className="flex flex-col gap-2 text-base w-full">
-        <div className="flex gap-2 items-center border border-neutral-300 rounded-3xl w-full p-4">
-          <div className="flex justify-center items-center rounded-full bg-lime-300 h-12 w-12">
-            <LecturerIcon />
-          </div>
-          <div className="flex flex-col">
-            <h1 className="lg:text-base text-sm">Angkatan</h1>
-            <p className="text-xs text-neutral-400">2020</p>
-          </div>
-        </div>
-
-        <div className="flex gap-2 items-center border border-neutral-300 rounded-3xl w-full p-4">
-          <div className="flex justify-center items-center rounded-full bg-amber-200 h-12 w-12">
-            <ClockIcon />
-          </div>
-          <div className="flex flex-col">
-            <h1 className="lg:text-base text-sm">Status</h1>
-            <p className="text-xs text-neutral-400">Sedang Magang</p>
-          </div>
-        </div>
-
-        <div className="flex gap-2 items-center border border-neutral-300 rounded-3xl w-full p-4">
-          <div className="flex justify-center items-center rounded-full bg-rose-300 h-12 w-12 flex-shrink-0">
-            <OfficeBuilding />
-          </div>
-          <div className="flex flex-col">
-            <h1 className="lg:text-base text-sm">Perusahaan/Instansi</h1>
-            <p className="text-xs text-neutral-400">Diskominfo</p>
-          </div>
-        </div>
+        <StatusCard type="angkatan" title="Angkatan" status={userByID.angkatan} />
+        <StatusCard type="status" title="Status" status={userByID.status} />
+        <StatusCard type="instance" title="Perusahaan/Instansi" status={Internships[0].instance} />
       </div>
     </div>
   );
