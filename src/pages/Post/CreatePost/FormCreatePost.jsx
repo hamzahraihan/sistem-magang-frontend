@@ -20,9 +20,6 @@ const FormCreatePost = () => {
         onChange={(e) => setPostInputData({ ...postInputData, [e.target.name]: e.target.value })}
       />
 
-      <label htmlFor="desc">Deskripsi Post</label>
-      <ReactQuill theme="snow" id="description" value={postInputData.description} onChange={(content) => setPostInputData({ ...postInputData, description: content })} className="pb-10" />
-
       <label htmlFor="category_name">Kategori</label>
       <select
         id="large"
@@ -40,6 +37,9 @@ const FormCreatePost = () => {
 
       <label htmlFor="file_url">Upload Gambar</label>
       <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none " id="file_url" type="file" ref={imageInputRef} />
+
+      <label htmlFor="desc">Deskripsi Post</label>
+      <ReactQuill theme="snow" id="description" value={postInputData.description} onChange={(content) => setPostInputData({ ...postInputData, description: content })} className="pb-14" />
     </div>
   );
 };
