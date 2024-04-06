@@ -65,7 +65,7 @@ const FormLogin = () => {
         <Link className="text-xs text-teal-500 hover:no-underline underline" to="/register">
           Belum punya akun?
         </Link>
-        <div className="mt-auto">
+        <div className="mt-52">
           <PrimaryButton loading={loading} setloading={setloading} text={'Login'} />
         </div>
       </form>
