@@ -1,0 +1,27 @@
+import { Link } from 'react-router-dom';
+import Avvvatars from 'avvvatars-react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { pickRole } from '../utils/pickRole';
+import { slugify } from '../utils/slugify';
+import { getRoleId } from '../utils/getRoleId';
+
+const ProfileWidget = ({ data }) => {
+  return (
+    <Link to={`/profile/${pickRole(data)?.role}/${_.kebabCase(slugify(data))}`} state={{ userId: getRoleId(data) }} className="flex items-center gap-2 w-fit lg:hidden">
+      <Avvvatars value={pickRole(data)?.first_name + pickRole(data)?.last_name} displayValue={_.capitalize(pickRole(data)?.first_name[0]) + _.capitalize(pickRole(data)?.last_name[0])} size={40} on />
+      <div className="flex flex-col">
+        <p className="text-sm text-gray-600 ">
+          {pickRole(data)?.first_name} {pickRole(data)?.last_name}
+        </p>
+        <p className="text-gray-400">{pickRole(data)?.email}</p>
+      </div>
+    </Link>
+  );
+};
+
+ProfileWidget.propTypes = {
+  data: PropTypes.object,
+};
+
+export default ProfileWidget;
