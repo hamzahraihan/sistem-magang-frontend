@@ -1,6 +1,12 @@
+import { Link } from 'react-router-dom';
 import { Spinner } from '../../../components/Icons';
 import { usePostContext } from '../../../hooks/usePostContext';
 import SidebarCard from './SidebarCard';
+import Avvvatars from 'avvvatars-react';
+import _ from 'lodash';
+import { pickRole } from '../../../utils/pickRole';
+import { slugify } from '../../../utils/slugify';
+import { getRoleId } from '../../../utils/getRoleId';
 
 const SidebarPost = () => {
   const { loadingPost, postById, post } = usePostContext();
@@ -10,18 +16,19 @@ const SidebarPost = () => {
     <div className="lg:flex flex-col top-5 lg:items-start h-[90vh] hidden">
       <div className="flex flex-col items-center w-full gap-5">
         <h1 className="text-xl font-bold text-start w-full">Tentang Author</h1>
-        <div className="h-28 w-28 bg-slate-500 animate-pulse rounded-full"></div>
+        {pickRole(postById[0])?.image ? (
+          <div className="h-28 w-28 bg-slate-500 animate-pulse rounded-full"></div>
+        ) : (
+          <Link to={`/profile/${pickRole(postById[0])?.role}/${_.kebabCase(slugify(postById[0]))}`} state={{ userId: getRoleId(postById[0]) }} className="flex items-center gap-2 w-fit ">
+            <Avvvatars value={pickRole(postById[0])?.first_name + pickRole(postById[0])?.last_name} displayValue={_.capitalize(pickRole(postById[0])?.first_name[0]) + _.capitalize(pickRole(postById[0])?.last_name[0])} size={150} />
+          </Link>
+        )}
+
         <div className="text-center">
           <p className="text-sm font-bold">
-            {postById[0]?.Mahasiswa?.first_name} {postById[0]?.Mahasiswa?.last_name}
-            {postById[0]?.Dosen?.first_name} {postById[0]?.Dosen?.last_name}
-            {postById[0]?.Admin?.first_name} {postById[0]?.Admin?.last_name}
+            {pickRole(postById[0])?.first_name} {pickRole(postById[0])?.last_name}
           </p>
-          <p className="text-xs text-neutral-500 pb-2">
-            {postById[0]?.Mahasiswa?.email}
-            {postById[0]?.Dosen?.email}
-            {postById[0]?.Admin?.email}
-          </p>
+          <p className="text-xs text-neutral-500 pb-2">{pickRole(postById[0])?.email}</p>
         </div>
         <div className="flex flex-col gap-3 pb-10 w-full">
           <p className="text-lg font-bold">Post Lainnya</p>
