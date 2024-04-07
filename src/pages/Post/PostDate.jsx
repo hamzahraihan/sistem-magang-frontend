@@ -6,11 +6,11 @@ const PostDate = () => {
 
   return (
     <div className="flex gap-2">
-      <p className="flex gap-1 items-center text-neutral-700 text-sm">
+      <p className="flex gap-1 items-center text-gray-500 text-sm">
         <ClockIcon />
         {formatDate(dateDummy)}
       </p>
-      <p className="flex gap-1 items-center text-neutral-700 text-sm">
+      <p className="flex gap-1 items-center text-gray-500 text-sm">
         <TagIcon />
         Magang
       </p>
