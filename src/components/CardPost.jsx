@@ -4,6 +4,9 @@ import { formatDate } from '../utils/formatDate';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import DOMPurify from 'dompurify';
+import { pickRole } from '../utils/pickRole';
+import { slugify } from '../utils/slugify';
+import { getRoleId } from '../utils/getRoleId';
 
 const CardPost = (props) => {
   const { post } = props;
@@ -37,11 +40,9 @@ const CardPost = (props) => {
         <p className="text-base font-bold">{post?.title}</p>
         <p className="line-clamp-3" dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
 
-        <p className="text-neutral-400 underline">
-          {post?.Mahasiswa?.first_name}
-          {post?.Dosen?.first_name}
-          {post?.Admin?.first_name}
-        </p>
+        <Link to={`/profile/${pickRole(post)?.role}/${_.kebabCase(slugify(post))}`} state={{ userId: getRoleId(post) }} className="text-neutral-400 underline">
+          {pickRole(post)?.first_name}
+        </Link>
       </div>
     </Link>
   );
