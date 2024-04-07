@@ -4,6 +4,7 @@ import Description from './Description';
 import CommentSection from './CommentSection';
 import SidebarPost from './SidebarPost';
 import { usePostContext } from '../../hooks/usePostContext';
+import ProfileWidget from '../../components/ProfileWidget';
 
 const DetailPost = () => {
   const { loadingPostByID, postById } = usePostContext();
@@ -20,11 +21,13 @@ const DetailPost = () => {
           ) : (
             postById[0]?.image && (
               <a href={`https://drive.google.com/uc?export=preview&id=${postById[0]?.image}`} target="_blank">
-                {/* <img className="rounded-[32px] bg-cover bg-center bg-no-repeat w-full" src={`https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000`} alt="post-background" /> */}
-                <iframe className="w-full h-96" src={`https://drive.google.com/file/d/${postById[0]?.image}/preview`} title="image"></iframe>
+                <img className="rounded-[32px] bg-cover bg-center bg-no-repeat w-full" src={`https://drive.google.com/thumbnail?id=${postById[0]?.image}&sz=w1000`} alt="post-background" />
+                {/* <iframe className="w-full h-96" src={`https://drive.google.com/file/d/${postById[0]?.image}/preview`} title="image"></iframe> */}
               </a>
             )
           )}
+
+          <ProfileWidget data={postById[0]} />
           <Description />
           <CommentSection />
         </div>
