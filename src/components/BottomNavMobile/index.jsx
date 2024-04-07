@@ -3,6 +3,7 @@ import HomeIcon, { DocumentIcon, OfficeBrifcase, UploadIcon, UserIcon } from '..
 import { useUserContext } from '../../hooks/useUserContext';
 import _ from 'lodash';
 import { useState } from 'react';
+import Avvvatars from 'avvvatars-react';
 
 const BottomNavMobile = () => {
   const [openProfile, setOpenProfile] = useState(false);
@@ -23,7 +24,7 @@ const BottomNavMobile = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 bg-white h-20 w-full m-auto lg:hidden md:hidden sm:hidden">
+    <div className="fixed bottom-0 left-0 bg-white h-16 w-full m-auto lg:hidden md:hidden sm:hidden">
       <div className="grid grid-cols-5 h-full place-items-center">
         <NavLink to="/" className={({ isActive }) => (isActive ? 'bg-primaryColor hover:bg-hoverColor duration-150 ease-out text-white rounded-full p-4' : 'bg-white')}>
           <HomeIcon />
@@ -35,7 +36,17 @@ const BottomNavMobile = () => {
 
         {userLoggedInData ? (
           <div className="relative">
-            <button type="button" className="rounded-full bg-slate-400 animate-pulse h-10 w-10" onClick={handleOpenMenu}></button>
+            {userLoggedInData?.image ? (
+              <button type="button" className="rounded-full bg-slate-400 animate-pulse h-10 w-10" onClick={handleOpenMenu}></button>
+            ) : (
+              <>
+                {userLoggedInData?.first_name && userLoggedInData?.last_name && (
+                  <button type="button" onClick={handleOpenMenu}>
+                    <Avvvatars value={userLoggedInData.first_name + userLoggedInData.last_name} displayValue={_.capitalize(userLoggedInData.first_name[0]) + _.capitalize(userLoggedInData.last_name[0])} size={40} on />
+                  </button>
+                )}
+              </>
+            )}
             {openProfile && (
               <div className="absolute bottom-16 -right-[89px] border shadow-lg rounded-xl text-sm">
                 <div className="flex flex-col-reverse p-2 bg-white rounded-xl">
