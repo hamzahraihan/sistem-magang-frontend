@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
 import _ from 'lodash';
+import Avvvatars from 'avvvatars-react';
 
 const ProfileButton = () => {
   const { userLoggedInData } = useUserContext();
@@ -18,7 +19,17 @@ const ProfileButton = () => {
       state={{ userId: userLoggedInData?.id }}
       className="flex flex-row lg:gap-5  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit"
     >
-      <div className="rounded-full bg-slate-400 animate-pulse  h-10 w-10 flex-shrink-0"></div>
+      {userLoggedInData?.image ? (
+        <div className="rounded-full bg-slate-400 animate-pulse  h-10 w-10 flex-shrink-0"></div>
+      ) : (
+        <>
+          {userLoggedInData?.first_name && userLoggedInData?.last_name && (
+            <>
+              <Avvvatars value={userLoggedInData.first_name + userLoggedInData.last_name} displayValue={_.capitalize(userLoggedInData.first_name[0]) + _.capitalize(userLoggedInData.last_name[0])} size={40} />
+            </>
+          )}
+        </>
+      )}
       <div className="flex-col lg:flex md:hidden sm:hidden hidden">
         <p className="font-bold text-md">
           {userLoggedInData ? userLoggedInData?.first_name : 'Silahkan login'} {userLoggedInData ? userLoggedInData?.last_name : ''}
