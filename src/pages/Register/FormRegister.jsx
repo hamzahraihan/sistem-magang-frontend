@@ -61,13 +61,13 @@ const FormRegister = () => {
       <form className="flex flex-col gap-3 w-full h-full" onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex flex-col">
-            <label htmlFor="first_name">Nama Awal</label>
-            <input name="first_name" id="first_name" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Nama awal..." onChange={handleInputForm} required />
+            <label htmlFor="first_name">Nama Depan</label>
+            <input name="first_name" id="first_name" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Nama depan..." onChange={handleInputForm} required />
             <p className="text-xs text-red-800">{formik.errors.first_name}</p>
           </div>
           <div className="flex flex-col">
-            <label htmlFor="last_name">Nama Akhir</label>
-            <input name="last_name" id="last_name" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Nama akhir..." onChange={handleInputForm} required />
+            <label htmlFor="last_name">Nama Belakang</label>
+            <input name="last_name" id="last_name" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Nama belakang..." onChange={handleInputForm} required />
             <p className="text-xs text-red-800">{formik.errors.last_name}</p>
           </div>
         </div>
