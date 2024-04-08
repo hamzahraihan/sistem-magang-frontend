@@ -26,6 +26,7 @@ const useFetchLogbook = () => {
           toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
         }
         console.error(error);
+        setLoading(false);
       }
     };
     getInternshipLogbook();
