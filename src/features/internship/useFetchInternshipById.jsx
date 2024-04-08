@@ -8,12 +8,12 @@ const useFetchInternshipById = () => {
   const [internshipByID, setInternshipByID] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const { id } = useParams();
+  const { internship_id } = useParams();
   const { state } = useLocation();
 
   const internID = useMemo(() => {
-    return state ? state.internshipID : id;
-  }, [state, id]);
+    return state ? state.internshipID : internship_id;
+  }, [state, internship_id]);
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN);
