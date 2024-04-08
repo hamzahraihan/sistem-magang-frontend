@@ -14,7 +14,6 @@ const DetailReport = () => {
   const [modalType, setModalType] = useState('');
 
   const { reportDetail, loading } = useFetchReportById();
-  console.log('🚀 ~ DetailReport ~ reportDetail:', reportDetail);
   const sanitizeContent = DOMPurify.sanitize(reportDetail.note);
 
   let color;
