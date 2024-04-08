@@ -30,6 +30,7 @@ const useFetchWeeklyActivity = () => {
         } else {
           console.error(error);
         }
+        setLoading(false);
       }
     };
     getWeeklyActivityById();
