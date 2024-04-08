@@ -24,8 +24,8 @@ function App() {
                     <ReportInternProvider>
                       <SidebarL />
                       <Outlet />
-                      <BottomNavMobile />
                       <Toaster position="top-center" />
+                      <BottomNavMobile />
                     </ReportInternProvider>
                   </InternshipProvider>
                 </LogbookWeeklyActivityProvider>
