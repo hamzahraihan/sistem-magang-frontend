@@ -13,7 +13,7 @@ const InternshipActivity = () => {
         <Link to="/" className="lg:flex hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
           <ArrowIcon />
         </Link>
-        {internship.length === 0 ? <InternshipNotFound /> : <InternshipList />}
+        {internship.length == 0 ? <InternshipNotFound /> : <InternshipList />}
       </div>
       <SidebarInternship />
     </div>
