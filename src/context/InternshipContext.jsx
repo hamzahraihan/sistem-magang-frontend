@@ -91,6 +91,7 @@ export const InternshipProvider = ({ children }) => {
             {
               headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -103,12 +104,14 @@ export const InternshipProvider = ({ children }) => {
               {
                 logbook_id: LogbookData.result.logbook_id,
                 isComplete: false,
+                mahasiswa_id: userLoggedInData?.id,
                 log_description: '',
                 date_intern: day,
               },
               {
                 headers: {
                   'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
                 },
               }
             );
