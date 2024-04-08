@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getDailyLogAPI } from '../../constant/api';
 import { useLogbookDailyContext, useLogbookDailyDispatch } from '../../hooks/useLogbookDailyContext';
 import { TOKEN } from '../../constant/key';
+import toast from 'react-hot-toast';
 
 const useFetchDailyLogbook = () => {
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,11 @@ const useFetchDailyLogbook = () => {
         setLoading(false);
         dispatch({ type: 'SET_DAILYLOG', payload: data });
       } catch (error) {
+        if (error.response.status === 403) {
+          toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
+        }
         console.error(error);
+        setLoading(false);
       }
     };
     getDailyLog();
