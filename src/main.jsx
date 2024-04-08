@@ -52,7 +52,7 @@ const router = createBrowserRouter([
             element: <CreateInternship />,
           },
           {
-            path: '/kegiatan-magang/detail/:id',
+            path: '/kegiatan-magang/detail/:internship_id',
             element: <DetailInternship />,
           },
         ],
@@ -81,6 +81,7 @@ const router = createBrowserRouter([
         path: '/profile/:roleUrl/:slug',
         element: <Profile />,
       },
+      { path: '/profile/:roleUrl/:slug/edit' },
     ],
   },
   {
