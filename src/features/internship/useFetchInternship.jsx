@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInternshipContext';
 import { getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
-import toast from 'react-hot-toast';
 import { TOKEN } from '../../constant/key';
 
 const useFetchInternship = () => {
@@ -22,9 +21,6 @@ const useFetchInternship = () => {
         setLoading(false);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
-        if (error.response.status == 403) {
-          toast.error('Kamu belum login');
-        }
         console.error(error);
         setLoading(false);
       }
