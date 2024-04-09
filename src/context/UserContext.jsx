@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 import toast from 'react-hot-toast';
@@ -22,6 +22,13 @@ export const UserProvider = ({ children }) => {
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
+
+  const { state } = useLocation();
+
+  const userRoleId = useMemo(() => {
+    return state ? state.userId : null;
+  }, [state]);
+  console.log('🚀 ~ userRoleId ~ userRoleId:', userRoleId);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
@@ -139,9 +146,7 @@ export const UserProvider = ({ children }) => {
       setLoadingRegister(false);
       navigate('/login');
     } catch (error) {
-      if (error.response.status === 409) {
-        alert('Email sudah diregistrasi');
-      }
+      console.error(error);
       setLoadingRegister(false);
     }
   };
