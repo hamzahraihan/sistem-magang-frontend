@@ -3,7 +3,7 @@ import { DocumentIcon, HomeIcon, OfficeBrifcase, UploadIcon } from '../Icons';
 
 const NavigationButton = () => {
   return (
-    <nav className="flex flex-col p-7 gap-4 border border-neutral-200 rounded-[48px] lg:w-full w-fit">
+    <nav className="flex flex-col p-7 gap-4 border border-neutral-200 rounded-[48px] lg:w-full w-fit bg-white">
       <NavLink
         to="/"
         className={({ isActive }) =>
