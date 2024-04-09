@@ -16,7 +16,7 @@ const ReportCard = () => {
           <Link
             to={`/report/detail/${report.report_id}`}
             key={report.report_id}
-            className="group flex flex-col gap-2 border border-gray-300 p-3 rounded-xl w-full hover:bg-primaryColor active:bg-activeColor  hover:border-white duration-150 "
+            className="group flex flex-col gap-2 border border-gray-300 p-3 rounded-xl w-full hover:bg-primaryColor active:bg-activeColor  hover:border-white duration-150 bg-white"
           >
             <p className="text-sm font-bold group-hover:text-white">{report?.title}</p>
             <div className="flex gap-2 items-center">
