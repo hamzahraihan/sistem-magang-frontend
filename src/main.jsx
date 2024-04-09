@@ -20,6 +20,7 @@ import DetailInternship from './pages/Internship/DetailInternship/index.jsx';
 import ReportForm from './pages/Report/Upload/index.jsx';
 import Report from './pages/Report/index.jsx';
 import DetailReport from './pages/Report/Detail/index.jsx';
+import UpdateProfile from './pages/Profile/Update/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -81,7 +82,10 @@ const router = createBrowserRouter([
         path: '/profile/:roleUrl/:slug',
         element: <Profile />,
       },
-      { path: '/profile/:roleUrl/:slug/edit' },
+      {
+        path: '/profile/:roleUrl/:slug/edit',
+        element: <UpdateProfile />,
+      },
     ],
   },
   {
