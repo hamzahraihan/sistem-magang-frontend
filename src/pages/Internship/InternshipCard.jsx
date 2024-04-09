@@ -16,7 +16,7 @@ const InternshipCard = () => {
           <Link
             to={`/kegiatan-magang/detail/${item.internship_id}`}
             state={{ internshipID: item.internship_id }}
-            className="flex border items-center border-gray-200 rounded-xl p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white hover:border-white transition-all"
+            className="flex border items-center border-gray-200 rounded-xl p-4 hover:bg-primaryColor active:bg-activeColor hover:text-white hover:border-white transition-all bg-white"
             key={item.internship_id}
           >
             <div className="flex flex-1 flex-col">
