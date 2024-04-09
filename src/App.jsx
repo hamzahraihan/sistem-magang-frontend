@@ -13,7 +13,7 @@ import BottomNavMobile from './components/BottomNavMobile/index.jsx';
 
 function App() {
   return (
-    <div className="grid text-xs lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-4 lg:gap-5 md:gap-2 sm:gap-2 gap-2 pt-5 px-3 lg:px-12 md:px-2 sm:px-2 relative lg:mb-0 md:mb-0 sm:mb-0 mb-14">
+    <div className="grid text-xs lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-4 lg:gap-5 md:gap-2 sm:gap-2 gap-2 pt-5 px-3 lg:px-12 md:px-2 sm:px-2 relative lg:mb-0 md:mb-0 sm:mb-0 mb-14 bg-gray-50">
       <UserProvider>
         <PostProvider>
           <LogbookProvider>
