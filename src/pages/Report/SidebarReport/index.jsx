@@ -5,7 +5,7 @@ import { ArrowIcon } from '../../../components/Icons';
 const SidebarReport = () => {
   return (
     <div className="lg:col-span-1 gap-4 col-span-3 flex flex-col top-5 lg:items-start  ">
-      <Link to="/" className="flex lg:hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
+      <Link to="/" className="flex lg:hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
         <ArrowIcon />
       </Link>
       <div className="flex flex-col gap-2">
