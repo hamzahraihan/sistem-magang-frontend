@@ -35,7 +35,7 @@ const DetailReport = () => {
     <div className="col-span-3 pb-10">
       <div className="grid grid-cols-3 gap-5">
         <div className="lg:order-first flex flex-col gap-4 lg:col-span-2 col-span-3 order-last">
-          <Link to="/report" className="lg:flex hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all">
+          <Link to="/report" className="lg:flex hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
             <ArrowIcon />
           </Link>
           {loading ? (
@@ -56,15 +56,15 @@ const DetailReport = () => {
                   <p dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Button color={null} className="border border-gray-400 hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_complete_file')}>
+                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_complete_file')}>
                     Surat selesai magang
                   </Button>
 
-                  <Button color={null} className="border border-gray-400 hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_final_report')}>
+                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_final_report')}>
                     Laporan akhir magang
                   </Button>
 
-                  <Button color={null} className="border border-gray-400 hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_score_file')}>
+                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_score_file')}>
                     Penilaian dari perusahaan
                   </Button>
                 </div>
