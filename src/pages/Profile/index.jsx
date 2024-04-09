@@ -10,12 +10,33 @@ import SidebarProfile from './SidebarProfile';
 import Avvvatars from 'avvvatars-react';
 import { useUserContext } from '../../hooks/useUserContext';
 import StatusCard from './SidebarProfile/StatusCard';
+import BlogSVG from '../../assets/svg/searchpost.svg';
 
 const Profile = () => {
   const { loading, userByID } = useFetchUserByID();
+  console.log('🚀 ~ Profile ~ userByID:', userByID);
   const { userLoggedInData } = useUserContext();
 
   const { loadingPostByUser, postByUser } = usePostContext();
+
+  const handleUserId = () => {
+    switch (userByID.role) {
+      case 'mahasiswa':
+        return userByID.mahasiswa_id;
+      case 'dosen':
+        return userByID.dosen_id;
+      case 'admin':
+        return userByID.admin_id;
+    }
+  };
+
+  console.log(handleUserId());
+
+  const slugify = () => {
+    const full_name = `${userByID?.first_name} ${userByID?.last_name}`;
+    const slug_name = _.kebabCase(full_name);
+    return slug_name;
+  };
 
   return (
     <div className="col-span-3 pb-10">
@@ -38,7 +59,11 @@ const Profile = () => {
                       <div className="relative">
                         <Avvvatars value={userByID.first_name + userByID.last_name} displayValue={_.capitalize(userByID.first_name[0]) + _.capitalize(userByID.last_name[0])} size={200} />
                         {userLoggedInData.id == userByID.mahasiswa_id && (
-                          <Link to="/" className="absolute top-1 right-0 flex items-center rounded-full bg-white p-3 hover:bg-gray-300 active:bg-gray-200 duration-150">
+                          <Link
+                            to={`/profile/${userByID.role}/${slugify()}/edit`}
+                            state={{ userId: handleUserId() }}
+                            className="absolute top-1 right-0 flex items-center rounded-full bg-white p-3 hover:bg-gray-300 active:bg-gray-200 duration-150"
+                          >
                             <EditIcon />
                           </Link>
                         )}
@@ -66,7 +91,13 @@ const Profile = () => {
             </>
           )}
           <p className="text-xl font-bold">Post Terbaru</p>
-          {loadingPostByUser ? <CardPostPlaceholder /> : postByUser.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((item) => <CardPost key={item.post_id} post={item} />)}
+          {postByUser.length === 0 ? (
+            <img className="m-auto h-60" src={BlogSVG} alt="notfound" />
+          ) : loadingPostByUser ? (
+            <CardPostPlaceholder />
+          ) : (
+            postByUser.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).map((item) => <CardPost key={item.post_id} post={item} />)
+          )}
         </div>
         <SidebarProfile />
       </div>
