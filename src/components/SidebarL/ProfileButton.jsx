@@ -17,7 +17,7 @@ const ProfileButton = () => {
     <Link
       to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'}
       state={{ userId: userLoggedInData?.id }}
-      className="flex flex-row lg:gap-5  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit"
+      className="flex flex-row lg:gap-5  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit bg-white"
     >
       {userLoggedInData?.image ? (
         <div className="rounded-full bg-slate-400 animate-pulse  h-10 w-10 flex-shrink-0"></div>
