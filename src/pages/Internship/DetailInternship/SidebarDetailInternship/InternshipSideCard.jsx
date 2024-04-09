@@ -18,7 +18,7 @@ const InternshipSideCard = () => {
           to={`/kegiatan-magang/detail/${item.internship_id}`}
           state={{ internshipID: item.internship_id }}
           key={item.internship_id}
-          className="flex flex-col gap-2 border border-neutral-200 rounded-[32px] h-full w-full"
+          className="flex flex-col gap-2 border border-neutral-200 rounded-[32px] h-full w-full bg-white"
           onClick={window.scrollTo(0, 0)}
         >
           <div className="h-28 bg-no-repeat bg-cover bg-center rounded-se-[32px] rounded-ss-[32px]" style={imageBackground}></div>
