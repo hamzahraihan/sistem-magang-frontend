@@ -13,7 +13,7 @@ const LoginMenu = () => {
     }
   }, [navigate, user]);
   return (
-    <div className="lg:flex flex-col gap-10 justify-center items-center border border-gray-300 h-full p-10 rounded-[64px] hidden">
+    <div className="lg:flex flex-col gap-10 justify-center items-center border border-gray-300 h-full p-10 rounded-[64px] hidden bg-white">
       <img className="w-80" src={InternshipLp} alt="" />
       <div className="flex flex-col gap-2 text-center w-72 text-xs">
         <p className="font-bold text-base">Magang Mandiri</p>
