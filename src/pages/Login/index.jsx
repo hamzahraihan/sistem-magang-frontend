@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 const index = () => {
   return (
-    <div className="flex justify-center items-center p-10">
+    <div className="flex justify-center items-center p-10 bg-gray-50">
       <div className="grid lg:grid-cols-2 grid-cols-1 h-fit gap-10 w-[1000px]">
         <UserProvider>
           <LoginMenu />
