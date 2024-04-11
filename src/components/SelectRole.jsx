@@ -20,7 +20,7 @@ const SelectRole = (props) => {
   const { handleRole } = useUserContext();
 
   return (
-    <Link to={`/login/${props.role}`} className="group flex flex-col gap-2 items-center border border-gray-300 rounded-[32px] hover:bg-primaryColor transition-all p-4 w-full cursor-pointer " onClick={() => handleRole(props.role)}>
+    <Link to={`/login/${props.role}`} className="group flex flex-col gap-2 items-center border border-gray-300 rounded-[32px] hover:bg-primaryColor transition-all p-4 w-full cursor-pointer bg-white" onClick={() => handleRole(props.role)}>
       <div className="rounded-[20px] p-4 bg-primaryColor text-white">{roleIcon}</div>
       <div className="flex flex-col gap-2 w-72 text-center group-hover:text-gray-600">
         <p className="font-bold group-hover:text-white">{props.role}</p>
