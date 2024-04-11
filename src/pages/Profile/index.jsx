@@ -58,7 +58,7 @@ const Profile = () => {
                     {userByID?.first_name && userByID?.last_name && (
                       <div className="relative">
                         <Avvvatars value={userByID.first_name + userByID.last_name} displayValue={_.capitalize(userByID.first_name[0]) + _.capitalize(userByID.last_name[0])} size={200} />
-                        {userLoggedInData.id == userByID.mahasiswa_id && (
+                        {userLoggedInData && userLoggedInData?.id == userByID.mahasiswa_id && (
                           <Link
                             to={`/profile/${userByID.role}/${slugify()}/edit`}
                             state={{ userId: handleUserId() }}
