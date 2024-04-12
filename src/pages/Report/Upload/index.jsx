@@ -20,7 +20,7 @@ const ReportForm = () => {
   }
   const allowedExt = getAllowedExt();
 
-  const MAX_FILE_SIZE = 1024000; //max 10 mb file size
+  const MAX_FILE_SIZE = 10485760; //max 10 mb file size
 
   const formik = useFormik({
     initialValues: {
