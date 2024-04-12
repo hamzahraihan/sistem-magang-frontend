@@ -8,11 +8,23 @@ import { useEffect, useState } from 'react';
 import FormUpdatePassword from './FormUpdatePassword';
 import PrimaryButton from '../../../components/PrimaryButton';
 import useFetchUserByID from '../../../features/user/useFetchUserById';
+import { useUserContext } from '../../../hooks/useUserContext';
 
 const UpdateProfile = () => {
   const [tab, setTab] = useState('profile');
   const { userByID } = useFetchUserByID();
-  console.log('🚀 ~ UpdateProfile ~ userByID:', userByID);
+  const { handleUpdateProfile } = useUserContext();
+
+  const validFileExt = { files: ['png', 'jpg', 'jpeg'] };
+  const isValidFileType = (fileName) => {
+    return fileName && validFileExt['files'].indexOf(fileName.split('.').pop()) > -1;
+  };
+  function getAllowedExt() {
+    return validFileExt['files'].map((e) => `.${e}`).toString();
+  }
+  const allowedExt = getAllowedExt();
+
+  const MAX_FILE_SIZE = 2124000; // maximum file size 2mb
 
   const formik = useFormik({
     initialValues: {
@@ -21,6 +33,7 @@ const UpdateProfile = () => {
       last_name: '',
       email: '',
       nim: '',
+      nidn: '',
       jurusan: '',
       angkatan: '',
       kelas: '',
@@ -29,7 +42,9 @@ const UpdateProfile = () => {
       gender: '',
       phone: '',
     },
-    onSubmit: () => {},
+    onSubmit: (values) => {
+      handleUpdateProfile(values);
+    },
     validationSchema: yup.object().shape({
       dosen_id: yup.number().required('Dosen wajib diisi'),
       first_name: yup.string().required('Nama depan wajib diisi'),
@@ -46,10 +61,14 @@ const UpdateProfile = () => {
           return false;
         }),
       nim: yup.string().required('NIM wajib diisi'),
+      nidn: yup.string(),
       angkatan: yup.string().required('Angkatan wajib diisi'),
       kelas: yup.string().required('Kelas wajib diisi'),
       password: yup.string().required('Password wajib diisi'),
-      image: yup.string(),
+      image: yup
+        .mixed()
+        .test('is-valid-type', `file harus berformat .${allowedExt}`, (value) => isValidFileType(value?.name?.toLowerCase()))
+        .test('is-valid-size', 'Max allowed size is 2 mb', (value) => value?.size <= MAX_FILE_SIZE),
       gender: yup.string(),
       phone: yup.string(),
     }),
@@ -103,7 +122,7 @@ const UpdateProfile = () => {
               </button>
             ))}
           </div>
-          {tab == 'profile' ? <FormUpdateProfile formik={formik} handleInputForm={handleInputForm} /> : <FormUpdatePassword />}
+          {tab == 'profile' ? <FormUpdateProfile formik={formik} handleInputForm={handleInputForm} allowedExt={allowedExt} /> : <FormUpdatePassword />}
 
           {tab == 'profile' && (
             <div className="block lg:hidden">
