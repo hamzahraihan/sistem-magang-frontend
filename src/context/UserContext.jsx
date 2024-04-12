@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { ACCOUNT_KEY, TOKEN } from '../constant/key';
 import toast from 'react-hot-toast';
@@ -22,13 +22,6 @@ export const UserProvider = ({ children }) => {
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
-
-  const { state } = useLocation();
-
-  const userRoleId = useMemo(() => {
-    return state ? state.userId : null;
-  }, [state]);
-  console.log('🚀 ~ userRoleId ~ userRoleId:', userRoleId);
 
   const handleRole = (choosenRole) => {
     setRole({ ...role, roleChoice: choosenRole });
@@ -151,6 +144,48 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const imageInputRef = useRef(null);
+
+  const handleUpdateProfile = async ({ dosen_id, first_name, last_name, email, email_dosen, nim, nidn, jurusan, angkatan, kelas, password, gender, phone }) => {
+    const image = imageInputRef.current.files[0];
+    console.log('🚀 ~ handleUpdateProfile ~ image:', image);
+
+    const formData = new FormData();
+    formData.append('dosen_id', dosen_id);
+    formData.append('first_name', first_name);
+    formData.append('last_name', last_name);
+    formData.append('jurusan', jurusan);
+    formData.append('angkatan', angkatan);
+    formData.append('kelas', kelas);
+    formData.append('password', password);
+    formData.append('image', image);
+    formData.append('gender', gender);
+    formData.append('phone', phone);
+
+    if (userLoggedInData.role == 'mahasiswa') {
+      formData.append('nim', nim);
+      formData.append('email', email);
+    } else if (userLoggedInData.role == 'dosen' || userLoggedInData.role == 'admin') {
+      formData.append('nidn', nidn);
+      formData.append('email', email_dosen);
+    }
+
+    // try {
+    //   await axios
+    //     .put(`${import.meta.env.VITE_BASE_URL}/${roleUrl}/${userLoggedInData.id}`, formData, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     })
+    //     .then((response) => {
+    //       console.log(response);
+    //     });
+    // } catch (error) {
+    //   toast.error(error.message);
+    // }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -166,6 +201,8 @@ export const UserProvider = ({ children }) => {
         handleLogout,
         userLoggedInData,
         accessToken,
+        imageInputRef,
+        handleUpdateProfile,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
