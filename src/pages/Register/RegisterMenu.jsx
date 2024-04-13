@@ -4,13 +4,13 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { useEffect } from 'react';
 
 const RegisterMenu = () => {
-  const { user } = useUserContext();
+  const { user, userLoggedInData } = useUserContext();
   const navigate = useNavigate();
   useEffect(() => {
-    if (user && user.length > 0) {
+    if ((user && user.length > 0) || userLoggedInData) {
       navigate('/');
     }
-  }, [navigate, user]);
+  }, [navigate, user, userLoggedInData]);
   return (
     <div className="lg:flex flex-col gap-10 justify-center items-center border border-gray-300 h-full p-10 rounded-[64px] hidden bg-white">
       <img className="w-80" src={RegisterSVG} alt="register" />
