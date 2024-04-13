@@ -13,7 +13,8 @@ import { useUserContext } from '../../../hooks/useUserContext';
 const UpdateProfile = () => {
   const [tab, setTab] = useState('profile');
   const { userByID } = useFetchUserByID();
-  const { handleUpdateProfile } = useUserContext();
+  const { userLoggedInData } = useUserContext();
+  const { handleUpdateProfile, loadingUpdate } = useUserContext();
 
   const validFileExt = { files: ['png', 'jpg', 'jpeg'] };
   const isValidFileType = (fileName) => {
@@ -24,7 +25,7 @@ const UpdateProfile = () => {
   }
   const allowedExt = getAllowedExt();
 
-  const MAX_FILE_SIZE = 2124000; // maximum file size 2mb
+  const MAX_FILE_SIZE = 1048576; // maximum file size 1mb
 
   const formik = useFormik({
     initialValues: {
@@ -37,7 +38,6 @@ const UpdateProfile = () => {
       jurusan: '',
       angkatan: '',
       kelas: '',
-      password: '',
       image: '',
       gender: '',
       phone: '',
@@ -64,13 +64,22 @@ const UpdateProfile = () => {
       nidn: yup.string(),
       angkatan: yup.string().required('Angkatan wajib diisi'),
       kelas: yup.string().required('Kelas wajib diisi'),
-      password: yup.string().required('Password wajib diisi'),
-      image: yup
-        .mixed()
-        .test('is-valid-type', `file harus berformat .${allowedExt}`, (value) => isValidFileType(value?.name?.toLowerCase()))
-        .test('is-valid-size', 'Max allowed size is 2 mb', (value) => value?.size <= MAX_FILE_SIZE),
+      // image: yup
+      //   .mixed()
+      //   .test('fileType', `File harus berupa gambar dengan format, ${allowedExt}`, (value) => {
+      //     if (value) {
+      //       return isValidFileType(value.name);
+      //     }
+      //     return true;
+      //   })
+      //   .test('fileSize', 'Ukuran file terlalu besar', (value) => {
+      //     if (value) {
+      //       return value.size <= MAX_FILE_SIZE;
+      //     }
+      //     return true;
+      //   }),
       gender: yup.string(),
-      phone: yup.string(),
+      phone: yup.string().required('Kontak wajib diisi'),
     }),
   });
 
@@ -81,10 +90,10 @@ const UpdateProfile = () => {
       last_name: userByID ? userByID.last_name : '',
       email: userByID ? userByID.email : '',
       nim: userByID ? userByID.nim : '',
+      nidn: userByID ? userByID.nidn : '',
       jurusan: userByID ? userByID.jurusan : '',
       angkatan: userByID ? userByID.angkatan : '',
       kelas: userByID ? userByID.kelas : '',
-      password: userByID ? userByID.password : '',
       image: userByID ? userByID.image : '',
       gender: userByID ? userByID.gender : '',
       phone: userByID ? userByID.phone : '',
@@ -126,7 +135,7 @@ const UpdateProfile = () => {
 
           {tab == 'profile' && (
             <div className="block lg:hidden">
-              <PrimaryButton type="submit" text="Ubah profil" />
+              <PrimaryButton type="submit" text="Ubah profil" loading={loadingUpdate} />
             </div>
           )}
           {tab == 'password' && (
