@@ -37,7 +37,13 @@ const BottomNavMobile = () => {
         {userLoggedInData ? (
           <div className="relative">
             {userLoggedInData?.image ? (
-              <button type="button" className="rounded-full bg-slate-400 animate-pulse h-10 w-10" onClick={handleOpenMenu}></button>
+              <button type="button" className="rounded-full" onClick={handleOpenMenu}>
+                <img
+                  src={`https://drive.google.com/thumbnail?id=${userLoggedInData.image || userLoggedInData.image.name}&sz=w600`}
+                  className="border border-neutral-400 rounded-full object-cover object-center h-10 w-10"
+                  alt="profile-pict"
+                />
+              </button>
             ) : (
               <>
                 {userLoggedInData?.first_name && userLoggedInData?.last_name && (
