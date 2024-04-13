@@ -12,13 +12,17 @@ export const UserContext = createContext(null);
 export const UserDispatch = createContext(null);
 
 export const UserProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState({ roleChoice: '' });
   const [user, dispatch] = useReducer(UserReducer, []);
   const [dosenData, setDosenData] = useState([]);
+
+  const [loading, setLoading] = useState(false);
   const [loadingRegister, setLoadingRegister] = useState(false);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
+
   const [userLoggedInData, setUserLoggedInData] = useState(user?.id ? user : undefined);
   const [accessToken, setAccessToken] = useState('');
+  console.log('🚀 ~ UserProvider ~ userLoggedInData:', userLoggedInData);
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
@@ -58,14 +62,14 @@ export const UserProvider = ({ children }) => {
     dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
   };
 
+  // render data after user communicate with handle function
   useEffect(() => {
     const token = localStorage.getItem(TOKEN);
     try {
       if (token) {
-        const decoded = jwtDecode(token);
-        setUserLoggedInData(decoded);
+        const userData = JSON.parse(localStorage.getItem(ACCOUNT_KEY));
+        setUserLoggedInData(userData);
         setAccessToken(token);
-        dispatch({ type: 'SET_USER_DATA', payload: decoded });
       } else {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
       }
@@ -74,6 +78,7 @@ export const UserProvider = ({ children }) => {
     }
   }, [cookies]);
 
+  // handling login feature
   const handleLogin = async ({ email, password }) => {
     setLoading(true);
     try {
@@ -82,6 +87,8 @@ export const UserProvider = ({ children }) => {
         role: role?.roleChoice?.toLowerCase(),
         password,
       });
+      const decoded = jwtDecode(data.result);
+      dispatch({ type: 'SET_USER_DATA', payload: decoded });
       dispatch({ type: 'SET_TOKEN', payload: data.result });
       setLoading(false);
     } catch (error) {
@@ -146,9 +153,10 @@ export const UserProvider = ({ children }) => {
 
   const imageInputRef = useRef(null);
 
-  const handleUpdateProfile = async ({ dosen_id, first_name, last_name, email, email_dosen, nim, nidn, jurusan, angkatan, kelas, password, gender, phone }) => {
-    const image = imageInputRef.current.files[0];
-    console.log('🚀 ~ handleUpdateProfile ~ image:', image);
+  const handleUpdateProfile = async (values) => {
+    const { dosen_id, first_name, last_name, email, nim, nidn, jurusan, angkatan, kelas, gender, image, phone } = values;
+    console.log('🚀 ~ handleUpdateProfile ~ image:', values);
+    const imageRef = imageInputRef.current.files[0];
 
     const formData = new FormData();
     formData.append('dosen_id', dosen_id);
@@ -157,33 +165,56 @@ export const UserProvider = ({ children }) => {
     formData.append('jurusan', jurusan);
     formData.append('angkatan', angkatan);
     formData.append('kelas', kelas);
-    formData.append('password', password);
-    formData.append('image', image);
+    formData.append('image', !image ? imageRef : image);
     formData.append('gender', gender);
     formData.append('phone', phone);
+    formData.append('email', email);
 
     if (userLoggedInData.role == 'mahasiswa') {
       formData.append('nim', nim);
-      formData.append('email', email);
     } else if (userLoggedInData.role == 'dosen' || userLoggedInData.role == 'admin') {
       formData.append('nidn', nidn);
-      formData.append('email', email_dosen);
     }
 
-    // try {
-    //   await axios
-    //     .put(`${import.meta.env.VITE_BASE_URL}/${roleUrl}/${userLoggedInData.id}`, formData, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     })
-    //     .then((response) => {
-    //       console.log(response);
-    //     });
-    // } catch (error) {
-    //   toast.error(error.message);
-    // }
+    setLoadingUpdate(true);
+    try {
+      await axios
+        .put(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${userLoggedInData?.id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            // update user data after user make a change
+            // updateValues object based from values variable
+            const updateValues = {
+              id: userLoggedInData.id,
+              role: userLoggedInData.role,
+              dosen_id,
+              first_name,
+              last_name,
+              email,
+              jurusan,
+              angkatan,
+              kelas,
+              gender,
+              image: response.data.result.image,
+              phone,
+              iat: userLoggedInData.iat,
+            };
+            setUserLoggedInData(updateValues);
+            dispatch({ type: 'SET_USER_DATA', payload: updateValues });
+            console.log(response);
+            toast.success('Profil berhasil diubah');
+            setLoadingUpdate(false);
+          }
+        });
+    } catch (error) {
+      console.error(error);
+      setLoadingUpdate(false);
+    }
   };
 
   return (
@@ -203,6 +234,7 @@ export const UserProvider = ({ children }) => {
         accessToken,
         imageInputRef,
         handleUpdateProfile,
+        loadingUpdate,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
@@ -219,8 +251,6 @@ const UserReducer = (user, action) => {
     case 'SET_TOKEN':
       document.cookie = `token=${action.payload}; expires=${expirationTime}; path=/;`;
       localStorage.setItem(TOKEN, action.payload);
-      return action.payload;
-    case 'SET_USER_INFORMATION':
       return action.payload;
     case 'REMOVE_USER_DATA':
       document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
