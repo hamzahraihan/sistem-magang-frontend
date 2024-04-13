@@ -12,11 +12,14 @@ const useFetchReportByInternship = () => {
   const dispatch = useReportInternDispatch();
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getReportInternship = async () => {
       setLoading(true);
       const token = localStorage.getItem(TOKEN);
       try {
-        const data = await getReportByInternshipIdAPI(internship_id, token);
+        const data = await getReportByInternshipIdAPI(internship_id, token, signal);
+        console.log('🚀 ~ getReportInternship ~ data:', data);
         dispatch({ type: 'SET_REPORT_DATA', payload: data });
         setLoading(false);
       } catch (error) {
@@ -28,6 +31,9 @@ const useFetchReportByInternship = () => {
       }
     };
     getReportInternship();
+    return () => {
+      controller.abort();
+    };
   }, [dispatch, internship_id]);
   return { loading, reportIntern };
 };
