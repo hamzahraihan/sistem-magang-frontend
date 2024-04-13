@@ -70,8 +70,9 @@ export const getWeeklyLogByIdAPI = async (id, token, signal) => {
   return data.result;
 };
 
-export const getReportByInternshipIdAPI = async (id, token) => {
+export const getReportByInternshipIdAPI = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/internship/${id}`, {
+    signal,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
