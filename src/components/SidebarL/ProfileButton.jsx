@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon } from '../Icons';
+import { ArrowIcon, UserIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
 import _ from 'lodash';
 import Avvvatars from 'avvvatars-react';
 
 const ProfileButton = () => {
   const { userLoggedInData } = useUserContext();
+  console.log('🚀 ~ ProfileButton ~ userLoggedInData:', userLoggedInData);
 
   const slugify = () => {
     const full_name = `${userLoggedInData.first_name} ${userLoggedInData.last_name}`;
@@ -19,8 +20,10 @@ const ProfileButton = () => {
       state={{ userId: userLoggedInData?.id }}
       className="flex flex-row lg:gap-5  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit bg-white"
     >
+      {!userLoggedInData && <UserIcon />}
+
       {userLoggedInData?.image ? (
-        <div className="rounded-full bg-slate-400 animate-pulse  h-10 w-10 flex-shrink-0"></div>
+        <img src={`https://drive.google.com/thumbnail?id=${userLoggedInData?.image}&sz=w600`} className="h-10 w-10 flex-shrink-0 rounded-full object-cover object-center" alt="profile-pict" />
       ) : (
         <>
           {userLoggedInData?.first_name && userLoggedInData?.last_name && (
