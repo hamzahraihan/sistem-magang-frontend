@@ -9,3 +9,9 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
   }
 }
+
+/* @layer components {
+  .animate-font {
+    @apply relative before:absolute before:h-1 before:w-0 before:bottom-0 before:left-0 before:bg-gray-400 before:block before:content[''] before:transition-all before:duration-150 before:ease-in-out hover:before:w-full pb-1;
+  }
+} */
