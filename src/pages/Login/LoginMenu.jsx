@@ -4,14 +4,13 @@ import { useUserContext } from '../../hooks/useUserContext';
 import { useNavigate } from 'react-router-dom';
 
 const LoginMenu = () => {
-  const { user } = useUserContext();
-  console.log('🚀 ~ LoginMenu ~ user:', user);
+  const { user, userLoggedInData } = useUserContext();
   const navigate = useNavigate();
   useEffect(() => {
-    if (user && user.length > 0) {
+    if ((user && user.length > 0) || userLoggedInData) {
       navigate('/');
     }
-  }, [navigate, user]);
+  }, [navigate, user, userLoggedInData]);
   return (
     <div className="lg:flex flex-col gap-10 justify-center items-center border border-gray-300 h-full p-10 rounded-[64px] hidden bg-white">
       <img className="w-80" src={InternshipLp} alt="" />
