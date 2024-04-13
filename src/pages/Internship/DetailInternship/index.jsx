@@ -84,7 +84,7 @@ const DetailInternship = () => {
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
             </Link>
-            {reportIntern.length == 0 ? (
+            {reportIntern.length === 0 ? (
               <Link
                 to={`/report/upload/${internshipByID?.internship_id}`}
                 state={{ internshipID: internshipByID.internship_id }}
@@ -94,7 +94,7 @@ const DetailInternship = () => {
                 <ArrowIcon />
               </Link>
             ) : (
-              <Link to={`/report/detail/${reportIntern[0].report_id}`} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all ">
+              <Link to={`/report/detail/${reportIntern[0].report_id}`} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all bg-white">
                 <p className="flex flex-1 font-bold text-base ">Hasil Laporan Akhir</p>
                 <ArrowIcon />
               </Link>
