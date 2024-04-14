@@ -4,6 +4,7 @@ import { getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
 import { TOKEN } from '../../constant/key';
 
+// fetch all internship data by user id
 const useFetchInternship = () => {
   const [loading, setLoading] = useState(false);
   const { userLoggedInData } = useUserContext();
