@@ -1,7 +1,7 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useUserContext } from '../hooks/useUserContext';
 import { getAllPost, getUserPostById, getUserPostByUserId } from '../constant/api';
 import { TOKEN } from '../constant/key';
@@ -22,13 +22,15 @@ export const PostProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
   const [postInputData, setPostInputData] = useState({
     title: '',
-    category_name: '',
+    category_name: 'magang',
     description: '',
   });
   const [postByUser, setPostByUser] = useState([]);
   const [postById, setPostById] = useState([]);
-  const { user } = useUserContext();
+  const { userLoggedInData } = useUserContext();
   const token = localStorage.getItem(TOKEN);
+
+  const navigate = useNavigate();
 
   const imageInputRef = useRef(null);
 
@@ -92,25 +94,28 @@ export const PostProvider = ({ children }) => {
     const image = imageInputRef.current.files[0];
 
     const formData = new FormData();
+    formData.append('author', `${userLoggedInData.first_name} ${userLoggedInData.last_name}`);
+    formData.append('role', userLoggedInData.role);
     formData.append('image', image);
     formData.append('title', postInputData.title);
     formData.append('description', postInputData.description);
     formData.append('category_name', postInputData.category_name);
     // Append user id based on the role condition
-    if (user[0]?.role === 'dosen') {
-      formData.append('dosen_id', user[0].id);
+    if (userLoggedInData?.role === 'dosen') {
+      formData.append('dosen_id', userLoggedInData.id);
       formData.append('mahasiswa_id', null);
       formData.append('admin_id', null);
-    } else if (user[0]?.role === 'mahasiswa') {
+    } else if (userLoggedInData?.role === 'mahasiswa') {
       formData.append('dosen_id', null);
-      formData.append('mahasiswa_id', user[0].id);
+      formData.append('mahasiswa_id', userLoggedInData.id);
       formData.append('admin_id', null);
-    } else if (user[0]?.role === 'admin') {
+    } else if (userLoggedInData?.role === 'admin') {
       formData.append('dosen_id', null);
       formData.append('mahasiswa_id', null);
-      formData.append('admin_id', user[0].id);
+      formData.append('admin_id', userLoggedInData.id);
     }
 
+    setLoadingPost(true);
     try {
       const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/post/create-post`, formData, {
         headers: {
@@ -120,11 +125,14 @@ export const PostProvider = ({ children }) => {
       });
       dispatch({ type: 'ADD_NEW_POST', payload: data.result });
       console.log('image uploaded', data);
+      setLoadingPost(false);
+      navigate('/');
     } catch (error) {
       if (error.response.status == 403) {
         toast.error('Kamu belum login');
       }
       console.error(error);
+      setLoadingPost(false);
     }
   };
 
