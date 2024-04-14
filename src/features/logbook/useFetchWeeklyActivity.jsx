@@ -5,6 +5,7 @@ import { getWeeklyLogByIdAPI } from '../../constant/api';
 import { TOKEN } from '../../constant/key';
 import toast from 'react-hot-toast';
 
+// fetch weekly logbook data by logbook id
 const useFetchWeeklyActivity = () => {
   const [loading, setLoading] = useState(false);
   const { logbook_id } = useParams();
