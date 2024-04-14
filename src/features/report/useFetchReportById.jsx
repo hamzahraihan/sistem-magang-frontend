@@ -5,6 +5,7 @@ import { TOKEN } from '../../constant/key';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+// fetch report data by report_id
 const useFetchReportById = () => {
   const [loading, setLoading] = useState(false);
   const [reportDetail, setReportDetail] = useState({});
