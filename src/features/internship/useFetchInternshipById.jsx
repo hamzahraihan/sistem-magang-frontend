@@ -4,6 +4,7 @@ import { getInternshipByIdAPI } from '../../constant/api';
 import { TOKEN } from '../../constant/key';
 import toast from 'react-hot-toast';
 
+// fetch internship detail data by internship id
 const useFetchInternshipById = () => {
   const [internshipByID, setInternshipByID] = useState([]);
   const [loading, setLoading] = useState(false);
