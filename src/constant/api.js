@@ -15,6 +15,7 @@ export const getUserPostByUserId = async (id) => {
   return data.result;
 };
 
+// get internship by user id
 export const getInternshipByUser = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
     signal,
@@ -26,6 +27,7 @@ export const getInternshipByUser = async (id, token, signal) => {
   return data.result;
 };
 
+// get internship by internship id
 export const getInternshipByIdAPI = async (id, signal, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/${id}`, {
     signal,
@@ -48,6 +50,7 @@ export const getWeeklyLogAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get all log daily by logbook id
 export const getDailyLogAPI = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/daily/${id}`, {
     signal,
@@ -59,6 +62,7 @@ export const getDailyLogAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get weekly logbook data by logbook id
 export const getWeeklyLogByIdAPI = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, {
     signal,
@@ -70,6 +74,7 @@ export const getWeeklyLogByIdAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get report internship detail by internship id
 export const getReportByInternshipIdAPI = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/internship/${id}`, {
     signal,
@@ -81,6 +86,7 @@ export const getReportByInternshipIdAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get all report by mahasiswa id
 export const getReportByMahasiswaAPI = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/mahasiswa/${id}`, {
     headers: {
@@ -91,6 +97,7 @@ export const getReportByMahasiswaAPI = async (id, token) => {
   return data.result;
 };
 
+// get report detail by report id
 export const getReportByIdAPI = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/${id}`, {
     headers: {
