@@ -6,7 +6,6 @@ import Avvvatars from 'avvvatars-react';
 
 const ProfileButton = () => {
   const { userLoggedInData } = useUserContext();
-  console.log('🚀 ~ ProfileButton ~ userLoggedInData:', userLoggedInData);
 
   const slugify = () => {
     const full_name = `${userLoggedInData.first_name} ${userLoggedInData.last_name}`;
