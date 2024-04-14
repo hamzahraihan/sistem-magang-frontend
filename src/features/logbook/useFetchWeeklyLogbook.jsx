@@ -5,6 +5,7 @@ import { useLogbookWeeklyContext, useLogbookWeeklyDispatch } from '../../hooks/u
 import { TOKEN } from '../../constant/key';
 import toast from 'react-hot-toast';
 
+// fetch all log daily by week using internship id
 const useFetchWeeklyLogbook = () => {
   const [loading, setLoading] = useState(false);
   const { internship_id } = useParams();
