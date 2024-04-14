@@ -5,6 +5,7 @@ import { useLogbookDailyContext, useLogbookDailyDispatch } from '../../hooks/use
 import { TOKEN } from '../../constant/key';
 import toast from 'react-hot-toast';
 
+// fetch all log daily by logbook id
 const useFetchDailyLogbook = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useLogbookDailyDispatch();
