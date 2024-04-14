@@ -30,7 +30,7 @@ const Profile = () => {
     }
   };
 
-  console.log(handleUserId());
+  console.log('handle user id:', handleUserId());
 
   const slugify = () => {
     const full_name = `${userByID?.first_name} ${userByID?.last_name}`;
@@ -42,7 +42,7 @@ const Profile = () => {
     <div className="col-span-3 pb-10">
       <div className="grid grid-cols-3 gap-5 ">
         <div className="lg:order-first flex flex-col gap-4 lg:col-span-2 col-span-3 order-last">
-          <Link to="/" className="lg:flex hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
+          <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
             <ArrowIcon />
           </Link>
           {loading ? (
@@ -52,7 +52,7 @@ const Profile = () => {
               <h1 className="text-xl font-bold">Profile</h1>
               <div className="flex flex-col gap-2 justify-center items-center m-auto">
                 <div className="relative">
-                  {userLoggedInData && userLoggedInData?.id == userByID.mahasiswa_id && (
+                  {userLoggedInData && userLoggedInData?.id == handleUserId() && (
                     <Link
                       to={`/profile/${userByID.role}/${slugify()}/edit`}
                       state={{ userId: handleUserId() }}
@@ -62,11 +62,7 @@ const Profile = () => {
                     </Link>
                   )}
                   {userByID?.image ? (
-                    <img
-                      src={userByID ? `https://drive.google.com/thumbnail?id=${userByID.image}&sz=w600` : userLoggedInData.image.name}
-                      className="border border-neutral-400 h-52 w-52 rounded-full object-cover object-center"
-                      alt="profile-pict"
-                    />
+                    <img src={`https://drive.google.com/thumbnail?id=${userByID.image}&sz=w600`} className="border border-neutral-400 h-52 w-52 rounded-full object-cover object-center" alt="profile-pict" />
                   ) : (
                     <>{userByID?.first_name && userByID?.last_name && <Avvvatars value={userByID.first_name + userByID.last_name} displayValue={_.capitalize(userByID.first_name[0]) + _.capitalize(userByID.last_name[0])} size={200} />}</>
                   )}
