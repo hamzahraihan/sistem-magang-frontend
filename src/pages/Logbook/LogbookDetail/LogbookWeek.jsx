@@ -11,7 +11,6 @@ const LogbookWeek = () => {
   const [logId, setLogId] = useState(null);
   const [dateIntern, setDateIntern] = useState(null);
   const { logbookDaily, loading } = useFetchDailyLogbook();
-  console.log('🚀 ~ LogbookWeek ~ logbookDaily:', logbookDaily);
   const { loadingUpdate } = useLogbookDailyContext();
 
   useEffect(() => {
