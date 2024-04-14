@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
 
   const [userLoggedInData, setUserLoggedInData] = useState(user?.id ? user : undefined);
   const [accessToken, setAccessToken] = useState('');
-  console.log('🚀 ~ UserProvider ~ userLoggedInData:', userLoggedInData);
 
   const navigate = useNavigate();
   const { roleUrl } = useParams();
