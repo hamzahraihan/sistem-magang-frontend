@@ -10,28 +10,28 @@ const SidebarCard = (props) => {
     backgroundImage: 'url(https://drive.google.com/thumbnail?id=' + post.image + ')',
   };
   return (
-    <div className="rounded-[32px]">
+    <div className="bg-white rounded-2xl shadow-sm">
       <Link to={`/detail-post/${_.kebabCase(post?.title)}`} state={{ post_id: post?.post_id }}>
-        <div className="bg-no-repeat bg-cover bg-center h-52 rounded-[32px]" style={imageBackground}></div>
-      </Link>
-      <div className="flex flex-col p-3">
-        <div className="flex gap-2">
-          <p className="flex gap-1 items-center text-neutral-700 text-xs">
-            <ClockIcon />
-            {formatDate(post.updatedAt)}
-          </p>
-          <p className="flex gap-1 items-center text-neutral-700 text-xs">
-            <TagIcon />
-            {post.category_name}
+        {post.image && <div className="bg-no-repeat bg-cover bg-center h-52 rounded-2xl" style={imageBackground}></div>}
+        <div className="flex flex-col p-4">
+          <div className="flex gap-2">
+            <p className="flex gap-1 items-center text-neutral-700 text-xs">
+              <ClockIcon />
+              {formatDate(post.updatedAt)}
+            </p>
+            <p className="flex gap-1 items-center text-neutral-700 text-xs">
+              <TagIcon />
+              {post.category_name}
+            </p>
+          </div>
+          <p className="text-sm font-bold line-clamp-2">{post.title}</p>
+          <p className="text-neutral-400 underline">
+            {post?.Mahasiswa?.first_name}
+            {post?.Dosen?.first_name}
+            {post?.Admin?.first_name}
           </p>
         </div>
-        <p className="text-sm font-bold line-clamp-2">{post.title}</p>
-        <p className="text-neutral-400 underline">
-          {post?.Mahasiswa?.first_name}
-          {post?.Dosen?.first_name}
-          {post?.Admin?.first_name}
-        </p>
-      </div>
+      </Link>
     </div>
   );
 };
