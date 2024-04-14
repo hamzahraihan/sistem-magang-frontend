@@ -17,7 +17,6 @@ const DetailInternship = () => {
 
   const { loading, internshipByID } = useFetchInternshipById();
   const { reportIntern } = useFetchReportByInternship();
-  console.log('🚀 ~ DetailInternship ~ reportIntern:', reportIntern);
   const { userLoggedInData } = useUserContext();
 
   const handleOpenModal = (type) => {
