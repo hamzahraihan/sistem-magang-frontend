@@ -5,6 +5,7 @@ import { TOKEN } from '../../constant/key';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+// fetch report data by internship id
 const useFetchReportByInternship = () => {
   const [loading, setLoading] = useState(false);
   const { reportIntern } = useReportInternContext();
@@ -19,7 +20,6 @@ const useFetchReportByInternship = () => {
       const token = localStorage.getItem(TOKEN);
       try {
         const data = await getReportByInternshipIdAPI(internship_id, token, signal);
-        console.log('🚀 ~ getReportInternship ~ data:', data);
         dispatch({ type: 'SET_REPORT_DATA', payload: data });
         setLoading(false);
       } catch (error) {
