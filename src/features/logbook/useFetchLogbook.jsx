@@ -5,6 +5,7 @@ import { useLogbookContext, useLogbookDispatch } from '../../hooks/useLogbookCon
 import toast from 'react-hot-toast';
 import { TOKEN } from '../../constant/key';
 
+// get all logbook by internship id
 const useFetchLogbook = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useLogbookDispatch();
