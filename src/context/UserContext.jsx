@@ -150,11 +150,46 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  const imageInputRef = useRef(null);
+  const handleUpdatePassword = async (values) => {
+    setLoadingUpdate(true);
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_BASE_URL}/users/password/${userLoggedInData?.id}`,
+          {
+            password: values.password,
+            old_password: values.old_password,
+            role: userLoggedInData.role,
+            email: userLoggedInData.email,
+          },
+          {
+            headers: {
+              'Content-Type': `application/json`,
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          setLoadingUpdate(false);
+          if (response.status == 201) {
+            toast.success('Password berhasil diubah');
+          }
+        });
+    } catch (error) {
+      if (error.response.status == 401) {
+        toast.error('Password salah');
+      }
+      console.error(error);
+      setLoadingUpdate(false);
+    }
+  };
 
+  const imageInputRef = useRef(null);
   const handleUpdateProfile = async (values) => {
-    const { dosen_id, first_name, last_name, email, nim, nidn, jurusan, angkatan, kelas, gender, image, phone } = values;
+    const { dosen_id, first_name, last_name, email, nim, nidn, jurusan, old_password, angkatan, kelas, gender, image, phone } = values;
     console.log('🚀 ~ handleUpdateProfile ~ image:', values);
+
     const imageRef = imageInputRef.current.files[0];
 
     const formData = new FormData();
@@ -162,12 +197,23 @@ export const UserProvider = ({ children }) => {
     formData.append('first_name', first_name);
     formData.append('last_name', last_name);
     formData.append('jurusan', jurusan);
+    formData.append('old_password', old_password);
     formData.append('angkatan', angkatan);
     formData.append('kelas', kelas);
-    formData.append('image', !image ? imageRef : image);
     formData.append('gender', gender);
     formData.append('phone', phone);
     formData.append('email', email);
+
+    // Check if image is defined and not null or empty string
+    if (typeof image !== 'undefined' && image !== null && image !== '') {
+      formData.append('image', image);
+    } else if (typeof imageRef !== 'undefined' && imageRef !== null && imageRef !== '') {
+      formData.append('image', imageRef);
+    } else {
+      formData.append('image', ''); // Default value if both image and imageRef are not set
+    }
+
+    console.log(formData.get('image'));
 
     if (userLoggedInData.role == 'mahasiswa') {
       formData.append('nim', nim);
@@ -223,16 +269,17 @@ export const UserProvider = ({ children }) => {
         role,
         handleRole,
         handleLogin,
-        loading,
-        loadingRegister,
-        setLoading,
         dosenData,
         handleRegisterAccount,
         handleLogout,
         userLoggedInData,
         accessToken,
         imageInputRef,
+        handleUpdatePassword,
         handleUpdateProfile,
+        setLoading,
+        loading,
+        loadingRegister,
         loadingUpdate,
       }}
     >
