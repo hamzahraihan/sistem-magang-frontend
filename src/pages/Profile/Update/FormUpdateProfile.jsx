@@ -1,12 +1,13 @@
 import { EmailIcon } from '../../../components/Icons';
+import PrimaryButton from '../../../components/PrimaryButton';
 import { useUserContext } from '../../../hooks/useUserContext';
 import PropTypes from 'prop-types';
 
-const FormUpdateProfile = ({ formik, handleInputForm, allowedExt }) => {
-  const { dosenData, imageInputRef } = useUserContext();
+const FormUpdateProfile = ({ user, formik, handleInputForm, allowedExt }) => {
+  const { dosenData, imageInputRef, loadingUpdate } = useUserContext();
 
   return (
-    <div className="flex flex-col w-full gap-2">
+    <form className="flex flex-col w-full gap-2" onSubmit={formik.handleSubmit}>
       <div className="grid grid-cols-2 gap-2 p-0">
         <div className="flex flex-col gap-2">
           <label htmlFor="first_name">Nama Depan</label>
@@ -20,6 +21,20 @@ const FormUpdateProfile = ({ formik, handleInputForm, allowedExt }) => {
         </div>
       </div>
 
+      {user.role == 'mahasiswa' ? (
+        <>
+          <label htmlFor="nim">NIM</label>
+          <input name="nim" id="nim" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="nim" value={formik.values.nim} onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.nim}</p>
+        </>
+      ) : (
+        <>
+          <label htmlFor="nidn">NIDN</label>
+          <input name="nidn" id="nidn" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="nidn" value={formik.values.nidn} onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.nidn}</p>
+        </>
+      )}
+
       <h1>Jenis Kelamin</h1>
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
@@ -32,23 +47,29 @@ const FormUpdateProfile = ({ formik, handleInputForm, allowedExt }) => {
         </div>
       </div>
 
-      <label htmlFor="kelas">Kelas</label>
-      <input name="kelas" id="kelas" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 5B, 6A..." value={formik.values.kelas} onChange={handleInputForm} required />
-      <p className="text-xs text-red-800">{formik.errors.kelas}</p>
+      {user.role == 'mahasiswa' && (
+        <>
+          <label className="mt-2" htmlFor="kelas">
+            Kelas
+          </label>
+          <input name="kelas" id="kelas" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 5B, 6A..." value={formik.values.kelas} onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.kelas}</p>
 
-      <label htmlFor="angkatan">Angkatan</label>
-      <input name="angkatan" id="angkatan" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 2020, 2021.." value={formik.values.angkatan} onChange={handleInputForm} required />
-      <p className="text-xs text-red-800">{formik.errors.angkatan}</p>
+          <label htmlFor="angkatan">Angkatan</label>
+          <input name="angkatan" id="angkatan" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 2020, 2021.." value={formik.values.angkatan} onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.angkatan}</p>
 
-      <label htmlFor="dosen_id">Dosen Wali</label>
-      <select id="dosen_id" name="dosen_id" className="text-xs p-3 border border-gray-200 rounded-xl mb-1" value={formik.values.dosen_id} onChange={handleInputForm} required>
-        <option defaultValue={null}>Pilih dosen wali</option>
-        {dosenData.map((item) => (
-          <option key={item.dosen_id} value={item.dosen_id}>
-            {item.first_name} {item.last_name}
-          </option>
-        ))}
-      </select>
+          <label htmlFor="dosen_id">Dosen Wali</label>
+          <select id="dosen_id" name="dosen_id" className="text-xs p-3 border border-gray-200 rounded-xl mb-1" value={formik.values.dosen_id} onChange={handleInputForm} required>
+            <option defaultValue={null}>Pilih dosen wali</option>
+            {dosenData.map((item) => (
+              <option key={item.dosen_id} value={item.dosen_id}>
+                {item.first_name} {item.last_name}
+              </option>
+            ))}
+          </select>
+        </>
+      )}
 
       <div className="flex flex-col gap-2 relative">
         <label htmlFor="email">Email</label>
@@ -76,11 +97,16 @@ const FormUpdateProfile = ({ formik, handleInputForm, allowedExt }) => {
         ref={imageInputRef}
       />
       <p className="text-xs text-red-800">{formik.errors.image}</p>
-    </div>
+
+      <div className="block lg:hidden">
+        <PrimaryButton type="submit" text="Ubah profil" loading={loadingUpdate} />
+      </div>
+    </form>
   );
 };
 
 FormUpdateProfile.propTypes = {
+  user: PropTypes.object,
   formik: PropTypes.object,
   handleInputForm: PropTypes.func,
   allowedExt: PropTypes.string,
