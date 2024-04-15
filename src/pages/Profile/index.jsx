@@ -64,7 +64,7 @@ const Profile = () => {
                   {userByID?.image ? (
                     <img src={`https://drive.google.com/thumbnail?id=${userByID.image}&sz=w600`} className="border border-neutral-400 h-52 w-52 rounded-full object-cover object-center" alt="profile-pict" />
                   ) : (
-                    <>{userByID?.first_name && userByID?.last_name && <Avvvatars value={userByID.first_name + userByID.last_name} displayValue={_.capitalize(userByID.first_name[0]) + _.capitalize(userByID.last_name[0])} size={200} />}</>
+                    <>{userByID.first_name && userByID.last_name && <Avvvatars value={userByID.first_name + userByID.last_name} displayValue={_.capitalize(userByID.first_name[0]) + _.capitalize(userByID.last_name[0])} size={200} />}</>
                   )}
                 </div>
                 <div className="flex gap-2">
