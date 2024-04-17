@@ -62,9 +62,15 @@ const FormLogin = () => {
         </div>
         <p className="text-xs text-red-800">{formik.errors.password}</p>
 
-        <Link className="text-xs text-teal-500 hover:no-underline underline" to="/register">
-          Belum punya akun?
-        </Link>
+        <div className="flex justify-between">
+          <Link to="/register" className="text-xs text-teal-500 hover:no-underline underline">
+            Belum punya akun?
+          </Link>
+
+          <Link to="/reset-password" className="text-xs text-teal-500 hover:no-underline underline">
+            Lupa password?
+          </Link>
+        </div>
         <div className="mt-52">
           <PrimaryButton loading={loading} setloading={setloading} text={'Login'} />
         </div>
