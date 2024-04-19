@@ -67,7 +67,7 @@ const FormLogin = () => {
             Belum punya akun?
           </Link>
 
-          <Link to="/reset-password" className="text-xs text-teal-500 hover:no-underline underline">
+          <Link to="/lupa-password" className="text-xs text-teal-500 hover:no-underline underline">
             Lupa password?
           </Link>
         </div>
