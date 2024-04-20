@@ -232,7 +232,7 @@ export const UserProvider = ({ children }) => {
         })
         .then((response) => {
           if (response.status === 201) {
-            // update user data after user make a change
+            // update user data after user made changes
             // updateValues object based from values variable
             const updateValues = {
               id: userLoggedInData.id,
@@ -262,6 +262,15 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const handleForgotPassword = async ({ email }) => {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/forgot-password`, { email });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -281,6 +290,7 @@ export const UserProvider = ({ children }) => {
         loading,
         loadingRegister,
         loadingUpdate,
+        handleForgotPassword,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
