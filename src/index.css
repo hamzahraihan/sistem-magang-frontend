@@ -7,6 +7,8 @@
 @layer base {
   html {
     font-family: 'Plus Jakarta Sans', sans-serif;
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity));
   }
 }
 
