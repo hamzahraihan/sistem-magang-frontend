@@ -21,6 +21,7 @@ import ReportForm from './pages/Report/Upload/index.jsx';
 import Report from './pages/Report/index.jsx';
 import DetailReport from './pages/Report/Detail/index.jsx';
 import UpdateProfile from './pages/Profile/Update/index.jsx';
+import ForgotPassword from './pages/ForgetPassword/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -106,7 +107,10 @@ const router = createBrowserRouter([
     path: '/register',
     element: <Register />,
   },
-  { path: '/lupa-password' },
+  {
+    path: '/lupa-password',
+    element: <ForgotPassword />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(<RouterProvider router={router} />);
