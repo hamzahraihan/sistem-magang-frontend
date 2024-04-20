@@ -72,7 +72,7 @@ const FormLogin = () => {
           </Link>
         </div>
         <div className="mt-52">
-          <PrimaryButton loading={loading} setloading={setloading} text={'Login'} />
+          <PrimaryButton loading={loading} setloading={setloading} text="Login" />
         </div>
       </form>
     </div>
