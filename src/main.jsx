@@ -22,6 +22,7 @@ import Report from './pages/Report/index.jsx';
 import DetailReport from './pages/Report/Detail/index.jsx';
 import UpdateProfile from './pages/Profile/Update/index.jsx';
 import ForgotPassword from './pages/ForgetPassword/index.jsx';
+import ResetPassword from './pages/ResetPassword/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
   {
     path: '/lupa-password',
     element: <ForgotPassword />,
+  },
+  {
+    path: '/reset-password/:mahasiswa_id/:tokenResetPassword',
+    element: <ResetPassword />,
   },
 ]);
 
