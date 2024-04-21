@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import UserProvider from '../../context/UserContext';
 import Form from './Form';
 import Sidebar from './Sidebar';
@@ -9,6 +10,7 @@ const ForgotPassword = () => {
         <UserProvider>
           <Sidebar />
           <Form />
+          <Toaster position="top-center" />
         </UserProvider>
       </div>
     </div>
