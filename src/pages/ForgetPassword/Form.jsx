@@ -5,7 +5,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 import { useUserContext } from '../../hooks/useUserContext';
 
 const Form = () => {
-  const { handleForgotPassword } = useUserContext();
+  const { loading, handleForgotPassword } = useUserContext();
 
   const formik = useFormik({
     initialValues: {
@@ -44,7 +44,7 @@ const Form = () => {
         </div>
         <p className="text-xs text-red-800 pt-2">{formik.errors.email}</p>
         <div className="mt-2">
-          <PrimaryButton type="submit" text="Kirim email" />
+          <PrimaryButton loading={loading} type="submit" text="Kirim email" />
         </div>
       </form>
     </div>
