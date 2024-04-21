@@ -3,9 +3,18 @@ import * as yup from 'yup';
 import { EmailIcon } from '../../components/Icons';
 import PrimaryButton from '../../components/PrimaryButton';
 import { useUserContext } from '../../hooks/useUserContext';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Form = () => {
-  const { loading, handleForgotPassword } = useUserContext();
+  const { user, userLoggedInData, loading, handleForgotPassword } = useUserContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if ((user && user.length > 0) || userLoggedInData) {
+      navigate('/');
+    }
+  }, [navigate, user, userLoggedInData]);
 
   const formik = useFormik({
     initialValues: {
