@@ -263,11 +263,53 @@ export const UserProvider = ({ children }) => {
   };
 
   const handleForgotPassword = async ({ email }) => {
+    setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/forgot-password`, { email });
       console.log(response);
+      if (response.status == 201) {
+        toast.success('Email berhasil terkirim');
+      }
+      setLoading(false);
     } catch (error) {
+      if (error.response.status == 404) {
+        toast.error('Email belum terdaftar');
+      }
       console.error(error);
+      setLoading(false);
+    }
+  };
+
+  const { tokenResetPassword } = useParams();
+  const handleResetPassword = async ({ newPassword }) => {
+    setLoading(true);
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/users/reset-password`,
+        {
+          password: newPassword,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${tokenResetPassword}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response.status == 201) {
+        toast.success('Password berhasil diganti');
+        setTimeout(() => {
+          navigate('/login');
+        }, 1600);
+      }
+      setLoading(false);
+    } catch (error) {
+      if (error.response.status == 403) {
+        toast.error('Durasi link untuk ganti password sudah habis');
+      }
+      console.error(error);
+      setLoading(false);
     }
   };
 
@@ -291,6 +333,7 @@ export const UserProvider = ({ children }) => {
         loadingRegister,
         loadingUpdate,
         handleForgotPassword,
+        handleResetPassword,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
