@@ -38,7 +38,7 @@ const NavigationButton = () => {
         <p className="lg:flex hidden">Upload Laporan</p>
       </NavLink>
       <NavLink
-        to="/laporan"
+        to="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-"
         className={({ isActive }) =>
           isActive
             ? 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit'
