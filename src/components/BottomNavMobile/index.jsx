@@ -81,7 +81,10 @@ const BottomNavMobile = () => {
           <UploadIcon />
         </NavLink>
 
-        <NavLink to="/berkas" className={({ isActive }) => (isActive ? 'bg-primaryColor hover:bg-hoverColor duration-150 ease-out text-white rounded-full p-4' : 'bg-white')}>
+        <NavLink
+          to="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-"
+          className={({ isActive }) => (isActive ? 'bg-primaryColor hover:bg-hoverColor duration-150 ease-out text-white rounded-full p-4' : 'bg-white')}
+        >
           <DocumentIcon />
         </NavLink>
       </div>
