@@ -90,8 +90,9 @@ const router = createBrowserRouter([
         element: <UpdateProfile />,
       },
       {
-        path: '/logbook-mahasiswa',
+        path: '/dashboard/dosen',
         element: <LogbookDosen />,
+        children: [{ path: `logbook-mahasiswa/:id` }],
       },
     ],
   },
