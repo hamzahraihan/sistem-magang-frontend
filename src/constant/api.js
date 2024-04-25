@@ -107,3 +107,14 @@ export const getReportByIdAPI = async (id, token) => {
   });
   return data.result;
 };
+
+// get user list by dosen id
+export const getMahasiswaByDosenAPI = async (id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa/dosen/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
