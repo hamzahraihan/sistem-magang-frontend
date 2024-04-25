@@ -39,7 +39,7 @@ const Table = () => {
     }),
     columnHelper.accessor('mahasiswa_id', {
       cell: (info) => (
-        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit">
+        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
           Logbook
         </Link>
       ),
