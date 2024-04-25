@@ -32,6 +32,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
+        index: true,
         path: '/',
         element: <Home />,
       },
@@ -92,7 +93,9 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/dosen',
         element: <LogbookDosen />,
-        children: [{ path: `logbook-mahasiswa/:id` }],
+      },
+      {
+        path: '/dashboard/dosen/logbook-mahasiswa/:id',
       },
     ],
   },
