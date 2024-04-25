@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ExportButton = ({ data = [], fileName }) => {
   return (
     <button
-      className="bg-green-500 rounded-md p-2 text-white "
+      className="bg-green-500 rounded-md p-2 text-white hover:bg-green-400 active:bg-green-600 duration-150"
       onClick={() => {
         if (Array.isArray(data) && data.length > 0) {
           const filteredData = data.map((item) => {
