@@ -13,9 +13,8 @@ const LogbookDosen = () => {
             <ArrowIcon />
           </Link>
           <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
-          <p className="text-base font-bold">
-            <Table />
-          </p>
+
+          <Table />
         </div>
         <SidebarLogbookDosen />
       </div>
