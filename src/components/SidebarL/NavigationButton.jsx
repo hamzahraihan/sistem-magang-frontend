@@ -28,7 +28,7 @@ const Navigation = () => {
     );
   } else if (userLoggedInData.role == 'dosen') {
     return (
-      <NavLink to="/logbook-mahasiswa" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+      <NavLink to="/dashboard/dosen" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
         <LogbookIcon />
         <p className="lg:flex hidden">Logbook Mahasiswa</p>
       </NavLink>
