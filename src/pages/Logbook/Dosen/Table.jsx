@@ -1,10 +1,15 @@
-import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import { createColumnHelper, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
 import useFetchMahasiswaByDosen from '../../../features/user/useFetchMahasiswaByDosen';
 import { Link } from 'react-router-dom';
-import { Spinner } from '../../../components/Icons';
+import { SearchIcon, Spinner } from '../../../components/Icons';
+import ExportButton from './ExportButton';
+import SearchTableInput from './SearchTableInput';
+import { useState } from 'react';
 
 const Table = () => {
+  const [globalFilter, setGlobalFilter] = useState('');
   const { loading, mahasiswaDosen } = useFetchMahasiswaByDosen();
+
   const columnHelper = createColumnHelper();
 
   const data = mahasiswaDosen;
@@ -45,17 +50,25 @@ const Table = () => {
   const table = useReactTable({
     data,
     columns,
+    state: {
+      globalFilter,
+    },
+    getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: {
-        pageSize: 2,
-      },
-    },
   });
 
   return (
     <div className="w-full">
+      <div className="flex justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <div className="text-gray-400">
+            <SearchIcon />
+          </div>
+          <SearchTableInput value={globalFilter ?? ''} onChange={(value) => setGlobalFilter(value)} />
+        </div>
+        <ExportButton data={data} fileName={'laporan_mahasiswa_magang_mandiri'} />
+      </div>
       <table className="w-full">
         <thead className="bg-gray-100 rounded-md">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -116,7 +129,7 @@ const Table = () => {
           />
         </span>
 
-        <select className="px-1 p-0 rounded-md bg-transparent border-0 text-xs" value={table.getState().pagination.pageSize} onChange={(e) => table.setPageSize(Number(e.target.value))}>
+        <select className="px-4 rounded-md bg-transparent border-0 text-xs" value={table.getState().pagination.pageSize} onChange={(e) => table.setPageSize(Number(e.target.value))}>
           {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
