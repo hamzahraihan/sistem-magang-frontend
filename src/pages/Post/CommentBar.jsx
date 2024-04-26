@@ -21,9 +21,6 @@ const ProfileIcon = () => {
 };
 
 const CommentBar = () => {
-  const { userLoggedInData } = useUserContext();
-  console.log('🚀 ~ CommentBar ~ userLoggedInData:', userLoggedInData);
-
   const [inputValue, setInputValue] = useState('');
   const textAreaRef = useRef(null);
   useEffect(() => {
