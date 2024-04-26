@@ -5,17 +5,19 @@ import { useUserContext } from '../../hooks/useUserContext';
 
 const ProfileIcon = () => {
   const { userLoggedInData } = useUserContext();
-  if (userLoggedInData?.image == null) {
+  if (userLoggedInData && userLoggedInData.image == null) {
     return (
       <div className="flex-shrink-0 mt-2 h-10 w-10">
-        <Avvvatars size={40} value={userLoggedInData?.first_name + userLoggedInData?.last_name} displayValue={_.capitalize(userLoggedInData?.first_name[0]) + _.capitalize(userLoggedInData?.last_name[0])} />
+        <Avvvatars size={40} value={userLoggedInData.first_name + userLoggedInData.last_name} displayValue={_.capitalize(userLoggedInData.first_name[0]) + _.capitalize(userLoggedInData.last_name[0])} />
       </div>
     );
-  } else if (userLoggedInData?.image) {
-    return <img src={userLoggedInData?.image} className="mt-2 h-10 w-10 rounded-full flex-shrink-0 " alt="profile-icon" />;
-  } else {
-    return <div className="mt-2 h-10 w-10 bg-slate-500 animate-pulse rounded-full flex-shrink-0 "></div>;
   }
+
+  if (userLoggedInData?.image) {
+    return <img src={`https://drive.google.com/thumbnail?id=${userLoggedInData?.image}&sz=w1000`} className="mt-2 h-10 w-10 rounded-full flex-shrink-0 object-cover object-center " alt="profile-icon" />;
+  }
+
+  return <div className="mt-2 h-10 w-10 bg-slate-500 animate-pulse rounded-full flex-shrink-0 "></div>;
 };
 
 const CommentBar = () => {
