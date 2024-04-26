@@ -16,7 +16,7 @@ const SidebarPost = () => {
       <div className="flex flex-col items-center w-full gap-5">
         <h1 className="text-xl font-bold text-start w-full">Tentang Author</h1>
         {pickRole(postById[0])?.image ? (
-          <img src={pickRole(postById[0]).image} className="h-28 w-28  rounded-full" alt="profile-author" />
+          <img src={`https://drive.google.com/thumbnail?id=${pickRole(postById[0]).image}&sz=w1000`} className="h-28 w-28 object-cover object-center rounded-full" alt="profile-author" />
         ) : (
           <Link to={`/profile/${postById[0]?.role}/${_.kebabCase(slugify(postById[0]))}`} state={{ userId: getRoleId(postById[0]) }} className="flex items-center gap-2 w-fit ">
             <Avvvatars value={pickRole(postById[0])?.first_name + pickRole(postById[0])?.last_name} displayValue={_.capitalize(pickRole(postById[0])?.first_name[0]) + _.capitalize(pickRole(postById[0])?.last_name[0])} size={150} />
