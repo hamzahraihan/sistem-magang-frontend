@@ -37,6 +37,23 @@ const LogbookOverallCard = () => {
   const { weeklyActivity, loading: loadingWeekly } = useFetchWeeklyActivity();
   const { loadingUpdate } = useLogbookWeeklyActivityContext();
 
+  let status;
+  let statusIcon;
+  switch (weeklyActivity.status) {
+    case 'Belum disetujui':
+      status = 'text-gray-500';
+      statusIcon = <ClockIcon />;
+      break;
+    case 'Tidak disetujui':
+      status = 'text-hoverColor';
+      statusIcon = <CancelIcon />;
+      break;
+    case 'Sudah disetujui':
+      status = 'text-green-500';
+      statusIcon = <CheckIcon />;
+      break;
+  }
+
   useEffect(() => {
     if (!loadingUpdate) {
       setOpenModal(false);
@@ -61,7 +78,7 @@ const LogbookOverallCard = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5 border border-neutral-300 rounded-[24px] p-4 w-full">
+    <div className="flex flex-col gap-5 border border-neutral-300 bg-white rounded-[24px] p-4 w-full">
       <div className="flex justify-between">
         {loading ? (
           <Placeholder />
@@ -77,16 +94,8 @@ const LogbookOverallCard = () => {
         <Spinner />
       ) : weeklyActivity.log_description ? (
         <div className="flex flex-col gap-2">
-          <p
-            className={`flex items-center gap-1 p-2 rounded-2xl bg-gray-200 
-          ${weeklyActivity.status == 'Belum disetujui' && 'text-gray-500'} 
-          ${weeklyActivity.status == 'Tidak disetujui' && 'text-hoverColor'} 
-          ${weeklyActivity.status == 'Sudah disetujui' && 'text-green-500'} 
-          text-sm`}
-          >
-            {weeklyActivity.status == 'Belum disetujui' && <ClockIcon />}
-            {weeklyActivity.status == 'Tidak disetujui' && <CancelIcon />}
-            {weeklyActivity.status == 'Sudah disetujui' && <CheckIcon />}
+          <p className={`flex items-center gap-1 p-2 rounded-2xl bg-gray-200 ${status} text-sm`}>
+            {statusIcon}
             Status: {weeklyActivity.status}
           </p>
           {weeklyActivity.status == 'Tidak disetujui' && (
