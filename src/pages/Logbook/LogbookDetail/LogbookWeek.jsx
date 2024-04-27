@@ -26,12 +26,12 @@ const LogbookWeek = () => {
   };
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 ">
       {loading ? (
         <Spinner />
       ) : (
         logbookDaily.slice(0, 5).map((item) => (
-          <div key={item.date_intern} className="flex flex-col justify-center border border-neutral-300 rounded-[32px]">
+          <div key={item.date_intern} className="flex flex-col justify-center border border-neutral-300 rounded-[32px] bg-white">
             <div className="flex border-b items-center gap-2 border-neutral-200 rounded-tl-[32px] rounded-tr-[32px] p-4 font-bold">
               <div className={`h-10 w-10 rounded-full ${item.isComplete && 'bg-hoverColor border-none'} border border-neutral-200`}></div>
               <div className="flex flex-col">
