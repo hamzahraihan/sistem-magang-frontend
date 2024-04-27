@@ -23,6 +23,7 @@ const ProfileIcon = () => {
 const CommentBar = () => {
   const [inputValue, setInputValue] = useState('');
   const textAreaRef = useRef(null);
+
   useEffect(() => {
     if (textAreaRef.current) {
       // We need to reset the height momentarily to get the correct scrollHeight for the textarea
@@ -34,6 +35,7 @@ const CommentBar = () => {
       textAreaRef.current.style.height = scrollHeight + 'px';
     }
   }, [textAreaRef, inputValue]);
+
   return (
     <div className="flex gap-2">
       <ProfileIcon />
@@ -47,7 +49,7 @@ const CommentBar = () => {
         placeholder="Buat komentar..."
         required
       />
-      <button className="flex items-center justify-center rounded-lg h-fit p-5 hover:bg-gray-100 active:bg-gray-200 text-black transition-all font-bold">Post</button>
+      <button className="flex items-center justify-center rounded-xl h-fit p-5 hover:bg-gray-100 active:bg-gray-200 text-black transition-all font-bold bg-white">Post</button>
     </div>
   );
 };
