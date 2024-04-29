@@ -33,9 +33,9 @@ const Table = () => {
       cell: (info) => info.getValue(),
       header: 'NIM',
     }),
-    columnHelper.accessor('status', {
-      cell: (info) => <div className={`rounded-lg p-2 text-center w-fit m-auto ${info.getValue() == 'Selesai magang' ? 'bg-green-400 text-white' : 'bg-gray-200'}`}>{info.getValue()}</div>,
-      header: () => <span className="flex justify-center items-center">Status</span>,
+    columnHelper.accessor('angkatan', {
+      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{info.getValue()}</div>,
+      header: () => <span className="flex justify-center items-center">Angkatan</span>,
     }),
     columnHelper.accessor('mahasiswa_id', {
       cell: (info) => (
@@ -59,7 +59,7 @@ const Table = () => {
   });
 
   return (
-    <div className="w-full">
+    <div className="text-sm w-full">
       <div className="flex justify-between mb-2">
         <div className="flex items-center gap-2">
           <div className="text-gray-400">
