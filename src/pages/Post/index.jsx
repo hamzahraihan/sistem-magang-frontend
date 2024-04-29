@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../components/Icons';
 import Description from './Description';
-import CommentSection from './CommentSection';
+// import CommentSection from './CommentSection';
 import SidebarPost from './SidebarPost';
 import { usePostContext } from '../../hooks/usePostContext';
 import ProfileWidget from '../../components/ProfileWidget';
+import { DiscussionEmbed } from 'disqus-react';
 
 const DetailPost = () => {
   const { loadingPostByID, postById } = usePostContext();
@@ -30,7 +31,15 @@ const DetailPost = () => {
 
           <ProfileWidget data={postById[0]} />
           <Description />
-          <CommentSection />
+          {/* <CommentSection /> */}
+          <DiscussionEmbed
+            shortname="internship-5"
+            config={{
+              url: `http://localhost:5173`,
+              identifier: postById[0]?.post_id,
+              title: postById[0]?.title,
+            }}
+          />
         </div>
         <SidebarPost />
       </div>
