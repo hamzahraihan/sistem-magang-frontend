@@ -118,3 +118,9 @@ export const getMahasiswaByDosenAPI = async (id, token) => {
   });
   return data.result;
 };
+
+// get comment user by post id
+export const getCommentByPostAPI = async (id) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/comment/post/${id}`);
+  return data.result;
+};
