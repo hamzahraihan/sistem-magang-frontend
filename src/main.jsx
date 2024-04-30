@@ -24,6 +24,7 @@ import UpdateProfile from './pages/Profile/Update/index.jsx';
 import ForgotPassword from './pages/ForgetPassword/index.jsx';
 import ResetPassword from './pages/ResetPassword/index.jsx';
 import Mahasiswa from './pages/Mahasiswa/Dosen/index.jsx';
+import MahasiswaInternshipReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -95,7 +96,8 @@ const router = createBrowserRouter([
         element: <Mahasiswa />,
       },
       {
-        path: '/dashboard/dosen/logbook-mahasiswa/:id',
+        path: '/dashboard/dosen/mahasiswa/logbook-mahasiswa/:id',
+        element: <MahasiswaInternshipReport />,
       },
     ],
   },
