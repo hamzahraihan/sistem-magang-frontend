@@ -40,7 +40,7 @@ const Table = () => {
     columnHelper.accessor('mahasiswa_id', {
       cell: (info) => (
         <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
-          Logbook
+          Lihat detail
         </Link>
       ),
       header: () => <span className="flex justify-center items-center">Logbook</span>,
@@ -83,22 +83,30 @@ const Table = () => {
         </thead>
         <tbody>
           {loading ? (
-            <div className="flex items-center justify-center text-center w-full">
-              <Spinner />
-            </div>
+            <tr>
+              <td className="m-auto text-center items-center justify-center p-10" colSpan={6}>
+                <Spinner />
+              </td>
+            </tr>
           ) : (
             <>
-              {table.getRowModel().rows.length
-                ? table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map((cell, index) => (
-                        <td className=" py-4" key={index}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                : null}
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map((cell, index) => (
+                      <td className=" py-4" key={index}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <tr className="text-gray-400 text-center">
+                  <td className="p-10" colSpan={6}>
+                    Tidak ditemukan
+                  </td>
+                </tr>
+              )}
             </>
           )}
         </tbody>
