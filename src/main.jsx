@@ -96,7 +96,7 @@ const router = createBrowserRouter([
         element: <Mahasiswa />,
       },
       {
-        path: '/dashboard/dosen/mahasiswa/logbook-mahasiswa/:id',
+        path: '/dashboard/dosen/mahasiswa/logbook-mahasiswa/:mahasiswa_id',
         element: <MahasiswaInternshipReport />,
       },
     ],
