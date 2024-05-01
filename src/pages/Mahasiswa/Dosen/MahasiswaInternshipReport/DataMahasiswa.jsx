@@ -11,8 +11,8 @@ const DataMahasiswa = () => {
             <p className="text-sm font-bold text-gray-500">{_.upperCase('hamzah raihan')}</p>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase('PT. Indorama Sejahtera')}</p>
+            <h1 className="text-sm font-bold text-gray-300">Nomor Whatsapp</h1>
+            <p className="text-sm font-bold text-gray-500">089123123</p>
           </div>
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Email Mahasiswa</h1>
