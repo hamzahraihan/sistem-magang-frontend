@@ -1,39 +1,69 @@
-import _ from 'lodash';
+import { createColumnHelper } from '@tanstack/react-table';
+import Table from '../../../../components/Table/Table';
+import { Link } from 'react-router-dom';
+import { formatDate } from '../../../../utils/formatDate';
+import useFetchInternship from '../../../../features/internship/useFetchInternship';
 
 const LogbookMahasiswa = () => {
+  const { loading, internship } = useFetchInternship();
+
+  const columnHelper = createColumnHelper();
+
+  const columns = [
+    columnHelper.accessor('', {
+      id: 'No',
+      cell: (info) => info.row.index + 1,
+      header: 'No.',
+    }),
+    columnHelper.accessor('instance', {
+      id: 'Perusahaan/Instansi',
+      cell: (info) => info.getValue(),
+      header: 'Perusahaan/Instansi',
+    }),
+    columnHelper.accessor('type', {
+      id: 'Tipe Magang',
+      cell: (info) => info.getValue(),
+      header: 'Tipe Magang',
+    }),
+    columnHelper.accessor('location', {
+      id: 'Lokasi',
+      cell: (info) => info.getValue(),
+      header: 'Lokasi',
+    }),
+    columnHelper.accessor('phone', {
+      id: 'Kontak',
+      cell: (info) => info.getValue(),
+      header: 'Kontak',
+    }),
+    columnHelper.accessor('start_intern', {
+      id: 'Mulai Magang',
+      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{formatDate(info.getValue())}</div>,
+      header: <div className="rounded-lg text-center m-auto ">Mulai Magang</div>,
+    }),
+    columnHelper.accessor('end_intern', {
+      id: 'Selesai Magang',
+      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{formatDate(info.getValue())}</div>,
+      header: <div className="rounded-lg text-center m-auto ">Selesai Magang</div>,
+    }),
+    columnHelper.accessor('createdAt', {
+      id: 'Tanggal',
+      cell: (info) => <span>{formatDate(info.getValue())}</span>,
+      header: 'Tanggal',
+    }),
+    columnHelper.accessor('internship_id', {
+      id: 'Logbook',
+      cell: (info) => (
+        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
+          Lihat detail
+        </Link>
+      ),
+      header: 'Logbook',
+    }),
+  ];
   return (
     <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 ">
       <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
-      <div className="grid grid-cols-2 gap-4 mt-10">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Nama</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase('hamzah raihan')}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase('PT. Indorama Sejahtera')}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Email Mahasiswa</h1>
-            <p className="text-sm font-bold text-gray-500">hamzah@gmail.com</p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Nama</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase('hamzah raihan')}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase('PT. Indorama Sejahtera')}</p>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Email Mahasiswa</h1>
-            <p className="text-sm font-bold text-gray-500">hamzah@gmail.com</p>
-          </div>
-        </div>
-      </div>
+      <Table columns={columns} data={internship} loading={loading} fileName={`laporan_mahasiswa_${internship[0]?.Mahasiswa?.first_name}_${internship[0]?.Mahasiswa?.last_name}`} />
     </div>
   );
 };
