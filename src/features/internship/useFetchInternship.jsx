@@ -3,11 +3,13 @@ import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInte
 import { getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
 import { TOKEN } from '../../constant/key';
+import { useParams } from 'react-router-dom';
 
 // fetch all internship data by user id
 const useFetchInternship = () => {
   const [loading, setLoading] = useState(false);
   const { userLoggedInData } = useUserContext();
+  const { mahasiswa_id } = useParams();
   const { internship } = useInternshipContext();
   const dispatch = useInternshipDispatch();
 
@@ -18,7 +20,7 @@ const useFetchInternship = () => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(userLoggedInData?.id, token, signal);
+        const data = await getInternshipByUser(userLoggedInData?.id, mahasiswa_id, token, signal);
         setLoading(false);
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
@@ -30,7 +32,7 @@ const useFetchInternship = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, userLoggedInData]);
+  }, [dispatch, userLoggedInData, mahasiswa_id]);
 
   return { loading, internship };
 };
