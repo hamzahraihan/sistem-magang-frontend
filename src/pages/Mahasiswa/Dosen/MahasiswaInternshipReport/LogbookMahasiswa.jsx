@@ -6,6 +6,7 @@ import useFetchInternship from '../../../../features/internship/useFetchInternsh
 
 const LogbookMahasiswa = () => {
   const { loading, internship } = useFetchInternship();
+  console.log('🚀 ~ LogbookMahasiswa ~ internship:', internship);
 
   const columnHelper = createColumnHelper();
 
@@ -53,7 +54,7 @@ const LogbookMahasiswa = () => {
     columnHelper.accessor('internship_id', {
       id: 'Logbook',
       cell: (info) => (
-        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
+        <Link to={`/dashboard/dosen/mahasiswa/logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
           Lihat detail
         </Link>
       ),
@@ -61,7 +62,7 @@ const LogbookMahasiswa = () => {
     }),
   ];
   return (
-    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 ">
+    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5">
       <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
       <Table columns={columns} data={internship} loading={loading} fileName={`laporan_mahasiswa_${internship[0]?.Mahasiswa?.first_name}_${internship[0]?.Mahasiswa?.last_name}`} />
     </div>
