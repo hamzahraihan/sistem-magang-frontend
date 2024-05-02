@@ -134,7 +134,7 @@ const Table = ({ columns, data, fileName, loading }) => {
             ))
           ) : (
             <tr className="text-gray-400 text-center">
-              <td className="p-10" colSpan={6}>
+              <td className="p-10" colSpan={table.getAllColumns().length}>
                 Tidak ditemukan
               </td>
             </tr>
