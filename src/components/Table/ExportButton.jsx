@@ -1,5 +1,6 @@
 import * as xlsx from 'xlsx/xlsx.mjs';
 import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
 
 const ExportButton = ({ data = [], fileName }) => {
   return (
@@ -12,6 +13,7 @@ const ExportButton = ({ data = [], fileName }) => {
           xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
           xlsx.writeFile(workbook, fileName ? `${fileName}.xlsx` : 'data.xlsx');
         } else {
+          toast.error('Tidak ada data');
           console.error('Data is either not an array or is empty.');
         }
       }}
