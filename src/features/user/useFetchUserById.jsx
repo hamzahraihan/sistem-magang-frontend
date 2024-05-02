@@ -8,17 +8,17 @@ const useFetchUserByID = () => {
 
   const { state } = useLocation();
 
-  const { roleUrl } = useParams();
+  const { roleUrl, mahasiswa_id } = useParams();
 
   const id = useMemo(() => {
-    return state ? state.userId : null;
-  }, [state]);
+    return state ? state.userId : mahasiswa_id;
+  }, [state, mahasiswa_id]);
 
   useEffect(() => {
     const handleUserById = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl}/${id}`);
+        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${roleUrl || 'mahasiswa'}/${id}`);
         setLoading(false);
         setUserByID(data.result);
       } catch (error) {
