@@ -17,7 +17,11 @@ export const getUserPostByUserId = async (id) => {
 
 // get internship by user id
 export const getInternshipByUser = async (user_id, mahasiswa_id, token, signal) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${user_id && mahasiswa_id}`, {
+  let id;
+  if (user_id) id = user_id;
+  if (mahasiswa_id) id = mahasiswa_id;
+
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/internship/user/${id}`, {
     signal,
     headers: {
       'Content-Type': 'application/json',
