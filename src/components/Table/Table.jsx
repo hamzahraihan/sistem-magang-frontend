@@ -37,7 +37,7 @@ const Table = ({ columns, data, fileName, loading }) => {
         </div>
         <div className="flex gap-2 ms-auto">
           <div>
-            <Dropdown color="gray" size="sm" label="dropdown menu" dismissOnClick={false}>
+            <Dropdown color="gray" size="sm" label="Option" dismissOnClick={false}>
               {table.getAllLeafColumns().map((column) => {
                 return (
                   <div className="p-2 hover:bg-gray-100 active:bg-gray-200 duration-150" key={column.id}>
