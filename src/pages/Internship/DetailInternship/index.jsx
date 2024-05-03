@@ -5,7 +5,7 @@ import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
 import { useState } from 'react';
 import { Button } from 'flowbite-react';
-import ModalInternshipDocs from './ModalInternshipDocs';
+import ModalInternshipDocs from '../../../components/ModalInternshipDocument/ModalInternshipDocs';
 import { useUserContext } from '../../../hooks/useUserContext';
 import useFetchInternshipById from '../../../features/internship/useFetchInternshipById';
 import _ from 'lodash';
