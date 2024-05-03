@@ -21,11 +21,6 @@ const LogbookMahasiswa = () => {
       cell: (info) => info.getValue(),
       header: 'Perusahaan/Instansi',
     }),
-    columnHelper.accessor('type', {
-      id: 'Tipe Magang',
-      cell: (info) => info.getValue(),
-      header: 'Tipe Magang',
-    }),
     columnHelper.accessor('location', {
       id: 'Lokasi',
       cell: (info) => info.getValue(),
@@ -36,16 +31,6 @@ const LogbookMahasiswa = () => {
       cell: (info) => info.getValue(),
       header: 'Kontak',
     }),
-    columnHelper.accessor('start_intern', {
-      id: 'Mulai Magang',
-      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{formatDate(info.getValue())}</div>,
-      header: <div className="rounded-lg text-center m-auto ">Mulai Magang</div>,
-    }),
-    columnHelper.accessor('end_intern', {
-      id: 'Selesai Magang',
-      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{formatDate(info.getValue())}</div>,
-      header: <div className="rounded-lg text-center m-auto ">Selesai Magang</div>,
-    }),
     columnHelper.accessor('createdAt', {
       id: 'Tanggal',
       cell: (info) => <span>{formatDate(info.getValue())}</span>,
@@ -54,7 +39,7 @@ const LogbookMahasiswa = () => {
     columnHelper.accessor('internship_id', {
       id: 'Logbook',
       cell: (info) => (
-        <Link to={`/dashboard/dosen/mahasiswa/logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
+        <Link to={`/dashboard/dosen/mahasiswa/internship-report/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
           Lihat detail
         </Link>
       ),
@@ -62,7 +47,7 @@ const LogbookMahasiswa = () => {
     }),
   ];
   return (
-    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5">
+    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 mb-10">
       <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
       <Table columns={columns} data={internship} loading={loading} fileName={`laporan_mahasiswa_${internship[0]?.Mahasiswa?.first_name}_${internship[0]?.Mahasiswa?.last_name}`} />
     </div>
