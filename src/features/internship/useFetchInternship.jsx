@@ -21,9 +21,7 @@ const useFetchInternship = () => {
       setLoading(true);
       try {
         const data = await getInternshipByUser(userLoggedInData?.id, mahasiswa_id, token, signal);
-        console.log('🚀 ~ getUserInternship ~ data:', data);
         setLoading(false);
-
         dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
         if (error.response.status == 404) {
