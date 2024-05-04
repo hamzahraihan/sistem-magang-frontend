@@ -14,7 +14,7 @@ const DataLogbook = ({ data, loading }) => {
   };
   return (
     <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 ">
-      <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
+      <h1 className="text-xl font-bold">Data Logbook</h1>
       <div className="grid grid-cols-2 gap-4 mt-10">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
