@@ -68,7 +68,7 @@ export const getDailyLogAPI = async (id, token, signal) => {
 
 // get weekly logbook data by logbook id
 export const getWeeklyLogByIdAPI = async (id, token, signal) => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/activity-weekly/${id}`, {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/logbook/detail/activity-weekly/${id}`, {
     signal,
     headers: {
       'Content-Type': 'application/json',
