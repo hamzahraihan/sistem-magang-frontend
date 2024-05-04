@@ -70,6 +70,7 @@ const Table = ({ columns, data, fileName, loading }) => {
                   colSpan={header.colSpan}
                   onClick={header.column.getToggleSortingHandler()}
                   title={header.column.getCanSort() ? (header.column.getNextSortingOrder() === 'asc' ? 'Sort ascending' : header.column.getNextSortingOrder() === 'desc' ? 'Sort descending' : 'Clear sort') : undefined}
+                  style={{ width: `${header.getSize()}px` }}
                 >
                   <div className="flex p-2 items-center gap-1 hover:bg-gray-200 active:bg-gray-300 duration-150 rounded-md cursor-pointer select-none">
                     {flexRender(header.column.columnDef.header, header.getContext())}
