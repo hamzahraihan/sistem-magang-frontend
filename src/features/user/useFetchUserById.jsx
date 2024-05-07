@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-const useFetchUserByID = () => {
+const useFetchUserByID = (props) => {
   const [loading, setLoading] = useState(false);
   const [userByID, setUserByID] = useState({});
 
@@ -11,8 +11,15 @@ const useFetchUserByID = () => {
   const { roleUrl, mahasiswa_id } = useParams();
 
   const id = useMemo(() => {
-    return state ? state.userId : mahasiswa_id;
-  }, [state, mahasiswa_id]);
+    if (state) {
+      return state.userId;
+    } else if (mahasiswa_id) {
+      return mahasiswa_id;
+    } else {
+      return props;
+    }
+  }, [state, mahasiswa_id, props]);
+  console.log('🚀 ~ id ~ id:', id);
 
   useEffect(() => {
     const handleUserById = async () => {
