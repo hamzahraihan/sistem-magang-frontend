@@ -17,6 +17,7 @@ const Mahasiswa = () => {
       id: 'No.',
       cell: (info) => info.row.index + 1,
       header: () => <span className="ps-2">No.</span>,
+      size: 20,
     }),
     columnHelper.accessor('first_name', {
       id: 'Nama Depan',
@@ -39,13 +40,13 @@ const Mahasiswa = () => {
       header: <span className="w-full text-center">Angkatan</span>,
     }),
     columnHelper.accessor('mahasiswa_id', {
-      id: 'Logbook',
+      id: 'Aksi',
       cell: (info) => (
-        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-300 rounded-lg m-auto text-center w-fit hover:bg-gray-200 active:bg-gray-400 duration-150">
+        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
           Lihat detail
         </Link>
       ),
-      header: <span className="w-full text-center">Logbook</span>,
+      header: <span className="w-full text-center">Aksi</span>,
     }),
   ];
 
