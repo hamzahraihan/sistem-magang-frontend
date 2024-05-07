@@ -26,6 +26,7 @@ import ResetPassword from './pages/ResetPassword/index.jsx';
 import Mahasiswa from './pages/Mahasiswa/Dosen/index.jsx';
 import MahasiswaInternshipReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/index.jsx';
 import InternshipWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/InternshipWeeklyReport/index.jsx';
+import LogbookWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/LogbookWeeklyReport/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/dosen/mahasiswa/internship-report/:internship_id',
         element: <InternshipWeeklyReport />,
+      },
+      {
+        path: '/dashboard/dosen/mahasiswa/logbook/:logbook_id',
+        element: <LogbookWeeklyReport />,
       },
     ],
   },
