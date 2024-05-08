@@ -9,7 +9,7 @@ const WeeklyReport = () => {
   console.log('🚀 ~ WeeklyReport ~ logbookWeekly:', logbookWeekly);
   const columnHelper = createColumnHelper();
 
-  const { userByID } = useFetchUserByID(logbookWeekly[0]?.mahasiswa_id);
+  const { userByID } = useFetchUserByID(logbookWeekly?.mahasiswa_id);
   const columns = [
     columnHelper.accessor('', {
       id: 'Minggu',
@@ -49,6 +49,8 @@ const WeeklyReport = () => {
       cell: (info) => {
         const value = info.getValue();
         if (value == 'Belum disetujui') {
+          return <span className="flex rounded-lg m-auto text-center w-fit bg-gray-300 p-2">{value}</span>;
+        } else if (value == 'Tidak disetujui') {
           return <span className="flex rounded-lg m-auto text-center w-fit bg-red-500 p-2 text-white">{value}</span>;
         }
         return <span className="flex rounded-lg m-auto text-center w-fit bg-green-400 text-white p-2">{value}</span>;
