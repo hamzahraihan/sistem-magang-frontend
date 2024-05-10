@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon } from '../../../../../components/Icons';
+import { ArrowIcon, Spinner } from '../../../../../components/Icons';
 import useFetchWeeklyActivity from '../../../../../features/logbook/useFetchWeeklyActivity';
 import useFetchUserByID from '../../../../../features/user/useFetchUserById';
 import { weekDay } from '../../../../../utils/formatDate';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useLogbookContext } from '../../../../../hooks/useLogbookContext';
+import { useLogbookWeeklyActivityContext } from '../../../../../hooks/useLogbookWeeklyActivityContext';
 
 const LogbookWeeklyReport = () => {
   const { weeklyActivity } = useFetchWeeklyActivity();
   const { loading, userByID } = useFetchUserByID(weeklyActivity.mahasiswa_id);
-  const { handleStatusLogbook } = useLogbookContext();
+  const { loadingUpdate, handleStatusLogbook } = useLogbookWeeklyActivityContext();
 
   const formik = useFormik({
     initialValues: {
@@ -101,12 +101,17 @@ const LogbookWeeklyReport = () => {
           {formik.errors.lecturer_note}
 
           <div className="flex gap-2 w-fit mt-4">
-            <button type="button" className="bg-green-500 text-white p-3 rounded-md hover:bg-green-600 active:bg-green-700 duration-150" onClick={() => handleStatusLogbook({ status: 'Sudah disetujui' })}>
-              Validasi
+            <button
+              type="button"
+              className="flex items-center justify-center h-10 w-20 bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 duration-150 disabled:bg-green-200 disabled:cursor-default"
+              onClick={() => handleStatusLogbook({ status: 'Sudah disetujui', lecturer_note: 'disetujui' })}
+              disabled={loadingUpdate}
+            >
+              {loadingUpdate ? <Spinner /> : 'Validasi'}
             </button>
 
-            <button type="submit" className="bg-red-600 text-white p-3 rounded-md hover:bg-red-700 active:bg-red-800 duration-150">
-              Perlu revisi
+            <button type="submit" className="flex items-center justify-center h-10 w-24 bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default" disabled={loadingUpdate}>
+              {loadingUpdate ? <Spinner /> : 'Perlu direvisi'}
             </button>
           </div>
         </form>
