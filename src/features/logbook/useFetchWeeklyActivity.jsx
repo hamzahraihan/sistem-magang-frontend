@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 const useFetchWeeklyActivity = () => {
   const [loading, setLoading] = useState(false);
   const { logbook_id } = useParams();
-  console.log('🚀 ~ useFetchWeeklyActivity ~ logbook_id:', logbook_id);
   const dispatch = useLogbookWeeklyActivityDispatch();
   const { weeklyActivity } = useLogbookWeeklyActivityContext();
 
