@@ -19,7 +19,6 @@ const useFetchUserByID = (props) => {
       return props;
     }
   }, [state, mahasiswa_id, props]);
-  console.log('🚀 ~ id ~ id:', id);
 
   useEffect(() => {
     const handleUserById = async () => {
