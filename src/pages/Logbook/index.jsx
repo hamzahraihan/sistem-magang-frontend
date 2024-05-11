@@ -21,7 +21,7 @@ const Logbook = () => {
           </Link>
           <p className="text-base font-bold">
             {loadingDate ? (
-              <>Periode magang:</>
+              'Periode magang:'
             ) : (
               <>
                 Periode magang: {formatDate(logbook.start_intern)} - {formatDate(logbook.end_intern)}
