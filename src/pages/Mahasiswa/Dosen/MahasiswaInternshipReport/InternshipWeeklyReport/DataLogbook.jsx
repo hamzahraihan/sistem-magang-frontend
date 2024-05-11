@@ -18,21 +18,21 @@ const DataLogbook = ({ data, loading }) => {
       <div className="grid grid-cols-2 gap-4 mt-10">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Perusahaan/Instansi</h1>
+            <h1 className="text-sm text-gray-400">Perusahaan/Instansi</h1>
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.instance}</p>}
           </div>
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Tipe Magang</h1>
+            <h1 className="text-sm text-gray-400">Tipe Magang</h1>
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.type}</p>}
           </div>
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Kontak Perusahaan</h1>
+            <h1 className="text-sm text-gray-400">Kontak Perusahaan</h1>
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.phone}</p>}
           </div>
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Periode Magang</h1>
+            <h1 className="text-sm text-gray-400">Periode Magang</h1>
             {loading ? (
               <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p>
             ) : (
@@ -42,11 +42,11 @@ const DataLogbook = ({ data, loading }) => {
             )}
           </div>
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">Lokasi</h1>
+            <h1 className="text-sm text-gray-400">Lokasi</h1>
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.location}</p>}
           </div>
           <div className="flex flex-col">
-            <h1 className="text-sm font-bold text-gray-300">ID Kegiatan</h1>
+            <h1 className="text-sm text-gray-400">ID Kegiatan</h1>
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.internship_id}</p>}
           </div>
         </div>
@@ -70,7 +70,7 @@ const DataLogbook = ({ data, loading }) => {
 };
 
 DataLogbook.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
   loading: PropTypes.bool,
 };
 
