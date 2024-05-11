@@ -6,8 +6,11 @@ import { weekDay } from '../../../../../utils/formatDate';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useLogbookWeeklyActivityContext } from '../../../../../hooks/useLogbookWeeklyActivityContext';
+import useFetchDailyLogbook from '../../../../../features/logbook/useFetchDailyLogbook';
 
 const LogbookWeeklyReport = () => {
+  const { logbookDaily } = useFetchDailyLogbook();
+  console.log('🚀 ~ LogbookWeeklyReport ~ logbookDaily:', logbookDaily);
   const { weeklyActivity } = useFetchWeeklyActivity();
   const { loading, userByID } = useFetchUserByID(weeklyActivity.mahasiswa_id);
   const { loadingUpdate, handleStatusLogbook } = useLogbookWeeklyActivityContext();
@@ -43,6 +46,11 @@ const LogbookWeeklyReport = () => {
       break;
   }
 
+  const handleDisableButton = () => {
+    const checkCompleteLogbook = logbookDaily.slice(0, 5).every((element) => element.isComplete);
+    return !checkCompleteLogbook;
+  };
+
   return (
     <div className="flex flex-col col-span-3 gap-4 mb-4">
       <Link
@@ -73,17 +81,17 @@ const LogbookWeeklyReport = () => {
 
         <div className="flex flex-col">
           <h1 className="text-sm text-gray-400">Tanggal Dibuat</h1>
-          <p className="text-sm text-gray-600 font-bold">{weekDay(weeklyActivity.updatedAt)}</p>
+          <p className="text-sm text-gray-600 font-bold">{loading ? <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div> : weekDay(weeklyActivity.updatedAt)}</p>
         </div>
 
         <div className="flex flex-col">
           <h1 className="text-sm text-gray-400">Minggu Kegiatan</h1>
-          <p className="text-sm text-gray-600 font-bold">{`Minggu ke- ${weeklyActivity.week + 1}`}</p>
+          <p className="text-sm text-gray-600 font-bold">{`Minggu ke- ${loading ? '' : weeklyActivity.week + 1}`}</p>
         </div>
 
         <div className="flex flex-col">
           <h1 className="text-sm text-gray-400">Hasil Kegiatan</h1>
-          <p className="text-sm text-gray-600 font-bold">{weeklyActivity.log_description}</p>
+          {weeklyActivity.log_description ? <p className="text-sm text-gray-600 font-bold">{weeklyActivity.log_description}</p> : <p className="text-sm text-red-600 font-bold">Mahasiswa belum mengisi laporan mingguan</p>}
         </div>
 
         {weeklyActivity.lecturer_note && (
@@ -105,12 +113,16 @@ const LogbookWeeklyReport = () => {
               type="button"
               className="flex items-center justify-center h-10 w-20 bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 duration-150 disabled:bg-green-200 disabled:cursor-default"
               onClick={() => handleStatusLogbook({ status: 'Sudah disetujui', lecturer_note: 'disetujui' })}
-              disabled={loadingUpdate}
+              disabled={loadingUpdate || handleDisableButton()}
             >
               {loadingUpdate ? <Spinner /> : 'Validasi'}
             </button>
 
-            <button type="submit" className="flex items-center justify-center h-10 w-24 bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default" disabled={loadingUpdate}>
+            <button
+              type="submit"
+              className="flex items-center justify-center h-10 w-24 bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default"
+              disabled={loadingUpdate || handleDisableButton()}
+            >
               {loadingUpdate ? <Spinner /> : 'Perlu direvisi'}
             </button>
           </div>
