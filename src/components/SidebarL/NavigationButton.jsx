@@ -28,10 +28,16 @@ const Navigation = () => {
     );
   } else if (userLoggedInData.role == 'dosen') {
     return (
-      <NavLink to="/dashboard/dosen/mahasiswa" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
-        <UserIcon />
-        <p className="lg:flex hidden">Mahasiswa</p>
-      </NavLink>
+      <>
+        <NavLink to="/dashboard/dosen/mahasiswa" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+          <UserIcon />
+          <p className="lg:flex hidden">Mahasiswa</p>
+        </NavLink>
+        <NavLink to="/dashboard/mahasiswa/laporan-akhir" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+          <DocumentIcon />
+          <p className="lg:flex hidden">Laporan Akhir</p>
+        </NavLink>
+      </>
     );
   }
 };
