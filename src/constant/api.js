@@ -78,6 +78,16 @@ export const getWeeklyLogByIdAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get all report
+export const getAllReportAPI = async (token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
 // get report internship detail by internship id
 export const getReportByInternshipIdAPI = async (id, token, signal) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/internship/${id}`, {
