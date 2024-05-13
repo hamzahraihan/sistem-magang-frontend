@@ -12,7 +12,6 @@ export const LogbookWeeklyActivityDispatch = createContext(null);
 
 const LogbookWeeklyActivityProvider = ({ children }) => {
   const [weeklyActivity, dispatch] = useReducer(LogbookWeeklyActivityReducer, []);
-  console.log('🚀 ~ LogbookWeeklyActivityProvider ~ weeklyActivity:', weeklyActivity);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const token = localStorage.getItem(TOKEN);
   const [loading, setLoading] = useState(false);
