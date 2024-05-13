@@ -28,6 +28,7 @@ import MahasiswaInternshipReport from './pages/Mahasiswa/Dosen/MahasiswaInternsh
 import InternshipWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/InternshipWeeklyReport/index.jsx';
 import LogbookWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/LogbookWeeklyReport/index.jsx';
 import ReportInternship from './pages/Mahasiswa/Dosen/ReportInternship/index.jsx';
+import ReportDetail from './pages/Mahasiswa/Dosen/ReportInternship/ReportDetail/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard/mahasiswa/laporan-akhir',
         element: <ReportInternship />,
+      },
+      {
+        path: '/dashboard/mahasiswa/laporan-akhir/:report_id',
+        element: <ReportDetail />,
       },
     ],
   },
