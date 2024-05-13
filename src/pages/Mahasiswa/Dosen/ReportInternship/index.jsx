@@ -3,6 +3,7 @@ import { ArrowIcon } from '../../../../components/Icons';
 import { createColumnHelper } from '@tanstack/react-table';
 import Table from '../../../../components/Table/Table';
 import useFetchReport from '../../../../features/report/useFetchReport';
+import { weekDay } from '../../../../utils/formatDate';
 
 const ReportInternship = () => {
   const { loading, reportIntern } = useFetchReport();
@@ -33,15 +34,21 @@ const ReportInternship = () => {
       cell: (info) => info.getValue().nim,
       header: 'NIM',
     }),
-    columnHelper.accessor('angkatan', {
-      id: 'Angkatan',
-      cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{info.getValue()}</div>,
-      header: <span className="w-full text-center">Angkatan</span>,
+    columnHelper.accessor('title', {
+      id: 'Judul Laporan',
+      cell: (info) => info.getValue(),
+      header: 'Judul Laporan',
+      size: 200,
     }),
-    columnHelper.accessor('mahasiswa_id', {
+    columnHelper.accessor('updatedAt', {
+      id: 'Tanggal',
+      cell: (info) => weekDay(info.getValue()),
+      header: 'Tanggal',
+    }),
+    columnHelper.accessor('report_id', {
       id: 'Aksi',
       cell: (info) => (
-        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
+        <Link to={`/dashboard/mahasiswa/laporan-akhir/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
           Lihat detail
         </Link>
       ),
