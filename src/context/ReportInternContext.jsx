@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../hooks/useUserContext';
+import { useParams } from 'react-router-dom';
 
 export const ReportInternContext = createContext(null);
 
@@ -11,6 +12,7 @@ export const ReportInternDispatch = createContext(null);
 const ReportInternProvider = ({ children }) => {
   const [reportIntern, dispatch] = useReducer(ReportInternReducer, []);
   const [loadingUpload, setLoadingUpload] = useState(false);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
 
   const { userLoggedInData } = useUserContext();
 
@@ -65,15 +67,46 @@ const ReportInternProvider = ({ children }) => {
     }
   };
 
+  const { report_id } = useParams();
+  console.log('🚀 ~ ReportInternProvider ~ report_id:', report_id);
+  const handleStatusReport = async ({ status, lecturer_note }) => {
+    console.log('🚀 ~ handleStatusReport ~ status:', status);
+    setLoadingUpdate(true);
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/report/${report_id}`,
+        { status, lecturer_note },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status == 201) {
+        toast.success('Berhasil');
+        setLoadingUpdate(false);
+      }
+    } catch (error) {
+      if (error.response.status == 500) {
+        toast.error(error.message);
+      }
+      console.error(error);
+      setLoadingUpdate(false);
+    }
+  };
+
   return (
     <ReportInternContext.Provider
       value={{
+        handleStatusReport,
         reportIntern,
         handleFileUpload,
         internCompletedFileInputRef,
         finalReportFileInputRef,
         internScoreFileInputRef,
         loadingUpload,
+        loadingUpdate,
       }}
     >
       <ReportInternDispatch.Provider value={dispatch}>{children}</ReportInternDispatch.Provider>
