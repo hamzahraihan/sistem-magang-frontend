@@ -64,7 +64,6 @@ const ReportInternship = () => {
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <div className="flex flex-col mb-2">
             <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
-            <p className="text-sm">{/* Dosen wali: {userLoggedInData?.first_name} {userLoggedInData?.last_name} */}</p>
           </div>
           <Table columns={columns} data={reportIntern} loading={loading} fileName={'laporan_akhir_mahasiswa_magang_mandiri'} />
         </div>
