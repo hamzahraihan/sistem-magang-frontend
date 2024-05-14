@@ -7,6 +7,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useLogbookWeeklyActivityContext } from '../../../../../hooks/useLogbookWeeklyActivityContext';
 import useFetchDailyLogbook from '../../../../../features/logbook/useFetchDailyLogbook';
+import _ from 'lodash';
 
 const LogbookWeeklyReport = () => {
   const { logbookDaily } = useFetchDailyLogbook();
@@ -63,41 +64,39 @@ const LogbookWeeklyReport = () => {
         <div className="container flex justify-between items-center">
           <div className="flex flex-col">
             <h1 className="text-xl font-bold">Detail Logbook</h1>
-            <p className="text-sm text-gray-400">
-              {loading ? (
-                <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div>
-              ) : (
-                <>
-                  {userByID.first_name} {userByID.last_name}
-                </>
-              )}
-            </p>
           </div>
 
           <div className="flex flex-col">
-            <div className={`p-3 rounded-xl ${statusColor}`}>{statusText}</div>
+            <div className={`p-3 rounded-xl font-bold ${statusColor}`}>{statusText}</div>
           </div>
         </div>
 
         <div className="flex flex-col">
-          <h1 className="text-sm text-gray-400">Tanggal Dibuat</h1>
-          <p className="text-sm text-gray-600 font-bold">{loading ? <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div> : weekDay(weeklyActivity.updatedAt)}</p>
+          <h1 className="text-sm font-bold text-gray-300">Nama</h1>
+          <p className="text-sm text-gray-400">
+            {loading ? <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div> : <div className="text-sm font-bold text-gray-500">{_.upperCase(`${userByID.first_name} ${userByID.last_name}`)}</div>}
+          </p>
         </div>
 
         <div className="flex flex-col">
-          <h1 className="text-sm text-gray-400">Minggu Kegiatan</h1>
-          <p className="text-sm text-gray-600 font-bold">{`Minggu ke- ${loading ? '' : weeklyActivity.week + 1}`}</p>
+          <h1 className="text-sm text-gray-300 font-bold">Tanggal Dibuat</h1>
+          <p className="text-sm text-gray-500 font-bold">{loading ? <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div> : weekDay(weeklyActivity.updatedAt)}</p>
         </div>
 
         <div className="flex flex-col">
-          <h1 className="text-sm text-gray-400">Hasil Kegiatan</h1>
-          {weeklyActivity.log_description ? <p className="text-sm text-gray-600 font-bold">{weeklyActivity.log_description}</p> : <p className="text-sm text-red-600 font-bold">Mahasiswa belum mengisi laporan mingguan</p>}
+          <h1 className="text-sm text-gray-300 font-bold ">Minggu Kegiatan</h1>
+          <p className="text-sm text-gray-500 font-bold">{`Minggu ke- ${loading ? '' : weeklyActivity.week + 1}`}</p>
+        </div>
+
+        <div className="flex flex-col">
+          <h1 className="text-sm text-gray-300 font-bold">Hasil Kegiatan</h1>
+          {weeklyActivity.log_description ? <p className="text-sm text-gray-500 font-bold">{weeklyActivity.log_description}</p> : <p className="text-sm text-red-600 font-bold">Mahasiswa belum mengisi laporan mingguan</p>}
         </div>
 
         {weeklyActivity.lecturer_note && (
           <div className="flex flex-col">
-            <h1 className="text-sm text-gray-400 ">Catatan dosen</h1>
-            <p className="text-sm text-gray-600 font-bold">{weeklyActivity.lecturer_note}</p>
+            <h1 className="text-sm text-gray-300 font-bold ">Catatan dosen</h1>
+            <p className="text-sm text-gray-500 font-bold">{weeklyActivity.lecturer_note}</p>
           </div>
         )}
 
