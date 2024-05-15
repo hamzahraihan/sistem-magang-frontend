@@ -68,7 +68,6 @@ const ReportInternProvider = ({ children }) => {
   };
 
   const { report_id } = useParams();
-  console.log('🚀 ~ ReportInternProvider ~ report_id:', report_id);
   const handleStatusReport = async ({ status, lecturer_note }) => {
     console.log('🚀 ~ handleStatusReport ~ status:', status);
     setLoadingUpdate(true);
@@ -83,7 +82,9 @@ const ReportInternProvider = ({ children }) => {
           },
         }
       );
+
       if (response.status == 201) {
+        dispatch({ type: 'EDIT_REPORT_DATA', payload: response.data.result });
         toast.success('Berhasil');
         setLoadingUpdate(false);
       }
@@ -120,6 +121,8 @@ const ReportInternReducer = (reportIntern, action) => {
       return action.payload;
     case 'ADD_REPORT_DATA':
       return [...reportIntern, action.payload];
+    case 'EDIT_REPORT_DATA':
+      return action.payload;
     default:
       break;
   }
