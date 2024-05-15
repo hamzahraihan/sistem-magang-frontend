@@ -83,7 +83,7 @@ const DetailInternship = () => {
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
             </Link>
-            {reportIntern.length === 0 ? (
+            {reportIntern.length === 1 ? (
               <Link
                 to={`/report/upload/${internshipByID?.internship_id}`}
                 state={{ internshipID: internshipByID.internship_id }}
