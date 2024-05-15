@@ -29,6 +29,7 @@ import InternshipWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipR
 import LogbookWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/LogbookWeeklyReport/index.jsx';
 import ReportInternship from './pages/Mahasiswa/Dosen/ReportInternship/index.jsx';
 import ReportDetail from './pages/Mahasiswa/Dosen/ReportInternship/ReportDetail/index.jsx';
+import ReportUpdateForm from './pages/Report/Update/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path: '/report/upload/:internship_id',
         element: <ReportForm />,
+      },
+      {
+        path: '/report/update/:report_id',
+        element: <ReportUpdateForm />,
       },
       {
         path: '/report/detail/:report_id',
