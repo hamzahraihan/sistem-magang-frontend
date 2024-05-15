@@ -10,7 +10,7 @@ import { weekDay } from '../../../../../utils/formatDate';
 import { useReportInternContext } from '../../../../../hooks/useReportInternContext';
 
 const ReportDetail = () => {
-  const { reportDetail } = useFetchReportById();
+  const { loading, reportDetail } = useFetchReportById();
   const { loadingUpdate, handleStatusReport } = useReportInternContext();
   console.log('🚀 ~ ReportDetail ~ reportDetail:', reportDetail);
 
@@ -27,7 +27,9 @@ const ReportDetail = () => {
       lecturer_note: '',
       status: 'Perlu direvisi',
     },
-    onSubmit: () => {},
+    onSubmit: (values) => {
+      handleStatusReport(values);
+    },
     validationSchema: yup.object().shape({
       lecturer_note: yup.string().required('Wajib diisi bila perlu direvisi'),
       status: yup.string().required(),
@@ -67,7 +69,11 @@ const ReportDetail = () => {
 
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Nama</h1>
-            <p className="text-sm font-bold text-gray-500">{_.upperCase(`${reportDetail.Mahasiswa?.first_name} ${reportDetail.Mahasiswa?.last_name}`)}</p>
+            {loading ? (
+              <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div>
+            ) : (
+              <div className="text-sm font-bold text-gray-500">{_.upperCase(`${reportDetail.Mahasiswa?.first_name} ${reportDetail.Mahasiswa?.last_name}`)}</div>
+            )}
           </div>
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
@@ -116,10 +122,10 @@ const ReportDetail = () => {
               <textarea id="lecturer_note" name="lecturer_note" className="rounded-lg bg-gray-200 border-0 text-xs" rows={5} value={formik.values.lecturer_note} onChange={(e) => formik.setFieldValue(e.target.name, e.target.value)} />
               {formik.errors.lecturer_note}
 
-              <div className="flex gap-2 w-fit mt-4">
+              <div className="flex lg:flex-row flex-col gap-2 lg:w-fit w-full mt-4">
                 <button
                   type="button"
-                  className="flex items-center justify-center h-10 w-20 bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 duration-150 disabled:bg-green-200 disabled:cursor-default"
+                  className="flex items-center justify-center h-10 lg:w-20 w-full bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 duration-150 disabled:bg-green-200 disabled:cursor-default"
                   onClick={() => handleStatusReport({ status: 'Valid', lecturer_note: '' })}
                   disabled={loadingUpdate}
                 >
@@ -128,8 +134,7 @@ const ReportDetail = () => {
 
                 <button
                   type="submit"
-                  className="flex items-center justify-center h-10 w-24 bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default"
-                  onClick={() => {}}
+                  className="flex items-center justify-center h-10 lg:w-24 w-full bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default"
                   disabled={loadingUpdate}
                 >
                   Perlu direvisi
