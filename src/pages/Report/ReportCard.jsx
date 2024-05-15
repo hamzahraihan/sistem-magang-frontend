@@ -7,6 +7,17 @@ import useFetchReportByMahasiswa from '../../features/report/useFetchReportByMah
 const ReportCard = () => {
   const { reportIntern, loading } = useFetchReportByMahasiswa();
 
+  const handleStatus = (status) => {
+    switch (status) {
+      case 'Belum disetujui':
+        return <p className="w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit bg-gray-300 text-black">Belum disetujui</p>;
+      case 'Valid':
+        return <p className="w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit bg-green-500 text-white">Valid</p>;
+      case 'Perlu direvisi':
+        return <p className="w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit bg-red-500 text-white">Perlu direvisi</p>;
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -24,7 +35,7 @@ const ReportCard = () => {
                 <p className="group-hover:text-white">{_.capitalize(report.Internship?.instance)}</p>
                 <p className="text-gray-500 group-hover:text-white">{weekDay(report?.updatedAt)}</p>
               </div>
-              <p className={`bg-gray-200 w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit ${report?.status == 'belum diterima' ? 'text-gray-500' : 'text-green-500'}`}>{_.capitalize(report?.status)}</p>
+              {handleStatus(report.status)}
             </div>
           </Link>
         ))
