@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, Spinner } from '../../../components/Icons';
+import { ArrowIcon, FileIcon, Spinner } from '../../../components/Icons';
 import SidebarReport from '../SidebarReport';
 import useFetchReportById from '../../../features/report/useFetchReportById';
 import { weekDay } from '../../../utils/formatDate';
 import DOMPurify from 'dompurify';
-import _ from 'lodash';
 import ModalReport from './ModalReport';
 import { useState } from 'react';
-import { Button } from 'flowbite-react';
 
 const DetailReport = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -17,13 +15,20 @@ const DetailReport = () => {
   console.log('🚀 ~ DetailReport ~ reportDetail:', reportDetail);
   const sanitizeContent = DOMPurify.sanitize(reportDetail.note);
 
-  let color;
+  let statusColor;
+  let statusText;
   switch (reportDetail.status) {
-    case 'belum diterima':
-      color = 'text-gray-500';
+    case 'Belum disetujui':
+      statusColor = 'bg-gray-300';
+      statusText = 'Belum disetujui';
       break;
-    case 'sudah diterima':
-      color = 'text-green-500';
+    case 'Valid':
+      statusColor = 'bg-green-500 text-white';
+      statusText = 'Valid';
+      break;
+    case 'Perlu direvisi':
+      statusColor = 'bg-red-500 text-white';
+      statusText = 'Perlu direvisi';
       break;
   }
 
@@ -42,35 +47,57 @@ const DetailReport = () => {
           {loading ? (
             <Spinner />
           ) : (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 p-4 bg-white rounded-3xl border border-gray-200">
               <div className="flex flex-col">
                 <h1 className="text-xl font-bold">{reportDetail.title}</h1>
-                <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportDetail.createdAt)}</p>
+                <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportDetail.updatedAt)}</p>
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col bg-gray-200 w-fit p-2 rounded-lg gap-2">
                   <p>Status</p>
-                  <p className={`border border-gray-400 w-fit p-1 rounded-md  ${color}`}>{_.capitalize(reportDetail.status)}</p>
+                  <p className={`border border-gray-400 w-fit p-1 rounded-md  ${statusColor}`}>{statusText}</p>
                 </div>
-                <div>
+                <div className="flex flex-col">
                   <p className="text-sm font-bold">Keterangan laporan</p>
                   <p dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_complete_file')}>
-                    Surat selesai magang
-                  </Button>
+                {reportDetail.lecturer_note && (
+                  <div className="flex flex-col">
+                    <p className="text-sm font-bold">Catatan dosen</p>
+                    <p>{reportDetail.lecturer_note}</p>
+                  </div>
+                )}
+                <h1 className="text-sm font-bold">File Laporan Akhir Magang</h1>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-sm font-bold">Surat Selesai Magang:</p>
+                  <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleModal('intern_complete_file')}>
+                    <FileIcon />
+                  </button>
+                </div>
 
-                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_final_report')}>
-                    Laporan akhir magang
-                  </Button>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-sm font-bold"> Laporan akhir magang:</p>
+                  <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleModal('intern_final_report')}>
+                    <FileIcon />
+                  </button>
+                </div>
 
-                  <Button color={null} className="border border-gray-400 bg-white hover:bg-primaryColor active:bg-hoverColor hover:text-white hover:border-white" onClick={() => handleModal('intern_score_file')}>
-                    Penilaian dari perusahaan
-                  </Button>
+                <div className="flex items-baseline gap-2">
+                  <p className="text-sm font-bold">Penilaian dari perusahaan:</p>
+                  <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleModal('intern_score_file')}>
+                    <FileIcon />
+                  </button>
                 </div>
 
                 {openModal && <ModalReport report={reportDetail} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
+              </div>
+              <div className="flex gap-2">
+                <button type="button" className="bg-red-600 text-white rounded-md p-2 hover:bg-red-700 active:bg-red-800 duration-150">
+                  Hapus
+                </button>
+                <Link to="/report/update/" className="bg-green-500 hover:bg-green-600 active:bg-green-700 !text-white rounded-md p-2 duration-150">
+                  Ubah
+                </Link>
               </div>
             </div>
           )}
