@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getReportByIdAPI } from '../../constant/api';
-import { useReportInternDispatch } from '../../hooks/useReportInternContext';
+import { useReportInternContext, useReportInternDispatch } from '../../hooks/useReportInternContext';
 import { TOKEN } from '../../constant/key';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 // fetch report data by report_id
 const useFetchReportById = () => {
   const [loading, setLoading] = useState(false);
-  const [reportDetail, setReportDetail] = useState({});
+  const { reportIntern } = useReportInternContext();
   const { report_id } = useParams();
   const dispatch = useReportInternDispatch();
 
@@ -18,7 +18,7 @@ const useFetchReportById = () => {
       const token = localStorage.getItem(TOKEN);
       try {
         const data = await getReportByIdAPI(report_id, token);
-        setReportDetail(data);
+        dispatch({ type: 'SET_REPORT_DATA', payload: data });
         setLoading(false);
       } catch (error) {
         if (error.response.status === 403) {
@@ -31,7 +31,7 @@ const useFetchReportById = () => {
     getReportInternship();
   }, [dispatch, report_id]);
 
-  return { loading, reportDetail };
+  return { loading, reportIntern };
 };
 
 export default useFetchReportById;
