@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, FileIcon, Spinner } from '../../../components/Icons';
+import { ArrowIcon, CancelIcon, CheckIcon, FileIcon, Spinner } from '../../../components/Icons';
 import SidebarReport from '../SidebarReport';
 import useFetchReportById from '../../../features/report/useFetchReportById';
 import { weekDay } from '../../../utils/formatDate';
@@ -11,24 +11,27 @@ const DetailReport = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const { reportDetail, loading } = useFetchReportById();
-  console.log('🚀 ~ DetailReport ~ reportDetail:', reportDetail);
-  const sanitizeContent = DOMPurify.sanitize(reportDetail.note);
+  const { reportIntern, loading } = useFetchReportById();
+  console.log('🚀 ~ DetailReport ~ reportIntern:', reportIntern);
+  const sanitizeContent = DOMPurify.sanitize(reportIntern.note);
 
   let statusColor;
   let statusText;
-  switch (reportDetail.status) {
+  let statusIcon;
+  switch (reportIntern.status) {
     case 'Belum disetujui':
-      statusColor = 'bg-gray-300';
+      statusColor = 'border border-gray-400';
       statusText = 'Belum disetujui';
       break;
     case 'Valid':
-      statusColor = 'bg-green-500 text-white';
+      statusColor = 'bg-green-400 text-white';
       statusText = 'Valid';
+      statusIcon = <CheckIcon />;
       break;
     case 'Perlu direvisi':
       statusColor = 'bg-red-500 text-white';
       statusText = 'Perlu direvisi';
+      statusIcon = <CancelIcon />;
       break;
   }
 
@@ -49,22 +52,26 @@ const DetailReport = () => {
           ) : (
             <div className="flex flex-col gap-2 p-4 bg-white rounded-3xl border border-gray-200">
               <div className="flex flex-col">
-                <h1 className="text-xl font-bold">{reportDetail.title}</h1>
-                <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportDetail.updatedAt)}</p>
+                <h1 className="text-xl font-bold">{reportIntern.title}</h1>
+                <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern.updatedAt)}</p>
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col bg-gray-200 w-fit p-2 rounded-lg gap-2">
                   <p>Status</p>
-                  <p className={`border border-gray-400 w-fit p-1 rounded-md  ${statusColor}`}>{statusText}</p>
+                  <div className="flex items-center gap-2">
+                    <p className={`flex items-center justify-between gap-2 text-center py-1 px-5 rounded-md  ${statusColor}`}>
+                      {statusText} {statusIcon}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-sm font-bold">Keterangan laporan</p>
                   <p dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
                 </div>
-                {reportDetail.lecturer_note && (
+                {reportIntern.lecturer_note && (
                   <div className="flex flex-col">
                     <p className="text-sm font-bold">Catatan dosen</p>
-                    <p>{reportDetail.lecturer_note}</p>
+                    <p>{reportIntern.lecturer_note}</p>
                   </div>
                 )}
                 <h1 className="text-sm font-bold">File Laporan Akhir Magang</h1>
@@ -89,15 +96,7 @@ const DetailReport = () => {
                   </button>
                 </div>
 
-                {openModal && <ModalReport report={reportDetail} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
-              </div>
-              <div className="flex gap-2">
-                <button type="button" className="bg-red-600 text-white rounded-md p-2 hover:bg-red-700 active:bg-red-800 duration-150">
-                  Hapus
-                </button>
-                <Link to="/report/update/" className="bg-green-500 hover:bg-green-600 active:bg-green-700 !text-white rounded-md p-2 duration-150">
-                  Ubah
-                </Link>
+                {openModal && <ModalReport report={reportIntern} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
               </div>
             </div>
           )}
