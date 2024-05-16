@@ -11,6 +11,7 @@ export const ReportInternDispatch = createContext(null);
 
 const ReportInternProvider = ({ children }) => {
   const [reportIntern, dispatch] = useReducer(ReportInternReducer, []);
+  console.log('🚀 ~ ReportInternProvider ~ reportIntern:', reportIntern);
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
 
