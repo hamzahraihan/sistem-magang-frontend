@@ -10,9 +10,9 @@ import { weekDay } from '../../../../../utils/formatDate';
 import { useReportInternContext } from '../../../../../hooks/useReportInternContext';
 
 const ReportDetail = () => {
-  const { loading, reportDetail } = useFetchReportById();
+  const { loading, reportIntern } = useFetchReportById();
   const { loadingUpdate, handleStatusReport } = useReportInternContext();
-  console.log('🚀 ~ ReportDetail ~ reportDetail:', reportDetail);
+  console.log('🚀 ~ ReportDetail ~ reportIntern:', reportIntern);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -38,7 +38,7 @@ const ReportDetail = () => {
 
   let statusColor;
   let statusText;
-  switch (reportDetail.status) {
+  switch (reportIntern.status) {
     case 'Belum disetujui':
       statusColor = 'bg-gray-300 text-black';
       statusText = 'Belum disetujui';
@@ -72,21 +72,21 @@ const ReportDetail = () => {
             {loading ? (
               <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div>
             ) : (
-              <div className="text-sm font-bold text-gray-500">{_.upperCase(`${reportDetail.Mahasiswa?.first_name} ${reportDetail.Mahasiswa?.last_name}`)}</div>
+              <div className="text-sm font-bold text-gray-500">{_.upperCase(`${reportIntern.Mahasiswa?.first_name} ${reportIntern.Mahasiswa?.last_name}`)}</div>
             )}
           </div>
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
-            <p className="text-sm font-bold text-gray-500">{reportDetail.Internship?.instance}</p>
+            <p className="text-sm font-bold text-gray-500">{reportIntern.Internship?.instance}</p>
           </div>
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Laporan dikirim pada</h1>
-            <p className="text-sm font-bold text-gray-500">{weekDay(reportDetail.createdAt)}</p>
+            <p className="text-sm font-bold text-gray-500">{weekDay(reportIntern.createdAt)}</p>
           </div>
-          {reportDetail.lecturer_note && (
+          {reportIntern.lecturer_note && (
             <div className="flex flex-col">
               <h1 className="text-sm font-bold text-gray-300">Catatan Dosen</h1>
-              <p className="text-sm font-bold text-gray-500">{reportDetail.lecturer_note}</p>
+              <p className="text-sm font-bold text-gray-500">{reportIntern.lecturer_note}</p>
             </div>
           )}
 
@@ -113,7 +113,7 @@ const ReportDetail = () => {
               </button>
             </div>
 
-            {openModal && <ModalReport report={reportDetail} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
+            {openModal && <ModalReport report={reportIntern} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
 
             <form className="flex flex-col" onSubmit={formik.handleSubmit}>
               <label htmlFor="lecturer_note" className="text-sm text-gray-400">
