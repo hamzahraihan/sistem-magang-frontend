@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon, CancelIcon, CheckIcon, FileIcon, Spinner } from '../../../components/Icons';
-import SidebarReport from '../SidebarReport';
 import useFetchReportById from '../../../features/report/useFetchReportById';
 import { weekDay } from '../../../utils/formatDate';
 import DOMPurify from 'dompurify';
 import ModalReport from './ModalReport';
 import { useState } from 'react';
+import SidebarReportDetail from './SidebarReportDetail';
 
 const DetailReport = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -51,12 +51,12 @@ const DetailReport = () => {
             <Spinner />
           ) : (
             <div className="flex flex-col gap-2 p-4 bg-white rounded-3xl border border-gray-200">
-              <div className="flex flex-col">
-                <h1 className="text-xl font-bold">{reportIntern.title}</h1>
-                <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern.updatedAt)}</p>
-              </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-col bg-gray-200 w-fit p-2 rounded-lg gap-2">
+              <div className="flex lg:flex-row flex-col justify-between gap-2">
+                <div className="flex flex-1 flex-col">
+                  <h1 className="text-lg font-bold">{reportIntern.title} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel rem nam nostrum tempore itaque dolor et! Deserunt asperiores recusandae totam?</h1>
+                  <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern.updatedAt)}</p>
+                </div>
+                <div className="flex flex-col bg-gray-200 w-fit h-fit p-2 rounded-lg gap-2">
                   <p>Status</p>
                   <div className="flex items-center gap-2">
                     <p className={`flex items-center justify-between gap-2 text-center py-1 px-5 rounded-md  ${statusColor}`}>
@@ -64,6 +64,8 @@ const DetailReport = () => {
                     </p>
                   </div>
                 </div>
+              </div>
+              <div className="flex flex-col gap-3">
                 <div className="flex flex-col">
                   <p className="text-sm font-bold">Keterangan laporan</p>
                   <p dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
@@ -101,7 +103,7 @@ const DetailReport = () => {
             </div>
           )}
         </div>
-        <SidebarReport />
+        <SidebarReportDetail />
       </div>
     </div>
   );
