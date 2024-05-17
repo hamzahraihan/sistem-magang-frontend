@@ -6,7 +6,7 @@ export default {
       colors: {
         primaryColor: '#921300',
         hoverColor: '#B26E64',
-        activeColor: '#B26E64',
+        activeColor: '#570d09',
       },
       screens: {
         ssm: '490px',
