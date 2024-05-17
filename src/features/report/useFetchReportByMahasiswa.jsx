@@ -2,22 +2,23 @@ import { useEffect, useState } from 'react';
 import { getReportByMahasiswaAPI } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
 import { TOKEN } from '../../constant/key';
-import { useReportInternContext, useReportInternDispatch } from '../../hooks/useReportInternContext';
 
 // fetch all report data by mahasiswa id
 const useFetchReportByMahasiswa = () => {
   const [loading, setLoading] = useState(false);
-  const { reportIntern } = useReportInternContext();
+  const [reportIntern, setReportIntern] = useState([]);
+  console.log('🚀 ~ useFetchReportByMahasiswa ~ reportIntern:', reportIntern);
   const { userLoggedInData } = useUserContext();
-  const dispatch = useReportInternDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem(TOKEN);
+    const controller = new AbortController();
+    const signal = controller.signal;
     const getReportMahasiswa = async () => {
       setLoading(true);
       try {
-        const data = await getReportByMahasiswaAPI(userLoggedInData?.id, token);
-        dispatch({ type: 'SET_REPORT_DATA', payload: data });
+        const data = await getReportByMahasiswaAPI(userLoggedInData?.id, token, signal);
+        setReportIntern(data);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -25,7 +26,10 @@ const useFetchReportByMahasiswa = () => {
       }
     };
     getReportMahasiswa();
-  }, [dispatch, userLoggedInData]);
+    return () => {
+      controller.abort();
+    };
+  }, [userLoggedInData]);
 
   return { loading, reportIntern };
 };
