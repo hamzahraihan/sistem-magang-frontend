@@ -1,24 +1,27 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../../components/Icons';
-import useFetchReportById from '../../../features/report/useFetchReportById';
+import PrimaryButton from '../../../components/PrimaryButton';
 
 const SidebarReport = () => {
-  const { reportIntern } = useFetchReportById();
   return (
     <div className="lg:col-span-1 gap-4 col-span-3 flex flex-col top-5 lg:items-start  ">
-      <Link to="/report" className="flex lg:hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
+      <Link to="/" className="flex lg:hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
         <ArrowIcon />
       </Link>
-      <div className="flex flex-col w-full gap-8">
-        <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
-        <div className="flex flex-col gap-2">
-          <button type="button" className="bg-red-400 font-bold rounded-xl p-3 hover:bg-red-500 active:bg-red-600 duration-150">
-            Hapus laporan
-          </button>
-          <Link to={`/report/update/${reportIntern.report_id}`} className="bg-green-300 hover:bg-green-400 active:bg-green-500 font-bold rounded-xl text-center p-3 duration-150">
-            Ubah laporan
-          </Link>
+      <div className="flex flex-col gap-2">
+        <h1 className="font-bold text-xl">Segera kirim laporan akhir</h1>
+        <div>
+          <p>File laporan yang wajib harus kamu kirim</p>
+          <ul className="list-disc list-inside">
+            <li>File surat selesai magang</li>
+            <li>File laporan akhir magang</li>
+            <li>File penilaian dari perusahaan</li>
+          </ul>
         </div>
+        <p>Isi keterangan laporan dengan link google drive laporan kamu untuk dengan mudah kamu ubah jika kamu tidak yakin dengan laporan yang sudah kamu kirim</p>
+      </div>
+      <div className="lg:block w-full ">
+        <PrimaryButton text="Buat laporan magang" />
       </div>
     </div>
   );
