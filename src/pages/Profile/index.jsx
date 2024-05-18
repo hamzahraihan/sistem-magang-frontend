@@ -14,7 +14,6 @@ import BlogSVG from '../../assets/svg/searchpost.svg';
 
 const Profile = () => {
   const { loading, userByID } = useFetchUserByID();
-  console.log('🚀 ~ Profile ~ userByID:', userByID);
   const { userLoggedInData } = useUserContext();
 
   const { loadingPostByUser, postByUser } = usePostContext();
@@ -29,8 +28,6 @@ const Profile = () => {
         return userByID.admin_id;
     }
   };
-
-  console.log('handle user id:', handleUserId());
 
   const slugify = () => {
     const full_name = `${userByID?.first_name} ${userByID?.last_name}`;
