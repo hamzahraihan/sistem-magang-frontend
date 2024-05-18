@@ -53,7 +53,7 @@ const DetailReport = () => {
             <div className="flex flex-col gap-2 p-4 bg-white rounded-3xl border border-gray-200">
               <div className="flex lg:flex-row flex-col justify-between gap-2">
                 <div className="flex flex-1 flex-col">
-                  <h1 className="text-lg font-bold">{reportIntern.title} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel rem nam nostrum tempore itaque dolor et! Deserunt asperiores recusandae totam?</h1>
+                  <h1 className="text-lg font-bold">{reportIntern.title}</h1>
                   <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern.updatedAt)}</p>
                 </div>
                 <div className="flex flex-col bg-gray-200 w-fit h-fit p-2 rounded-lg gap-2">
