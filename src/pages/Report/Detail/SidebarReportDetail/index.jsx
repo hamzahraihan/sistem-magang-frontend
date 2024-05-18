@@ -15,7 +15,7 @@ const SidebarReportDetail = () => {
           <button type="button" className="bg-primaryColor text-white font-bold rounded-xl p-3 hover:bg-hoverColor active:bg-activeColor duration-150">
             Hapus laporan
           </button>
-          <Link to={`/report/update/${reportIntern.report_id}`} className="border-2 border-black hover:bg-gray-200 active:bg-gray-400 font-bold rounded-xl text-center p-3 duration-150">
+          <Link to={`/report/update/${reportIntern.report_id}`} className="border border-gray-300 hover:bg-gray-200 active:bg-gray-300 bg-white font-bold rounded-xl text-center p-3 duration-150">
             Ubah laporan
           </Link>
         </div>
