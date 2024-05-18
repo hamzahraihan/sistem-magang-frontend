@@ -73,7 +73,6 @@ const UpdateProfile = () => {
         .mixed()
         .test('fileType', `File harus berupa gambar dengan format, ${allowedExt}`, (value) => {
           if (value == userByID.image || !value) return true;
-          console.log('🚀 ~ .test ~ value:', value);
           return isValidFileType(value?.name);
         })
         .test('fileSize', 'Ukuran file terlalu besar', (value) => {
