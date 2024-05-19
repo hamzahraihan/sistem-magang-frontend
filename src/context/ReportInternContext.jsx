@@ -71,56 +71,54 @@ const ReportInternProvider = ({ children }) => {
   };
 
   const handleFileUpdate = async (values) => {
+    console.log('🚀 ~ handleFileUpdate ~ values:', values);
     const { title, note, intern_complete_file, intern_score_file, intern_final_report } = values;
 
     try {
-      setLoadingUpload(true);
+      setLoadingUpdate(true);
       const toastId = toast.loading('Sedang proses upload');
 
       const internCompleteFileRef = internCompletedFileInputRef.current.files[0];
       const finalReportFileRef = finalReportFileInputRef.current.files[0];
       const internScoreFileRef = internScoreFileInputRef.current.files[0];
 
+      const formData = new FormData();
+
+      if (!userLoggedInData) {
+        setLoadingUpdate(false);
+        return toast.error('Kamu belum login');
+      }
+
+      formData.append('title', title);
+      formData.append('note', note);
+      formData.append('status', 'Belum diterima');
+
       if (internCompleteFileRef && finalReportFileRef && internScoreFileRef) {
-        const formData = new FormData();
+        formData.append('files', internCompleteFileRef);
+        formData.append('files', finalReportFileRef);
+        formData.append('files', internScoreFileRef);
+      } else if (!internCompleteFileRef && !finalReportFileRef && !internScoreFileRef) {
+        formData.append('intern_complete_file', intern_complete_file);
+        formData.append('intern_score_file', intern_score_file);
+        formData.append('intern_final_report', intern_final_report);
+      }
 
-        if (!userLoggedInData) {
-          setLoadingUpload(false);
-          return toast.error('Kamu belum login');
-        }
-
-        formData.append('title', title);
-        formData.append('note', note);
-
-        if (intern_complete_file && intern_score_file && intern_final_report) {
-          formData.append('intern_complete_file', intern_complete_file);
-          formData.append('intern_score_file', intern_score_file);
-          formData.append('intern_final_report', intern_final_report);
-        } else {
-          formData.append('files', internCompleteFileRef);
-          formData.append('files', finalReportFileRef);
-          formData.append('files', internScoreFileRef);
-        }
-
-        try {
-          const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/report/${report_id}`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
-          console.log('file uploaded', response);
-          toast.success('Upload berhasil');
-          toast.dismiss(toastId);
-          setLoadingUpload(false);
-        } catch (error) {
-          console.error(error);
-          toast.dismiss(toastId);
-          toast.error('Upload gagal');
-          setLoadingUpload(false);
-        }
-      } else {
-        toast.error('Wajib kirim semua file');
+      try {
+        const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/report/${report_id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log('file uploaded', response);
+        toast.success('Upload berhasil');
+        toast.dismiss(toastId);
+        setLoadingUpdate(false);
+      } catch (error) {
+        console.error(error);
+        toast.dismiss(toastId);
+        toast.error('Upload gagal');
+        setLoadingUpdate(false);
       }
     } catch (error) {
       console.error(error);
