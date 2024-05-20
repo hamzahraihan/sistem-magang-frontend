@@ -39,9 +39,9 @@ const ReportDetail = () => {
   let statusColor;
   let statusText;
   switch (reportIntern.status) {
-    case 'Belum disetujui':
+    case 'Belum diterima':
       statusColor = 'bg-gray-300 text-black';
-      statusText = 'Belum disetujui';
+      statusText = 'Belum diterima';
       break;
     case 'Valid':
       statusColor = 'bg-green-500 text-white';
