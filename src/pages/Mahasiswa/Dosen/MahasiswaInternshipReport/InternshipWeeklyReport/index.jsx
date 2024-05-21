@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import useFetchInternshipById from '../../../../../features/internship/useFetchInternshipById';
 import { ArrowIcon } from '../../../../../components/Icons';
-import DataLogbook from './DataLogbook';
+import DataLogbook from './DataInternship';
 import WeeklyReport from './WeeklyReport';
 
 const InternshipWeeklyReport = () => {
