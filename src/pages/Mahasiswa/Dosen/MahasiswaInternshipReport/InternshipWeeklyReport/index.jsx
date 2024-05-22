@@ -6,7 +6,6 @@ import WeeklyReport from './WeeklyReport';
 
 const InternshipWeeklyReport = () => {
   const { loading, internshipByID } = useFetchInternshipById();
-  console.log('🚀 ~ InternshipWeeklyReport ~ internshipByID:', internshipByID);
 
   return (
     <div className="flex flex-col col-span-3 gap-4">
