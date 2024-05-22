@@ -3,6 +3,8 @@ import { createContext, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
 import { TOKEN } from '../constant/key';
+import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export const InternshipContext = createContext();
 
@@ -10,7 +12,9 @@ export const InternshipDispatch = createContext();
 
 export const InternshipProvider = ({ children }) => {
   const token = localStorage.getItem(TOKEN);
+  const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [internship, dispatch] = useReducer(InternshipReducer, []);
+  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
     location: '',
@@ -20,7 +24,8 @@ export const InternshipProvider = ({ children }) => {
     start_intern: '',
     end_intern: '',
   });
-  const { userLoggedInData } = useUserContext();
+  const { userLoggedInData, accessToken } = useUserContext();
+  const { internship_id } = useParams();
 
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
@@ -126,6 +131,29 @@ export const InternshipProvider = ({ children }) => {
     }
   };
 
+  const handleUpdateStatus = async ({ status, lecturer_note }) => {
+    setLoadingUpdate(true);
+    try {
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`,
+        { status, lecturer_note },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data });
+      toast.success('Berhasil Validasi');
+      setLoadingUpdate(false);
+    } catch (error) {
+      setLoadingUpdate(false);
+      toast.error(error.message);
+      console.error(error);
+    }
+  };
+
   return (
     <InternshipContext.Provider
       value={{
@@ -136,6 +164,8 @@ export const InternshipProvider = ({ children }) => {
         internFileInputRef,
         campusFileInputRef,
         lectureFileInputRef,
+        loadingUpdate,
+        handleUpdateStatus,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
@@ -149,6 +179,8 @@ const InternshipReducer = (internship, action) => {
       return action.payload;
     case 'ADD_INTERNSHIP_DATA':
       return [...internship, action.payload];
+    case 'EDIT_INTERNSHIP_DATA':
+      return action.payload;
   }
 };
 
