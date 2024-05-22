@@ -24,7 +24,7 @@ const ExportButton = ({ data = [], fileName }) => {
 };
 
 ExportButton.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.any,
   fileName: PropTypes.string,
 };
 
