@@ -126,22 +126,28 @@ const ReportInternProvider = ({ children }) => {
   };
 
   const handleStatusReport = async ({ status, lecturer_note }) => {
-    console.log('🚀 ~ handleStatusReport ~ status:', status);
     setLoadingUpdate(true);
+    const formData = new FormData();
+
+    formData.append('status', status);
+    formData.append('lecturer_note', lecturer_note);
+    formData.append('intern_complete_file', reportIntern.intern_complete_file);
+    formData.append('intern_score_file', reportIntern.intern_score_file);
+    formData.append('intern_final_report', reportIntern.intern_final_report);
     try {
-      const response = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/report/${report_id}`,
-        { status, lecturer_note },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/report/${report_id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log('🚀 ~ handleStatusReport ~ response:', response);
 
       if (response.status == 201) {
-        dispatch({ type: 'EDIT_REPORT_DATA', payload: response.data.result });
+        dispatch({
+          type: 'EDIT_REPORT_DATA',
+          payload: response.data.result,
+        });
         toast.success('Berhasil');
         setLoadingUpdate(false);
       }
@@ -180,7 +186,11 @@ const ReportInternReducer = (reportIntern, action) => {
     case 'ADD_REPORT_DATA':
       return [...reportIntern, action.payload];
     case 'EDIT_REPORT_DATA':
-      return action.payload;
+      return {
+        ...action.payload,
+        Mahasiswa: reportIntern.Mahasiswa,
+        Internship: reportIntern.Internship,
+      };
     default:
       break;
   }
