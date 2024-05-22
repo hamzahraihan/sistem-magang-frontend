@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, FileIcon } from '../../../../../components/Icons';
+import { ArrowIcon, FileIcon, Spinner } from '../../../../../components/Icons';
 import useFetchReportById from '../../../../../features/report/useFetchReportById';
 import { useState } from 'react';
 import ModalReport from '../../../../Report/Detail/ModalReport';
@@ -12,7 +12,6 @@ import { useReportInternContext } from '../../../../../hooks/useReportInternCont
 const ReportDetail = () => {
   const { loading, reportIntern } = useFetchReportById();
   const { loadingUpdate, handleStatusReport } = useReportInternContext();
-  console.log('🚀 ~ ReportDetail ~ reportIntern:', reportIntern);
 
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -26,6 +25,9 @@ const ReportDetail = () => {
     initialValues: {
       lecturer_note: '',
       status: 'Perlu direvisi',
+      intern_complete_file: null,
+      intern_score_file: null,
+      intern_final_report: null,
     },
     onSubmit: (values) => {
       handleStatusReport(values);
@@ -72,8 +74,12 @@ const ReportDetail = () => {
             {loading ? (
               <div className="bg-gray-400 rounded-md h-5 w-72 animate-pulse"></div>
             ) : (
-              <div className="text-sm font-bold text-gray-500">{_.upperCase(`${reportIntern.Mahasiswa?.first_name} ${reportIntern.Mahasiswa?.last_name}`)}</div>
+              <div className="text-sm font-bold text-gray-500">{reportIntern.Mahasiswa ? _.upperCase(`${reportIntern.Mahasiswa.first_name || ''} ${reportIntern.Mahasiswa.last_name || ''}`) : 'N/A'}</div>
             )}
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-sm font-bold text-gray-300">Judul</h1>
+            <p className="text-sm font-bold text-gray-500">{reportIntern.title}</p>
           </div>
           <div className="flex flex-col">
             <h1 className="text-sm font-bold text-gray-300">Tempat Magang</h1>
@@ -129,7 +135,7 @@ const ReportDetail = () => {
                   onClick={() => handleStatusReport({ status: 'Valid', lecturer_note: '' })}
                   disabled={loadingUpdate}
                 >
-                  Validasi
+                  {loadingUpdate ? <Spinner /> : 'Validasi'}
                 </button>
 
                 <button
@@ -137,7 +143,7 @@ const ReportDetail = () => {
                   className="flex items-center justify-center h-10 lg:w-24 w-full bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default"
                   disabled={loadingUpdate}
                 >
-                  Perlu direvisi
+                  {loadingUpdate ? <Spinner /> : 'Perlu direvisi'}
                 </button>
               </div>
             </form>
