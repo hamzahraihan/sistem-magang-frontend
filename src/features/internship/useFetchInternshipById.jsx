@@ -3,13 +3,16 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getInternshipByIdAPI } from '../../constant/api';
 import { TOKEN } from '../../constant/key';
 import toast from 'react-hot-toast';
+import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInternshipContext';
 
 // fetch internship detail data by internship id
 const useFetchInternshipById = () => {
-  const [internshipByID, setInternshipByID] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const { internship: internshipByID } = useInternshipContext();
+  console.log('🚀 ~ useFetchInternshipById ~ internshipByID:', internshipByID);
+  const dispatch = useInternshipDispatch();
   const { internship_id } = useParams();
+
   const { state } = useLocation();
 
   const internID = useMemo(() => {
@@ -24,8 +27,8 @@ const useFetchInternshipById = () => {
       setLoading(true);
       try {
         const data = await getInternshipByIdAPI(internID, signal, token);
+        dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
         setLoading(false);
-        setInternshipByID(data);
       } catch (error) {
         if (error.response.status === 403) {
           toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
@@ -38,7 +41,7 @@ const useFetchInternshipById = () => {
     return () => {
       controller.abort();
     };
-  }, [internID]);
+  }, [dispatch, internID]);
   return { internshipByID, loading };
 };
 
