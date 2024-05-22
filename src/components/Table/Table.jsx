@@ -182,7 +182,7 @@ const Table = ({ columns, data, fileName, loading }) => {
 
 Table.propTypes = {
   columns: PropTypes.array,
-  data: PropTypes.array,
+  data: PropTypes.any,
   fileName: PropTypes.string,
   loading: PropTypes.any,
 };
