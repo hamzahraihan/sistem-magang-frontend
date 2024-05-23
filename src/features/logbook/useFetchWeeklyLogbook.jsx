@@ -11,7 +11,6 @@ const useFetchWeeklyLogbook = () => {
   const { internship_id } = useParams();
   const dispatch = useLogbookWeeklyDispatch();
   const { logbookWeekly } = useLogbookWeeklyContext();
-  console.log('🚀 ~ useFetchWeeklyLogbook ~ logbookWeekly:', logbookWeekly);
 
   useEffect(() => {
     const controller = new AbortController();
