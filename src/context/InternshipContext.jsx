@@ -14,7 +14,6 @@ export const InternshipProvider = ({ children }) => {
   const token = localStorage.getItem(TOKEN);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [internship, dispatch] = useReducer(InternshipReducer, []);
-  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
     location: '',
@@ -51,8 +50,6 @@ export const InternshipProvider = ({ children }) => {
       formData.append('files', internshipFile);
       formData.append('files', lectureFile);
       formData.append('files', campusFile);
-
-      console.log(formData.get('files'));
 
       try {
         const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/internship`, formData, {
@@ -101,10 +98,8 @@ export const InternshipProvider = ({ children }) => {
             }
           );
 
-          console.log('Logbook created:', LogbookData);
-
           for (const [index, day] of week.entries()) {
-            const { data: LogdailyData } = await axios.post(
+            const response = await axios.post(
               `${import.meta.env.VITE_BASE_URL}/logbook/daily/create`,
               {
                 logbook_id: LogbookData.result.logbook_id,
@@ -120,11 +115,11 @@ export const InternshipProvider = ({ children }) => {
                 },
               }
             );
-            console.log('Logdaily created', LogdailyData);
+            if (response.status === 201) {
+              toast.success('Berhasil dibuat');
+            }
           }
         }
-
-        console.log('file uploaded', data);
       } catch (error) {
         console.error(error.message);
       }
@@ -133,18 +128,21 @@ export const InternshipProvider = ({ children }) => {
 
   const handleUpdateStatus = async ({ status, lecturer_note }) => {
     setLoadingUpdate(true);
+    const formData = new FormData();
+
+    formData.append('status', status);
+    formData.append('lecturer_note', lecturer_note);
+    formData.append('intern_agreement', internship.intern_agreement);
+    formData.append('lecture_agreement', internship.lecture_agreement);
+    formData.append('campus_approval', internship.campus_approval);
     try {
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`,
-        { status, lecturer_note },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data });
+      const { data } = await axios.put(`${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data.result });
       toast.success('Berhasil Validasi');
       setLoadingUpdate(false);
     } catch (error) {
