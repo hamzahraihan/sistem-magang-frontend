@@ -9,7 +9,7 @@ const FormInternshipValidation = () => {
   const formik = useFormik({
     initialValues: {
       lecturer_note: '',
-      status: '',
+      status: 'Tidak disetujui',
     },
     onSubmit: (values) => {
       handleUpdateStatus(values);
@@ -26,17 +26,23 @@ const FormInternshipValidation = () => {
         Catatan <span className="text-red-600">*Wajib diisi bila dokumentasi magang tidak valid</span>
       </label>
       <textarea id="lecturer_note" name="lecturer_note" className="rounded-lg bg-gray-200 border-0 text-xs" rows={5} onChange={(e) => formik.setFieldValue(e.target.name, e.target.value)} />
+      <p>{formik.errors.lecturer_note}</p>
 
       <div className="flex lg:flex-row flex-col gap-2 w-full mt-4">
         <button
           type="button"
           className="flex items-center justify-center h-10 lg:w-20 w-full bg-green-500 text-white rounded-md hover:bg-green-600 active:bg-green-700 duration-150 disabled:bg-green-200 disabled:cursor-default"
           onClick={() => handleUpdateStatus({ status: 'Disetujui', lecturer_note: '' })}
+          disabled={loadingUpdate}
         >
           {loadingUpdate ? <Spinner /> : 'Validasi'}
         </button>
 
-        <button type="submit" className="flex items-center justify-center h-10 lg:w-24 w-full bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default">
+        <button
+          type="submit"
+          className="flex items-center justify-center h-10 lg:w-24 w-full bg-red-600 text-white rounded-md hover:bg-red-700 active:bg-red-800 duration-150 disabled:bg-red-200 disabled:cursor-default"
+          disabled={loadingUpdate}
+        >
           {loadingUpdate ? <Spinner /> : 'Perlu direvisi'}
         </button>
       </div>
