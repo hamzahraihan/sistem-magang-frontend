@@ -126,6 +126,52 @@ export const InternshipProvider = ({ children }) => {
     }
   };
 
+  const handleFileUpdate = async ({ instance, location, type, description, phone, status }) => {
+    setLoadingUpdate(true);
+    const toastId = toast.loading('Sedang proses upload');
+
+    const campusFile = campusFileInputRef.current.files[0];
+    const lectureFile = lectureFileInputRef.current.files[0];
+    const internshipFile = internFileInputRef.current.files[0];
+
+    const formData = new FormData();
+
+    formData.append('instance', instance);
+    formData.append('location', location);
+    formData.append('type', type);
+    formData.append('description', description);
+    formData.append('phone', phone);
+    formData.append('status', status);
+    formData.append('start_intern', internshipInputData.start_intern);
+    formData.append('end_intern', internshipInputData.end_intern);
+
+    if (internshipFile && lectureFile && campusFile) {
+      formData.append('files', internshipFile);
+      formData.append('files', lectureFile);
+      formData.append('files', campusFile);
+    } else if (!internshipFile && !lectureFile && !campusFile) {
+      formData.append('intern_agreement', internship.intern_agreement);
+      formData.append('lecture_agreement', internship.lecture_agreement);
+      formData.append('campus_approval', internship.campus_approval);
+    }
+
+    try {
+      const { data } = await axios.put(`${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data.result });
+      setLoadingUpdate(false);
+      toast.dismiss(toastId);
+      toast.success('Upload Berhasil');
+    } catch (error) {
+      setLoadingUpdate(false);
+      console.log(error);
+    }
+  };
+
   const handleUpdateStatus = async ({ status, lecturer_note }) => {
     setLoadingUpdate(true);
     const formData = new FormData();
@@ -164,6 +210,7 @@ export const InternshipProvider = ({ children }) => {
         lectureFileInputRef,
         loadingUpdate,
         handleUpdateStatus,
+        handleFileUpdate,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
