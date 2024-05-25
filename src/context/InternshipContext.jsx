@@ -14,6 +14,7 @@ export const InternshipProvider = ({ children }) => {
   const token = localStorage.getItem(TOKEN);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [internship, dispatch] = useReducer(InternshipReducer, []);
+  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
     instance: '',
     location: '',
