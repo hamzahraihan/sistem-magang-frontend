@@ -13,7 +13,7 @@ const InternshipSideCard = () => {
 
   return (
     <>
-      {internship.map((item) => (
+      {internship.reverse().map((item) => (
         <Link
           to={`/kegiatan-magang/detail/${item.internship_id}`}
           state={{ internshipID: item.internship_id }}
