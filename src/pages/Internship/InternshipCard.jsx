@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 const InternshipCard = () => {
   const { loading, internship } = useFetchInternship();
+  console.log('🚀 ~ InternshipCard ~ internship:', internship);
   return (
     <>
       {loading ? (
