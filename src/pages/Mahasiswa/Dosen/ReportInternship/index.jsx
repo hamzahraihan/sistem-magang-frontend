@@ -19,7 +19,7 @@ const ReportInternship = () => {
       size: 20,
     }),
     columnHelper.accessor('Mahasiswa', {
-      id: 'Nama Depan',
+      id: 'Nama',
       cell: (info) => {
         return (
           <span>
@@ -27,7 +27,7 @@ const ReportInternship = () => {
           </span>
         );
       },
-      header: 'Nama depan',
+      header: 'Nama',
     }),
     columnHelper.accessor('Mahasiswa', {
       id: 'NIM',
@@ -39,6 +39,31 @@ const ReportInternship = () => {
       cell: (info) => info.getValue(),
       header: 'Judul Laporan',
       size: 200,
+    }),
+    columnHelper.accessor('status', {
+      id: 'Status',
+      cell: (info) => {
+        let statusColor;
+        let statusText;
+        switch (info.getValue()) {
+          case 'Belum diterima':
+            statusColor = ' bg-gray-300 text-black';
+            statusText = 'Belum diterima';
+            break;
+          case 'Valid':
+            statusColor = 'bg-green-500 text-white';
+            statusText = 'Valid';
+            break;
+          case 'Perlu direvisi':
+            statusColor = 'bg-red-500 text-white';
+            statusText = 'Perlu direvisi';
+            break;
+          default:
+            break;
+        }
+        return <div className={`p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>;
+      },
+      header: 'Status',
     }),
     columnHelper.accessor('updatedAt', {
       id: 'Tanggal',
