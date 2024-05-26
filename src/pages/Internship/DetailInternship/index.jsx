@@ -24,6 +24,25 @@ const DetailInternship = () => {
     setModalType(type);
   };
 
+  let statusColor;
+  let statusText;
+  switch (internshipByID.status) {
+    case 'Belum':
+      statusColor = ' bg-gray-300 text-black';
+      statusText = 'Belum diterima';
+      break;
+    case 'Valid':
+      statusColor = 'bg-green-500 text-white';
+      statusText = 'Valid';
+      break;
+    case 'Tidak disetujui':
+      statusColor = 'bg-red-500 text-white';
+      statusText = 'Tidak disetujui';
+      break;
+    default:
+      break;
+  }
+
   return (
     <div className="grid grid-cols-3 gap-5">
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">
@@ -39,7 +58,10 @@ const DetailInternship = () => {
         ) : (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-4">
-              <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
+              <div className="flex justify-between">
+                <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
+                <div className={`flex-shrink-0 h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
+              </div>
               <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Periode magang</p>
                 <p className="font-bold">
