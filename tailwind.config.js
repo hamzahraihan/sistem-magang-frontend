@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primaryColor: '#921300',
-        hoverColor: '#B26E64',
+        primaryColor: '#800000',
+        hoverColor: '#6b0101',
         activeColor: '#570d09',
       },
       screens: {
