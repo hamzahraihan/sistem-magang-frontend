@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 const useFetchInternshipById = () => {
   const [loading, setLoading] = useState(false);
   const [internshipByID, setInternshipByID] = useState([]);
-  console.log('🚀 ~ useFetchInternshipById ~ internshipByID:', internshipByID);
   const { internship_id } = useParams();
 
   const { state } = useLocation();
