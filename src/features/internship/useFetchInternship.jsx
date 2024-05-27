@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useInternshipContext, useInternshipDispatch } from '../../hooks/useInternshipContext';
-import { getInternshipByUser } from '../../constant/api';
+import { getInternshipByIdAPI, getInternshipByUser } from '../../constant/api';
 import { useUserContext } from '../../hooks/useUserContext';
 import { TOKEN } from '../../constant/key';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 const useFetchInternship = () => {
   const [loading, setLoading] = useState(false);
   const { userLoggedInData } = useUserContext();
-  const { mahasiswa_id } = useParams();
+  const { mahasiswa_id, internship_id } = useParams();
   const { internship } = useInternshipContext();
   const dispatch = useInternshipDispatch();
 
@@ -20,10 +20,15 @@ const useFetchInternship = () => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        const data = await getInternshipByUser(userLoggedInData?.id, mahasiswa_id, token, signal);
-        console.log('🚀 ~ getUserInternship ~ data:', data);
+        if (mahasiswa_id || userLoggedInData?.id) {
+          const data = await getInternshipByUser(userLoggedInData?.id, mahasiswa_id, token, signal);
+          dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
+        } else if (internship_id) {
+          const data = await getInternshipByIdAPI(internship_id, signal, token);
+          dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
+          console.log('🚀 ~ getUserInternship ~ data:', data);
+        }
         setLoading(false);
-        dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
       } catch (error) {
         if (error.response.status == 404) {
           dispatch({ type: 'SET_INTERNSHIP_DATA', payload: [] });
@@ -36,7 +41,7 @@ const useFetchInternship = () => {
     return () => {
       controller.abort();
     };
-  }, [dispatch, userLoggedInData, mahasiswa_id]);
+  }, [dispatch, userLoggedInData, mahasiswa_id, internship_id]);
 
   return { loading, internship };
 };
