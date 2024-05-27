@@ -190,7 +190,7 @@ export const InternshipProvider = ({ children }) => {
         },
       });
       dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data.result });
-      toast.success('Berhasil Validasi');
+      toast.success('Sukses');
       setLoadingUpdate(false);
     } catch (error) {
       setLoadingUpdate(false);
