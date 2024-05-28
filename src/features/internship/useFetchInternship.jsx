@@ -20,7 +20,7 @@ const useFetchInternship = () => {
     const getUserInternship = async () => {
       setLoading(true);
       try {
-        if (mahasiswa_id || userLoggedInData?.id) {
+        if (mahasiswa_id || userLoggedInData?.role == 'mahasiswa') {
           const data = await getInternshipByUser(userLoggedInData?.id, mahasiswa_id, token, signal);
           dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
         } else if (internship_id) {
