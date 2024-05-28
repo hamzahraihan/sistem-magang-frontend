@@ -58,9 +58,14 @@ const DetailInternship = () => {
         ) : (
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-4">
-              <div className="flex justify-between">
-                <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
-                <div className={`flex-shrink-0 h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
+              <div className="flex justify-between gap-2">
+                <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)} Lorem ipsum dolor sit amet consectetur adipisicing elit. Et facere iusto illum. Dicta facere harum tempora quod deserunt, quaerat nemo?</h1>
+                <div className="flex items-end shrink-0 flex-col gap-2">
+                  <div className={`h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
+                  <Link to="/" className="h-fit p-2 bg-white hover:bg-gray-50 active:bg-gray-100 duration-150 border border-gray-300 rounded-md w-fit cursor-pointer">
+                    Ubah Laporan
+                  </Link>
+                </div>
               </div>
               <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Periode magang</p>
@@ -78,8 +83,14 @@ const DetailInternship = () => {
               </div>
               <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Deskripsi Perusahaan</p>
-                <p>{internshipByID.description}</p>
+                <p className="font-bold">{internshipByID.description}</p>
               </div>
+              {internshipByID.lecturer_note && (
+                <div className="flex flex-col text-sm">
+                  <p className="text-gray-400">Catatan dosen</p>
+                  <p className="font-bold">{internshipByID.lecturer_note}</p>
+                </div>
+              )}
             </div>
 
             <h1 className="font-bold text-base">Dokumen Persyaratan Magang</h1>
