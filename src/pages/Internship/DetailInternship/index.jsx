@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, Spinner } from '../../../components/Icons';
+import { ArrowIcon, FileIcon, Spinner } from '../../../components/Icons';
 import InternshipNotFound from '../InternshipNotFound';
 import SidebarDetailInternship from './SidebarDetailInternship';
 import { formatDate } from '../../../utils/formatDate';
 import { useState } from 'react';
-import { Button } from 'flowbite-react';
 import ModalInternshipDocs from '../../../components/ModalInternshipDocument/ModalInternshipDocs';
 import { useUserContext } from '../../../hooks/useUserContext';
 import useFetchInternshipById from '../../../features/internship/useFetchInternshipById';
@@ -46,9 +45,14 @@ const DetailInternship = () => {
   return (
     <div className="grid grid-cols-3 gap-5">
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">
-        <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white" onClick={window.scrollTo(0, 0)}>
-          <ArrowIcon />
-        </Link>
+        <div className="flex justify-between">
+          <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white" onClick={window.scrollTo(0, 0)}>
+            <ArrowIcon />
+          </Link>
+          <Link to={`/kegiatan-magang/update/${internshipByID.internship_id}`} className="h-fit font-bold p-3 bg-white hover:bg-gray-50 active:bg-gray-100 duration-150 border border-gray-300 rounded-xl w-fit cursor-pointer">
+            Ubah berkas
+          </Link>
+        </div>
         {loading ? (
           <div className="flex items-center justify-center h-80 w-full">
             <Spinner />
@@ -59,12 +63,12 @@ const DetailInternship = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between gap-2">
-                <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)} Lorem ipsum dolor sit amet consectetur adipisicing elit. Et facere iusto illum. Dicta facere harum tempora quod deserunt, quaerat nemo?</h1>
+                <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
                 <div className="flex items-end shrink-0 flex-col gap-2">
-                  <div className={`h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
-                  <Link to="/" className="h-fit p-2 bg-white hover:bg-gray-50 active:bg-gray-100 duration-150 border border-gray-300 rounded-md w-fit cursor-pointer">
-                    Ubah Laporan
-                  </Link>
+                  <div className="rounded-xl border border-gray-300 p-2">
+                    <h1>Status</h1>
+                    <div className={`h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col text-sm">
@@ -94,17 +98,28 @@ const DetailInternship = () => {
             </div>
 
             <h1 className="font-bold text-base">Dokumen Persyaratan Magang</h1>
-            <Button color={null} className="border border-gray-400 hover:bg-hoverColor active:bg-primaryColor hover:text-white bg-white" onClick={() => handleOpenModal('lecture_docu')}>
-              Surat bersedia dosen magang
-            </Button>
+            <div className="flex flex-col gap-2 col-span-2">
+              <div className="flex items-baseline gap-2">
+                <p className="text-sm text-gray-500 font-bold">Surat bersedia dosen magang:</p>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('lecture_docu')}>
+                  <FileIcon />
+                </button>
+              </div>
 
-            <Button color={null} className="border border-gray-400 hover:bg-hoverColor active:bg-primaryColor hover:text-white bg-white" onClick={() => handleOpenModal('campus_docu')}>
-              Surat magang dari kampus
-            </Button>
+              <div className="flex items-baseline gap-2">
+                <p className="text-sm text-gray-500 font-bold">Surat magang dari kampus:</p>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
+                  <FileIcon />
+                </button>
+              </div>
 
-            <Button color={null} className="border border-gray-400 hover:bg-hoverColor active:bg-primaryColor hover:text-white bg-white" onClick={() => handleOpenModal('instance_docu')}>
-              Surat magang dari perusahaan
-            </Button>
+              <div className="flex items-baseline gap-2">
+                <p className="text-sm text-gray-500 font-bold">Surat magang dari perusahaan:</p>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('instance_docu')}>
+                  <FileIcon />
+                </button>
+              </div>
+            </div>
 
             {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
 
