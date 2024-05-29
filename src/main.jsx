@@ -30,6 +30,7 @@ import LogbookWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipRepo
 import ReportInternship from './pages/Mahasiswa/Dosen/ReportInternship/index.jsx';
 import ReportDetail from './pages/Mahasiswa/Dosen/ReportInternship/ReportDetail/index.jsx';
 import ReportUpdateForm from './pages/Report/Update/index.jsx';
+import UpdateInternship from './pages/Internship/UpdateInternship/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
           {
             path: '/kegiatan-magang/detail/:internship_id',
             element: <DetailInternship />,
+          },
+          {
+            path: '/kegiatan-magang/update/:internship_id',
+            element: <UpdateInternship />,
           },
         ],
       },
