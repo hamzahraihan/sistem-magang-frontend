@@ -79,7 +79,7 @@ const DataInternship = ({ data, loading }) => {
           <p className="text-sm font-bold text-gray-500">{data.lecturer_note}</p>
         </div>
 
-        <h1 className="text-sm text-gray-400">Dokumentasi Magang Mandiri</h1>
+        <h1 className="text-sm text-gray-400">Dokumen Magang Mandiri</h1>
 
         <div className="flex flex-col gap-2 col-span-2">
           <div className="flex items-baseline gap-2">
