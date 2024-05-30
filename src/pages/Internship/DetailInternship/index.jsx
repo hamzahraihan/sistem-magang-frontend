@@ -26,7 +26,7 @@ const DetailInternship = () => {
   let statusColor;
   let statusText;
   switch (internshipByID.status) {
-    case 'Belum':
+    case 'Belum diterima':
       statusColor = ' bg-gray-300 text-black';
       statusText = 'Belum diterima';
       break;
@@ -60,12 +60,12 @@ const DetailInternship = () => {
         ) : !internshipByID ? (
           <InternshipNotFound />
         ) : (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 bg-white border border-gray-300 rounded-xl p-4">
             <div className="flex flex-col gap-4">
-              <div className="flex justify-between gap-2">
+              <div className="flex justify-between gap-2 ">
                 <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
                 <div className="flex items-end shrink-0 flex-col gap-2">
-                  <div className="rounded-xl border border-gray-300 p-2">
+                  <div className="rounded-xl border border-gray-300 p-2 bg-gray-100">
                     <h1>Status</h1>
                     <div className={`h-fit p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>
                   </div>
@@ -76,6 +76,10 @@ const DetailInternship = () => {
                 <p className="font-bold">
                   {formatDate(internshipByID.start_intern)} - {formatDate(internshipByID.end_intern)}
                 </p>
+              </div>
+              <div className="flex flex-col text-sm">
+                <p className="text-gray-400">Kontak Perusahaan</p>
+                <p className="font-bold">{internshipByID.phone}</p>
               </div>
               <div className="flex flex-col text-sm">
                 <p className="text-gray-400">Lokasi</p>
@@ -101,21 +105,21 @@ const DetailInternship = () => {
             <div className="flex flex-col gap-2 col-span-2">
               <div className="flex items-baseline gap-2">
                 <p className="text-sm text-gray-500 font-bold">Surat bersedia dosen magang:</p>
-                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('lecture_docu')}>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('lecture_docu')}>
                   <FileIcon />
                 </button>
               </div>
 
               <div className="flex items-baseline gap-2">
                 <p className="text-sm text-gray-500 font-bold">Surat magang dari kampus:</p>
-                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
                   <FileIcon />
                 </button>
               </div>
 
               <div className="flex items-baseline gap-2">
                 <p className="text-sm text-gray-500 font-bold">Surat magang dari perusahaan:</p>
-                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor duration-150 " type="button" onClick={() => handleOpenModal('instance_docu')}>
+                <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('instance_docu')}>
                   <FileIcon />
                 </button>
               </div>
@@ -126,7 +130,7 @@ const DetailInternship = () => {
             <Link
               to={`/kegiatan-magang/logbook/${userLoggedInData?.id}/${internshipByID?.internship_id}`}
               state={{ internshipID: internshipByID.internship_id }}
-              className=" flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all"
+              className="flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white active:bg-activeColor transition-all"
             >
               <p className="flex flex-1 font-bold text-base ">Logbook</p>
               <ArrowIcon />
@@ -135,13 +139,13 @@ const DetailInternship = () => {
               <Link
                 to={`/report/upload/${internshipByID?.internship_id}`}
                 state={{ internshipID: internshipByID.internship_id }}
-                className=" flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all "
+                className="flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white active:bg-activeColor transition-all "
               >
                 <p className="flex flex-1 font-bold text-base ">Laporan Akhir</p>
                 <ArrowIcon />
               </Link>
             ) : (
-              <Link to={`/report/detail/${reportIntern[0]?.report_id}`} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white transition-all bg-white">
+              <Link to={`/report/detail/${reportIntern[0]?.report_id}`} className=" flex border items-center border-gray-400 rounded-xl p-4 hover:bg-hoverColor hover:text-white active:bg-activeColor transition-all bg-white">
                 <p className="flex flex-1 font-bold text-base ">Hasil Laporan Akhir</p>
                 <ArrowIcon />
               </Link>
