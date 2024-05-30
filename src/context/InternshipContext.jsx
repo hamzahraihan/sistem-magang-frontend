@@ -127,7 +127,9 @@ export const InternshipProvider = ({ children }) => {
     }
   };
 
-  const handleFileUpdate = async ({ instance, location, type, description, phone, status }) => {
+  const handleFileUpdate = async ({ instance, location, type, description, phone, intern_agreement, lecture_agreement, campus_approval }) => {
+    console.log('🚀 ~ handleFileUpdate ~ instance:', instance);
+
     setLoadingUpdate(true);
     const toastId = toast.loading('Sedang proses upload');
 
@@ -142,33 +144,33 @@ export const InternshipProvider = ({ children }) => {
     formData.append('type', type);
     formData.append('description', description);
     formData.append('phone', phone);
-    formData.append('status', status);
-    formData.append('start_intern', internshipInputData.start_intern);
-    formData.append('end_intern', internshipInputData.end_intern);
+    formData.append('status', 'Belum diterima');
 
     if (internshipFile && lectureFile && campusFile) {
       formData.append('files', internshipFile);
       formData.append('files', lectureFile);
       formData.append('files', campusFile);
     } else if (!internshipFile && !lectureFile && !campusFile) {
-      formData.append('intern_agreement', internship.intern_agreement);
-      formData.append('lecture_agreement', internship.lecture_agreement);
-      formData.append('campus_approval', internship.campus_approval);
+      formData.append('intern_agreement', intern_agreement);
+      formData.append('lecture_agreement', lecture_agreement);
+      formData.append('campus_approval', campus_approval);
     }
 
     try {
-      const { data } = await axios.put(`${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`, formData, {
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/internship/${internship_id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      dispatch({ type: 'EDIT_INTERNSHIP_DATA', payload: data.result });
+
       setLoadingUpdate(false);
       toast.dismiss(toastId);
       toast.success('Upload Berhasil');
     } catch (error) {
       setLoadingUpdate(false);
+      toast.dismiss(toastId);
+      toast.error('Upload Gagal');
       console.log(error);
     }
   };
