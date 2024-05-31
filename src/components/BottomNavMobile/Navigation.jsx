@@ -35,6 +35,10 @@ const Navigation = () => {
           <UserIcon />
           <p className="lg:flex hidden">Mahasiswa</p>
         </NavLink>
+        <NavLink to="/dashboard/mahasiswa/laporan-akhir" className={({ isActive }) => (isActive ? 'bg-primaryColor hover:bg-hoverColor duration-150 ease-out text-white rounded-full p-4' : 'bg-white')}>
+          <DocumentIcon />
+          <p className="lg:flex hidden">Laporan Akhir</p>
+        </NavLink>
       </>
     );
   }
