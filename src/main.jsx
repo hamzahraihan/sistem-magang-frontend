@@ -23,12 +23,12 @@ import DetailReport from './pages/Report/Detail/index.jsx';
 import UpdateProfile from './pages/Profile/Update/index.jsx';
 import ForgotPassword from './pages/ForgetPassword/index.jsx';
 import ResetPassword from './pages/ResetPassword/index.jsx';
-import Mahasiswa from './pages/Mahasiswa/Dosen/index.jsx';
-import MahasiswaInternshipReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/index.jsx';
-import InternshipWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/InternshipWeeklyReport/index.jsx';
-import LogbookWeeklyReport from './pages/Mahasiswa/Dosen/MahasiswaInternshipReport/LogbookWeeklyReport/index.jsx';
-import ReportInternship from './pages/Mahasiswa/Dosen/ReportInternship/index.jsx';
-import ReportDetail from './pages/Mahasiswa/Dosen/ReportInternship/ReportDetail/index.jsx';
+import Mahasiswa from './pages/Dosen/Mahasiswa/index.jsx';
+import MahasiswaInternshipReport from './pages/Dosen/Mahasiswa/MahasiswaInternshipReport/index.jsx';
+import InternshipWeeklyReport from './pages/Dosen/Mahasiswa/MahasiswaInternshipReport/InternshipWeeklyReport/index.jsx';
+import LogbookWeeklyReport from './pages/Dosen/Mahasiswa/MahasiswaInternshipReport/LogbookWeeklyReport/index.jsx';
+import ReportInternship from './pages/Dosen/Mahasiswa/ReportInternship/index.jsx';
+import ReportDetail from './pages/Dosen/Mahasiswa/ReportInternship/ReportDetail/index.jsx';
 import ReportUpdateForm from './pages/Report/Update/index.jsx';
 import UpdateInternship from './pages/Internship/UpdateInternship/index.jsx';
 
