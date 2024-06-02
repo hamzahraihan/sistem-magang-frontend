@@ -6,7 +6,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 import useFetchMahasiswaByDosen from '../../../features/user/useFetchMahasiswaByDosen';
 
 // Logbook view for dosen role
-const Mahasiswa = () => {
+const DosenMahasiswa = () => {
   const { userLoggedInData } = useUserContext();
   const { loading, mahasiswaDosen } = useFetchMahasiswaByDosen();
 
@@ -75,4 +75,4 @@ const Mahasiswa = () => {
   );
 };
 
-export default Mahasiswa;
+export default DosenMahasiswa;
