@@ -122,6 +122,12 @@ export const getReportByIdAPI = async (id, token) => {
   return data.result;
 };
 
+// get all mahasiswa data
+export const getAllMahasiswaAPI = async () => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa`);
+  return data.result;
+};
+
 // get user list by dosen id
 export const getMahasiswaByDosenAPI = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa/dosen/${id}`, {
