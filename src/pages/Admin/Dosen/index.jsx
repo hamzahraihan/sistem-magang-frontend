@@ -1,5 +1,5 @@
-const Dosen = () => {
-  return <div>Dosen</div>;
+const AdminDashboardDosen = () => {
+  return <div>AdminDashboardDosen</div>;
 };
 
-export default Dosen;
+export default AdminDashboardDosen;
