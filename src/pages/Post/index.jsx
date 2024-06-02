@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../components/Icons';
 import Description from './Description';
-// import CommentSection from './CommentSection';
 import SidebarPost from './SidebarPost';
 import { usePostContext } from '../../hooks/usePostContext';
 import ProfileWidget from '../../components/ProfileWidget';
