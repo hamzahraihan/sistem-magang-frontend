@@ -127,7 +127,7 @@ const Table = ({ columns, data, fileName, loading }) => {
             table.getRowModel().rows.map((row) => (
               <tr key={row.id}>
                 {row.getVisibleCells().map((cell, index) => (
-                  <td className="py-4" key={index}>
+                  <td className="ps-2 py-4" key={index}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
