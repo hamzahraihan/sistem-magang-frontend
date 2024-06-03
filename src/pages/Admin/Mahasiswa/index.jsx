@@ -39,6 +39,31 @@ const AdminMahasiswa = () => {
       },
       header: 'Dosen Pembimbing',
     }),
+    columnHelper.accessor('status', {
+      id: 'Status',
+      cell: (info) => {
+        let statusColor;
+        let statusText;
+        switch (info.getValue()) {
+          case 'Belum magang':
+            statusColor = ' bg-gray-300 text-black';
+            statusText = 'Belum magang';
+            break;
+          case 'Selesai magang':
+            statusColor = 'bg-green-500 text-white';
+            statusText = 'Selesai magang';
+            break;
+          case 'Sedang magang':
+            statusColor = 'bg-yellow-300 text-black';
+            statusText = 'Sedang magang';
+            break;
+          default:
+            break;
+        }
+        return <div className={`p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>;
+      },
+      header: 'Status',
+    }),
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
       cell: (info) => {
@@ -48,7 +73,7 @@ const AdminMahasiswa = () => {
           </Link>
         );
       },
-      header: 'Aksi',
+      header: <span className="w-full text-center">Aksi</span>,
     }),
   ];
 
