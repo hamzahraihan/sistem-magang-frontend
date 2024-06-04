@@ -36,6 +36,7 @@ import AdminDashboardDosen from './pages/Admin/Dosen/index.jsx';
 import AdminDashboardPost from './pages/Admin/Post/index.jsx';
 import DashboardAdmin from './pages/Admin/index.jsx';
 import DataMahasiswa from './pages/Dosen/Mahasiswa/MahasiswaInternshipReport/DataMahasiswa.jsx';
+import CreateAccountDosen from './pages/Admin/Dosen/ConfigureAccount/CreateAccountDosen.jsx';
 
 const router = createBrowserRouter([
   {
@@ -139,19 +140,23 @@ const router = createBrowserRouter([
         element: <DashboardAdmin />,
         children: [
           {
-            path: '/dashboard/admin/mahasiswa',
+            path: 'mahasiswa',
             element: <AdminMahasiswa />,
           },
           {
-            path: '/dashboard/admin/mahasiswa/:mahasiswa_id',
+            path: 'mahasiswa/:mahasiswa_id',
             element: <DataMahasiswa />,
           },
           {
-            path: '/dashboard/admin/dosen',
+            path: 'dosen',
             element: <AdminDashboardDosen />,
           },
           {
-            path: '/dashboard/admin/post',
+            path: 'dosen/create',
+            element: <CreateAccountDosen />,
+          },
+          {
+            path: 'post',
             element: <AdminDashboardPost />,
           },
         ],
