@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { ArrowIcon, EmailIcon, PasswordIcon } from '../../../../components/Icons';
 
 import * as yup from 'yup';
+import PrimaryButton from '../../../../components/PrimaryButton';
+import { useDosenContext } from '../../../../hooks/useDosenContext';
 
 const CreateAccountDosen = () => {
+  const { loading, handleCreateDosenAccount } = useDosenContext();
   const formik = useFormik({
     initialValues: {
       first_name: '',
@@ -12,19 +15,22 @@ const CreateAccountDosen = () => {
       email: '',
       role: 'dosen',
       nidn: '',
-      jurusan: '',
       gender: '',
       phone: '',
+      password: '',
     },
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      handleCreateDosenAccount(values);
+    },
     validationSchema: yup.object().shape({
       first_name: yup.string().required(),
       last_name: yup.string().required(),
       email: yup.string().required(),
+      password: yup.string().required(),
       role: yup.string(),
-      nidn: yup.string(),
+      nidn: yup.number('NIDN tidak valid').required(),
       gender: yup.string(),
-      phone: yup.string(),
+      phone: yup.number().required(),
     }),
   });
   const handleInputForm = (event) => {
@@ -38,6 +44,7 @@ const CreateAccountDosen = () => {
           <ArrowIcon />
         </Link>
       </div>
+      <h1 className="text-2xl font-bold mb-4">Buat akun Dosen Pembimbing</h1>
       <form className="flex flex-col gap-3 w-full h-full" onSubmit={formik.handleSubmit}>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex flex-col">
@@ -52,29 +59,25 @@ const CreateAccountDosen = () => {
           </div>
         </div>
 
-        <label htmlFor="gender">Jenis Kelamin</label>
-        <select id="gender" name="gender" className="text-xs p-3 border border-gray-200 rounded-xl " onChange={handleInputForm} required>
-          <option defaultValue={null}>Pilih jenis kelamin</option>
-          <option value="laki-laki">Laki-laki</option>
-          <option value="perempuan">Perempuan</option>
-        </select>
-
         <div className="flex flex-col">
-          <label htmlFor="kelas">Kelas</label>
-          <input name="kelas" id="kelas" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 5B, 6A..." onChange={handleInputForm} required />
-          <p className="text-xs text-red-800">{formik.errors.kelas}</p>
+          <label htmlFor="gender">Jenis Kelamin</label>
+          <select id="gender" name="gender" className="text-xs p-3 border border-gray-200 rounded-xl " onChange={handleInputForm} required>
+            <option defaultValue={null}>Pilih jenis kelamin</option>
+            <option value="laki-laki">Laki-laki</option>
+            <option value="perempuan">Perempuan</option>
+          </select>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="nim">NIM</label>
-          <input name="nim" id="nim" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="nim" onChange={handleInputForm} required />
-          <p className="text-xs text-red-800">{formik.errors.nim}</p>
+          <label htmlFor="nidn">NIDN</label>
+          <input name="nidn" id="nidn" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="NIDN" onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.nidn}</p>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="angkatan">Angkatan</label>
-          <input name="angkatan" id="angkatan" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Cont: 2020, 2021.." onChange={handleInputForm} required />
-          <p className="text-xs text-red-800">{formik.errors.angkatan}</p>
+          <label htmlFor="phone">Nomor Whatsapp</label>
+          <input name="phone" id="phone" className="border border-gray-200 rounded-xl p-3 text-xs" type="text" placeholder="Nomor Whatsapp" onChange={handleInputForm} required />
+          <p className="text-xs text-red-800">{formik.errors.phone}</p>
         </div>
 
         <div className="flex flex-col relative">
@@ -88,19 +91,16 @@ const CreateAccountDosen = () => {
 
         <div className="flex flex-col relative">
           <label htmlFor="password">Password</label>
-          <div className="absolute inset-y-11 start-0 flex items-center ps-3 pointer-events-none">
+          <div className="absolute inset-y-9 start-0 flex items-center ps-3 pointer-events-none">
             <PasswordIcon />
           </div>
           <input type="password" name="password" id="password" className="w-full ps-10 border border-gray-200 rounded-xl p-3 text-xs" placeholder="Password..." onChange={handleInputForm} required />
           <p className="text-xs text-red-800">{formik.errors.password}</p>
         </div>
 
-        <Link className="text-xs text-teal-500 hover:no-underline underline" to="/login">
-          Sudah punya akun?
-        </Link>
-        {/* <div className="mt-auto">
-          <PrimaryButton loading={loadingRegister} text={'Register'} type={'submit'} />
-        </div> */}
+        <div className="mt-auto lg:w-32 lg:h-20 ">
+          <PrimaryButton loading={loading} text="Buat Akun" type="submit" />
+        </div>
       </form>
     </div>
   );
