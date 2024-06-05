@@ -8,17 +8,20 @@ const useFetchUserByID = (props) => {
 
   const { state } = useLocation();
 
-  const { roleUrl, mahasiswa_id } = useParams();
+  const { roleUrl, mahasiswa_id, dosen_id } = useParams();
+  console.log('🚀 ~ useFetchUserByID ~ dosen_id:', dosen_id);
 
   const id = useMemo(() => {
     if (state) {
       return state.userId;
     } else if (mahasiswa_id) {
       return mahasiswa_id;
+    } else if (dosen_id) {
+      return dosen_id;
     } else {
       return props;
     }
-  }, [state, mahasiswa_id, props]);
+  }, [state, mahasiswa_id, props, dosen_id]);
 
   useEffect(() => {
     const handleUserById = async () => {
