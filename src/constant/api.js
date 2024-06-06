@@ -150,3 +150,9 @@ export const getCommentByPostAPI = async (id) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/comment/post/${id}`);
   return data.result;
 };
+
+// get all category data
+export const getAllCategoriesAPI = async () => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/category`);
+  return data.result;
+};
