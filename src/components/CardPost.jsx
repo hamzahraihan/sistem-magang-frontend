@@ -21,7 +21,7 @@ const CardPost = (props) => {
   const sanitizeContent = DOMPurify.sanitize(post?.description, options);
 
   return (
-    <div className=" flex flex-col bg-white rounded-3xl shadow-sm">
+    <div className=" flex flex-col bg-white rounded-3xl border border-gray-200">
       <Link to={`/detail-post/${_.kebabCase(post?.title)}`} state={{ post_id: post?.post_id }}>
         {post.image && <img src={`https://drive.google.com/thumbnail?id=${post?.image}&sz=w680`} className="border border-neutral-200 lg:h-96 h-52 w-full rounded-3xl object-cover object-center " alt="post-pict" />}
       </Link>
