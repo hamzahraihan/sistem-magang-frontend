@@ -1,9 +1,13 @@
+import _ from 'lodash';
 import useFetchCategory from '../../../features/category/useFetchCategory';
 import { usePostContext } from '../../../hooks/usePostContext';
+import { Spinner } from '../../../components/Icons';
 
 const CatagoriesSelect = () => {
   const { searchParams, setSearchParams } = usePostContext();
-  const { category } = useFetchCategory();
+  const { loading, category } = useFetchCategory();
+  const { post } = usePostContext();
+
   console.log('🚀 ~ CatagoriesSelect ~ category:', category);
 
   const handleClick = (category) => {
@@ -12,6 +16,12 @@ const CatagoriesSelect = () => {
       return prev;
     });
   };
+
+  const getTotalPost = (category) => {
+    const filteredPost = post.filter((item) => item.category_name.toLowerCase().includes(category.toLowerCase()));
+    return filteredPost.length;
+  };
+
   const formatNumber = (num) => {
     // Check if the number is negative
     const isNegative = num < 0;
@@ -58,22 +68,27 @@ const CatagoriesSelect = () => {
         <option value="bertanya">Bertanya</option>
       </select> */}
 
-      <div className="flex flex-col bg-white w-full border border-gray-200 rounded-xl pb-2">
+      <div className="flex flex-col bg-white w-full border border-gray-200 rounded-2xl pb-2">
         <h1 className="text-lg font-bold m-3">Kategori</h1>
         <div role="link" tabIndex="0" className="flex flex-col hover:bg-gray-100 duration-150 p-3 w-full cursor-pointer" onClick={() => handleClick('')}>
           <span className="font-bold text-sm">Semua</span>
-          <span className="text-neutral-400">{formatNumber(2000)} Post</span>
+          <span className="text-neutral-400">{formatNumber(getTotalPost(''))} Post</span>
         </div>
 
-        <div role="link" tabIndex="0" className="flex flex-col hover:bg-gray-100 duration-150 p-3 w-full cursor-pointer" onClick={() => handleClick('magang')}>
-          <span className="font-bold text-sm">Magang</span>
-          <span className="text-neutral-400">{formatNumber(2000)} Post</span>
-        </div>
-
-        <div role="link" tabIndex="0" className="flex flex-col hover:bg-gray-100 duration-150 p-3 w-full cursor-pointer" onClick={() => handleClick('diskusi')}>
-          <span className="font-bold text-sm">Semua</span>
-          <span className="text-neutral-400">{formatNumber(2000)} Post</span>
-        </div>
+        {loading ? (
+          <div className="p-5">
+            <Spinner />
+          </div>
+        ) : (
+          category.map((item) => (
+            <>
+              <div role="link" tabIndex="0" className="flex flex-col hover:bg-gray-100 duration-150 p-3 w-full cursor-pointer" onClick={() => handleClick(item.category)} key={item.category_id}>
+                <span className="font-bold text-sm">{_.capitalize(item.category)}</span>
+                <span className="text-neutral-400">{formatNumber(getTotalPost(item.category))} Post</span>
+              </div>
+            </>
+          ))
+        )}
       </div>
     </>
   );
