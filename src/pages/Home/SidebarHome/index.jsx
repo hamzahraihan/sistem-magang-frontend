@@ -23,8 +23,8 @@ const SidebarHome = () => {
 
   return (
     <CategoryProvider>
-      <div className="lg:col-span-1 col-span-3 flex flex-col items-start h-full lg:order-last order-first w-full">
-        <form className="flex lg:flex-col items-center gap-4 w-full">
+      <div className="lg:col-span-1 col-span-3 flex flex-col items-start lg:order-last order-first w-full lg:pb-5 ">
+        <form className="flex lg:flex-col items-center w-full gap-4">
           <Searchbar />
           <div className="flex items-center relative lg:hidden">
             <button type="button" className="cursor-pointer text-gray-500" onClick={() => handleMobileCategory()}>
