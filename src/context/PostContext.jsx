@@ -18,7 +18,7 @@ export const PostProvider = ({ children }) => {
   const [loadingPost, setLoadingPost] = useState(false);
   const [loadingPostByUser, setLoadingPostByUser] = useState(false);
   const [loadingPostByID, setLoadingPostByID] = useState(false);
-
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams({ search: '', category_name: '' });
   const [postInputData, setPostInputData] = useState({
     title: '',
@@ -136,12 +136,31 @@ export const PostProvider = ({ children }) => {
     }
   };
 
+  const handleDeletePost = async (id) => {
+    setLoadingDelete(true);
+    try {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success('Berhasil terhapus');
+      dispatch({ type: 'DELETE_POST_BY_ID', payload: id });
+      setLoadingDelete(false);
+    } catch (error) {
+      console.log(error);
+      setLoadingDelete(false);
+    }
+  };
+
   return (
     <PostContext.Provider
       value={{
         loadingPost,
         loadingPostByUser,
         loadingPostByID,
+        loadingDelete,
         post,
         setSearch,
         search,
@@ -153,6 +172,7 @@ export const PostProvider = ({ children }) => {
         postByUser,
         postById,
         setPostInputData,
+        handleDeletePost,
       }}
     >
       <PostDispatch.Provider value={dispatch}>{children}</PostDispatch.Provider>
@@ -167,7 +187,7 @@ const PostReducer = (post, action) => {
     case 'ADD_NEW_POST':
       return [...post, action.payload];
     case 'DELETE_POST_BY_ID':
-      return action.payload;
+      return post.filter((p) => p.post_id !== action.payload);
     case 'SEARCH_POST':
       return post.filter((item) => item.title.toLowerCase().includes(action.payload.toLowerCase()));
     default:
