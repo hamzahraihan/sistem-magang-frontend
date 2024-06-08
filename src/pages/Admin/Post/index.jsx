@@ -3,8 +3,9 @@ import { ArrowIcon } from '../../../components/Icons';
 import Table from '../../../components/Table/Table';
 import { usePostContext } from '../../../hooks/usePostContext';
 import { createColumnHelper } from '@tanstack/react-table';
-import { weekDay } from '../../../utils/formatDate';
+import { formatDate } from '../../../utils/formatDate';
 import { Dropdown } from 'flowbite-react';
+import AdminPostCategory from './Category';
 
 const AdminDashboardPost = () => {
   const { loadingPost: loading, post, handleDeletePost, loadingDelete } = usePostContext();
@@ -31,7 +32,7 @@ const AdminDashboardPost = () => {
     }),
     columnHelper.accessor('updatedAt', {
       id: 'Tanggal Unggah',
-      cell: (info) => weekDay(info.getValue()),
+      cell: (info) => formatDate(info.getValue()),
       header: () => <span>Tanggal Unggah</span>,
     }),
     columnHelper.accessor('post_id', {
@@ -59,11 +60,15 @@ const AdminDashboardPost = () => {
       <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white mb-2">
         <ArrowIcon />
       </Link>
-      <div className="bg-white rounded-xl border border-gray-200 p-5">
-        <div className="flex flex-col mb-2">
-          <h1 className="text-xl font-bold">Daftar Unggahan oleh Pengguna</h1>
+
+      <div className="flex flex-row gap-2 overflow-auto">
+        <div className="bg-white rounded-xl border border-gray-200 p-5">
+          <div className="flex flex-col mb-2">
+            <h1 className="text-xl font-bold">Daftar Unggahan oleh Pengguna</h1>
+          </div>
+          <Table columns={columns} data={post} loading={loading} fileName={'daftar_unggahan_pengguna_website_magang_mandiri'} />
         </div>
-        <Table columns={columns} data={post} loading={loading} fileName={'daftar_unggahan_pengguna_website_magang_mandiri'} />
+        <AdminPostCategory />
       </div>
     </div>
   );
