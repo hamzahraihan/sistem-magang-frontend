@@ -4,11 +4,11 @@ import { getAllCategoriesAPI } from '../../constant/api';
 
 const useFetchCategory = () => {
   const [loading, setLoading] = useState(false);
-  const category = useCategoryContext();
+  const { category } = useCategoryContext();
   const dispatch = useCategoryDispatch();
 
   useEffect(() => {
-    const getCommentByPost = async () => {
+    const getCategoryPost = async () => {
       setLoading(true);
       try {
         const data = await getAllCategoriesAPI();
@@ -19,7 +19,7 @@ const useFetchCategory = () => {
         setLoading(false);
       }
     };
-    getCommentByPost();
+    getCategoryPost();
   }, [dispatch]);
   return { category, loading };
 };
