@@ -7,19 +7,12 @@ import { usePostContext } from '../../../hooks/usePostContext';
 import { Link } from 'react-router-dom';
 import CatergoryMobile from '../../../components/CatergoryMobile';
 import CategoryProvider from '../../../context/CategoryContext';
+import { Popover } from 'flowbite-react';
 
 const SidebarHome = () => {
   const [openCategory, setOpenCategory] = useState(false);
 
   const { setSearchParams } = usePostContext();
-
-  const handleMobileCategory = () => {
-    if (openCategory) {
-      setOpenCategory(false);
-    } else if (!openCategory) {
-      setOpenCategory(true);
-    }
-  };
 
   return (
     <CategoryProvider>
@@ -27,10 +20,20 @@ const SidebarHome = () => {
         <form className="flex lg:flex-col items-center w-full gap-4">
           <Searchbar />
           <div className="flex items-center relative lg:hidden">
-            <button type="button" className="cursor-pointer text-gray-500" onClick={() => handleMobileCategory()}>
-              <AdjustIcon />
-            </button>
-            {openCategory && <CatergoryMobile setSearchParams={setSearchParams} />}
+            <Popover
+              open={openCategory}
+              onOpenChange={setOpenCategory}
+              aria-labelledby="default-popover"
+              content={
+                <>
+                  <CatergoryMobile setOpenCategory={setOpenCategory} setSearchParams={setSearchParams} />
+                </>
+              }
+            >
+              <button type="button" className="cursor-pointer text-gray-500">
+                <AdjustIcon />
+              </button>
+            </Popover>
           </div>
           <div className="lg:block hidden w-full">
             <CatagoriesSelect />
