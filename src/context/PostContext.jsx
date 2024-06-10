@@ -93,6 +93,10 @@ export const PostProvider = ({ children }) => {
     e.preventDefault();
     const image = imageInputRef.current.files[0];
 
+    if (!userLoggedInData) {
+      return toast.error('Kamu belum login');
+    }
+
     const formData = new FormData();
     formData.append('author', `${userLoggedInData.first_name} ${userLoggedInData.last_name}`);
     formData.append('role', userLoggedInData.role);
