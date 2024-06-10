@@ -4,7 +4,7 @@ import { usePostContext } from '../../../hooks/usePostContext';
 import { Spinner } from '../../../components/Icons';
 
 const CatagoriesSelect = () => {
-  const { searchParams, setSearchParams } = usePostContext();
+  const { setSearchParams } = usePostContext();
   const { loading, category } = useFetchCategory();
   const { post } = usePostContext();
 
@@ -41,33 +41,14 @@ const CatagoriesSelect = () => {
 
     // Append the suffix and the negative sign (if applicable)
     const formattedNumWithSuffix = (isNegative ? '-' : '') + formattedNum + suffixes[suffixIndex];
-
-    return formattedNumWithSuffix;
+    if (formattedNumWithSuffix > 0) {
+      return formattedNumWithSuffix;
+    }
+    return 0;
   };
 
   return (
     <>
-      {/* <select
-        id="large"
-        name="category_name"
-        className="text-xs w-full p-4 text-gray-900 border border-gray-300 rounded-2xl"
-        value={categoryInput}
-        onChange={(e) =>
-          setSearchParams((prev) => {
-            prev.set('category_name', e.target.value);
-            return prev;
-          })
-        }
-      >
-        <option value="" defaultValue>
-          Pilih Kategori
-        </option>
-        <option value="magang">Magang</option>
-        <option value="diskusi">Diskusi</option>
-        <option value="kendala">Kendala</option>
-        <option value="bertanya">Bertanya</option>
-      </select> */}
-
       <div className="flex flex-col bg-white w-full border border-gray-200 rounded-2xl pb-2">
         <h1 className="text-lg font-bold m-3">Kategori</h1>
         <div role="link" tabIndex="0" className="flex flex-col hover:bg-gray-100 duration-150 p-3 w-full cursor-pointer" onClick={() => handleClick('')}>
