@@ -56,12 +56,12 @@ const DosenMahasiswa = () => {
   });
 
   return (
-    <div className="col-span-3 pb-10">
+    <div className="col-span-3 pb-10 min-w-full">
       <div className="flex flex-col lg:col-span-2 col-span-3">
         <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white mb-2">
           <ArrowIcon />
         </Link>
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-white rounded-xl border border-gray-200 p-5 overflow-auto">
           <div className="flex flex-col mb-2">
             <h1 className="text-xl font-bold">Daftar Mahasiswa</h1>
             <p className="text-sm">
