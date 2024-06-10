@@ -3,11 +3,10 @@ import { ArrowIcon } from '../../../../components/Icons';
 import { createColumnHelper } from '@tanstack/react-table';
 import Table from '../../../../components/Table/Table';
 import useFetchReport from '../../../../features/report/useFetchReport';
-import { weekDay } from '../../../../utils/formatDate';
+import { formatDate } from '../../../../utils/formatDate';
 
 const ReportInternship = () => {
   const { loading, reportIntern } = useFetchReport();
-  console.log('🚀 ~ ReportInternship ~ reportIntern:', reportIntern);
 
   const columnHelper = createColumnHelper();
 
@@ -38,7 +37,6 @@ const ReportInternship = () => {
       id: 'Judul Laporan',
       cell: (info) => info.getValue(),
       header: 'Judul Laporan',
-      size: 200,
     }),
     columnHelper.accessor('status', {
       id: 'Status',
@@ -67,7 +65,7 @@ const ReportInternship = () => {
     }),
     columnHelper.accessor('updatedAt', {
       id: 'Tanggal',
-      cell: (info) => weekDay(info.getValue()),
+      cell: (info) => formatDate(info.getValue()),
       header: 'Tanggal',
     }),
     columnHelper.accessor('report_id', {
@@ -81,13 +79,13 @@ const ReportInternship = () => {
     }),
   ];
   return (
-    <div className="col-span-3 pb-10">
+    <div className="col-span-3 pb-10 min-w-full ">
       <div className="flex flex-col lg:col-span-2 col-span-3">
         <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white mb-2">
           <ArrowIcon />
         </Link>
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <div className="flex flex-col mb-2">
+        <div className="bg-white rounded-xl col-span-3 border border-neutral-200 p-5 overflow-auto w-full">
+          <div className="flex flex-col mb-2 ">
             <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
           </div>
           <Table columns={columns} data={reportIntern} loading={loading} fileName={'laporan_akhir_mahasiswa_magang_mandiri'} />
