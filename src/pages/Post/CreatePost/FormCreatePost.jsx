@@ -1,16 +1,19 @@
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
 import { usePostContext } from '../../../hooks/usePostContext';
+import useFetchCategory from '../../../features/category/useFetchCategory';
+import _ from 'lodash';
 
 const FormCreatePost = () => {
   const { postInputData, setPostInputData, imageInputRef } = usePostContext();
+  const { category } = useFetchCategory();
   console.log('🚀 ~ FormCreatePost ~ postInputData:', postInputData);
 
   return (
     <div className="flex flex-col gap-2 text-sm">
       <label htmlFor="title">Judul</label>
       <input
-        className="text-xs rounded-lg border border-gray-300"
+        className="text-sm rounded-lg border border-gray-300"
         type="text"
         name="title"
         id="title"
@@ -26,10 +29,11 @@ const FormCreatePost = () => {
         value={postInputData.category_name || 'magang'}
         onChange={(e) => setPostInputData({ ...postInputData, [e.target.name]: e.target.value })}
       >
-        <option value="magang">Magang</option>
-        <option value="diskusi">Diskusi</option>
-        <option value="kendala">Kendala</option>
-        <option value="bertanya">Bertanya</option>
+        {category.map((item) => (
+          <option value={item.category} key={item.category_id}>
+            {_.capitalize(item.category)}
+          </option>
+        ))}
       </select>
 
       <label htmlFor="file_url">Upload Gambar</label>
