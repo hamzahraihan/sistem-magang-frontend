@@ -50,7 +50,7 @@ const LogbookMahasiswa = () => {
   ];
 
   return (
-    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 mb-10">
+    <div className="bg-white rounded-xl w-full col-span-3 border border-neutral-200 p-5 mb-10 overflow-auto">
       <h1 className="text-xl font-bold">Logbook Mahasiswa</h1>
       <Table columns={columns} data={internship} loading={loading} fileName={`laporan_mahasiswa_${internship[0]?.Mahasiswa?.first_name}_${internship[0]?.Mahasiswa?.last_name}`} />
     </div>
