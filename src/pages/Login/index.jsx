@@ -10,7 +10,7 @@ const index = () => {
         <UserProvider>
           <Sidebar />
           <Outlet />
-          <Toaster />
+          <Toaster position="top-center" />
         </UserProvider>
       </div>
     </div>
