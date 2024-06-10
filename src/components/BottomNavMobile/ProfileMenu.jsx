@@ -61,7 +61,7 @@ const ProfileMenu = () => {
                     <span className="block truncate text-sm font-medium">{userLoggedInData.email}</span>
                   </Dropdown.Header>
                   <Dropdown.Item>
-                    <NavLink to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'} className="text-start w-full">
+                    <NavLink to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'} state={{ userId: userLoggedInData?.id }} className="text-start w-full">
                       Profil
                     </NavLink>
                   </Dropdown.Item>
