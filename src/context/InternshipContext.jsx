@@ -12,6 +12,7 @@ export const InternshipDispatch = createContext();
 
 export const InternshipProvider = ({ children }) => {
   const token = localStorage.getItem(TOKEN);
+  const [loading, setLoading] = useState(false);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
   const [internship, dispatch] = useReducer(InternshipReducer, []);
   console.log('🚀 ~ InternshipProvider ~ internship:', internship);
@@ -33,6 +34,8 @@ export const InternshipProvider = ({ children }) => {
 
   const handleCreateInternship = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    const toastId = toast.loading('Sedang proses upload');
     const campusFile = campusFileInputRef.current.files[0];
     const lectureFile = lectureFileInputRef.current.files[0];
     const internshipFile = internFileInputRef.current.files[0];
@@ -100,7 +103,7 @@ export const InternshipProvider = ({ children }) => {
           );
 
           for (const [index, day] of week.entries()) {
-            const response = await axios.post(
+            await axios.post(
               `${import.meta.env.VITE_BASE_URL}/logbook/daily/create`,
               {
                 logbook_id: LogbookData.result.logbook_id,
@@ -116,13 +119,21 @@ export const InternshipProvider = ({ children }) => {
                 },
               }
             );
-            if (response.status === 201) {
-              toast.success('Berhasil dibuat');
-            }
           }
+        }
+        if (data) {
+          setLoading(false);
+          toast.dismiss(toastId);
+          toast.success('Berhasil mengajukan magang');
+        } else {
+          setLoading(false);
+          toast.dismiss(toastId);
+          toast.error('Gagal mengajukan magang');
         }
       } catch (error) {
         console.error(error.message);
+        setLoading(false);
+        toast.error('Gagal mengajukan magang');
       }
     }
   };
@@ -206,6 +217,7 @@ export const InternshipProvider = ({ children }) => {
       value={{
         handleCreateInternship,
         internship,
+        loading,
         internshipInputData,
         setInternshipInputData,
         internFileInputRef,
