@@ -8,14 +8,15 @@ const LogbookCard = ({ week }) => {
   const { Logdailies } = week;
 
   const { userLoggedInData } = useUserContext();
-
+  const lastLogDaily = Logdailies[0];
+  const firstLogDaily = Logdailies[Logdailies.length - 1];
   return (
     <Link to={`/kegiatan-magang/logbook/aktivitas/${week.internship_id}/${userLoggedInData?.id}/${week.logbook_id}`} state={{ id: week.logbook_id }} className="border border-neutral-200 rounded-[32px] lg:p-9 md:p-4 sm:p-4 p-4 bg-white">
       <div className="flex justify-between items-center gap-2">
         <div>
           <div className="flex items-center xm:text-base text-md font-bold gap-1">
             <p>
-              {formatDate(new Date(week.Logdailies[6].date_intern))} - {formatDate(week.Logdailies[2].date_intern)}
+              {formatDate(new Date(firstLogDaily.date_intern))} - {formatDate(lastLogDaily.date_intern)}
             </p>
             <ArrowIcon />
           </div>
