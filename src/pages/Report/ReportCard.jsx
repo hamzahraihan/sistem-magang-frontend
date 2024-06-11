@@ -9,7 +9,7 @@ const ReportCard = () => {
 
   const handleStatus = (status) => {
     switch (status) {
-      case 'Belum disetujui':
+      case 'Belum diterima':
         return <p className="w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit bg-gray-300 text-black">Belum disetujui</p>;
       case 'Valid':
         return <p className="w-fit rounded-xl p-2 ms-auto flex-shrink-0 h-fit bg-green-500 text-white">Valid</p>;
