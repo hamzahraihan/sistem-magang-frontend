@@ -5,7 +5,7 @@ import SidebarCreateIntenship from './SidebarCreateInternship';
 import { useInternshipContext } from '../../../hooks/useInternshipContext';
 
 const CreateInternship = () => {
-  const { handleCreateInternship } = useInternshipContext();
+  const { handleCreateInternship, loading } = useInternshipContext();
   return (
     <form className="grid grid-cols-3 gap-5" onSubmit={handleCreateInternship}>
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">
@@ -16,7 +16,7 @@ const CreateInternship = () => {
           <FormCreateInternship />
         </div>
       </div>
-      <SidebarCreateIntenship />
+      <SidebarCreateIntenship loading={loading} />
     </form>
   );
 };
