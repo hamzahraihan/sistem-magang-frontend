@@ -10,7 +10,7 @@ import _ from 'lodash';
 const ReportForm = () => {
   const { handleFileUpload } = useReportInternContext();
   const { internship_id } = useParams();
-  const validFileExt = { files: ['doc', 'docx', 'pdf'] };
+  const validFileExt = { files: ['doc', 'docx', 'pdf', 'jpg'] };
   const isValidFileType = (fileName) => {
     return fileName && validFileExt['files'].indexOf(fileName.split('.').pop()) > -1;
   };
