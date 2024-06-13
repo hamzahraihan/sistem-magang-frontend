@@ -12,7 +12,7 @@ const ReportUpdateForm = () => {
   const { handleFileUpdate } = useReportInternContext();
   const { reportIntern } = useFetchReportById();
 
-  const validFileExt = { files: ['doc', 'docx', 'pdf'] };
+  const validFileExt = { files: ['doc', 'docx', 'pdf', 'jpg'] };
   const isValidFileType = (fileName) => {
     return fileName && validFileExt['files'].indexOf(fileName.split('.').pop()) > -1;
   };
