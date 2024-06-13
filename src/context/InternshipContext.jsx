@@ -17,11 +17,6 @@ export const InternshipProvider = ({ children }) => {
   const [internship, dispatch] = useReducer(InternshipReducer, []);
   console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
-    instance: '',
-    location: '',
-    type: '',
-    description: '',
-    phone: '',
     start_intern: '',
     end_intern: '',
   });
@@ -32,8 +27,7 @@ export const InternshipProvider = ({ children }) => {
   const lectureFileInputRef = useRef(null);
   const internFileInputRef = useRef(null);
 
-  const handleCreateInternship = async (e) => {
-    e.preventDefault();
+  const handleCreateInternship = async (values) => {
     setLoading(true);
     const toastId = toast.loading('Sedang proses upload');
     const campusFile = campusFileInputRef.current.files[0];
@@ -43,12 +37,18 @@ export const InternshipProvider = ({ children }) => {
     if (campusFile && lectureFile && internshipFile) {
       const formData = new FormData();
 
+      if (!userLoggedInData) {
+        toast.dismiss(toastId);
+        toast.error('Kamu belum login');
+        return false;
+      }
+
       formData.append('mahasiswa_id', userLoggedInData.id);
-      formData.append('instance', internshipInputData.instance);
-      formData.append('location', internshipInputData.location);
-      formData.append('type', internshipInputData.type);
-      formData.append('description', internshipInputData.description);
-      formData.append('phone', internshipInputData.phone);
+      formData.append('instance', values.instance);
+      formData.append('location', values.location);
+      formData.append('type', values.type);
+      formData.append('description', values.description);
+      formData.append('phone', values.phone);
       formData.append('start_intern', internshipInputData.start_intern);
       formData.append('end_intern', internshipInputData.end_intern);
       formData.append('files', internshipFile);
