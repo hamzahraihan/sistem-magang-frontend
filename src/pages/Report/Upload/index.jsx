@@ -20,7 +20,7 @@ const ReportForm = () => {
   }
   const allowedExt = getAllowedExt();
 
-  const MAX_FILE_SIZE = 10485760; //max 10 mb file size
+  const MAX_FILE_SIZE = 3 * 1024 * 1024; //max 3 mb file size
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +42,7 @@ const ReportForm = () => {
         .mixed()
         .required('Wajib diisi')
         .test('is-valid-type', `Format file salah, file harus berformat .${allowedExt}`, (value) => isValidFileType(value?.name?.toLowerCase()))
-        .test('is-valid-size', 'Max allowed size is 10 mb', (value) => value?.size <= MAX_FILE_SIZE),
+        .test('is-valid-size', 'Max allowed size is 3 mb', (value) => value?.size <= MAX_FILE_SIZE),
       intern_score_file: yup
         .mixed()
         .required('Wajib diisi')
