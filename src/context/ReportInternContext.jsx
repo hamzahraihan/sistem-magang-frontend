@@ -60,6 +60,7 @@ const ReportInternProvider = ({ children }) => {
         toast.success('Upload berhasil');
         toast.dismiss(toastId);
         setLoadingUpload(false);
+        navigate('/report');
       } catch (error) {
         console.error(error);
         toast.dismiss(toastId);
@@ -68,6 +69,7 @@ const ReportInternProvider = ({ children }) => {
       }
     } else {
       toast.error('Wajib kirim semua file');
+      setLoadingUpload(false);
     }
   };
 
