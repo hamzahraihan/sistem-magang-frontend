@@ -133,6 +133,7 @@ export const InternshipProvider = ({ children }) => {
       } catch (error) {
         console.error(error.message);
         setLoading(false);
+        toast.dismiss(toastId);
         toast.error('Gagal mengajukan magang');
       }
     }
