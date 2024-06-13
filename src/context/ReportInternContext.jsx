@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../hooks/useUserContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const ReportInternContext = createContext(null);
 
@@ -24,6 +24,7 @@ const ReportInternProvider = ({ children }) => {
   const { accessToken } = useUserContext();
 
   const { report_id } = useParams();
+  const navigate = useNavigate();
 
   const handleFileUpload = async ({ internship_id, title, note }) => {
     setLoadingUpload(true);
@@ -160,6 +161,21 @@ const ReportInternProvider = ({ children }) => {
     }
   };
 
+  const handleDeleteReport = async (id) => {
+    setLoadingUpdate(true);
+    try {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/report/${id}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      toast.success('Berhasil dihapus');
+      setLoadingUpdate(false);
+      navigate('/report');
+    } catch (error) {
+      toast.error('Gagal dihapus');
+      console.error(error);
+    }
+  };
+
   return (
     <ReportInternContext.Provider
       value={{
@@ -167,6 +183,7 @@ const ReportInternProvider = ({ children }) => {
         reportIntern,
         handleFileUpload,
         handleFileUpdate,
+        handleDeleteReport,
         internCompletedFileInputRef,
         finalReportFileInputRef,
         internScoreFileInputRef,
