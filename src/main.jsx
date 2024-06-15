@@ -35,9 +35,9 @@ import AdminMahasiswa from './pages/Admin/Mahasiswa/index.jsx';
 import AdminDashboardDosen from './pages/Admin/Dosen/index.jsx';
 import AdminDashboardPost from './pages/Admin/Post/index.jsx';
 import DashboardAdmin from './pages/Admin/index.jsx';
-import DataMahasiswa from './pages/Dosen/Mahasiswa/MahasiswaInternshipReport/DataMahasiswa.jsx';
 import CreateAccountDosen from './pages/Admin/Dosen/ConfigureAccount/CreateAccountDosen.jsx';
 import DetailDosen from './pages/Admin/Dosen/DetailDosen/index.jsx';
+import AdminLogbookMahasiswa from './pages/Admin/Mahasiswa/Detail/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -146,7 +146,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'mahasiswa/:mahasiswa_id',
-            element: <DataMahasiswa />,
+            element: <AdminLogbookMahasiswa />,
           },
           {
             path: 'dosen',
