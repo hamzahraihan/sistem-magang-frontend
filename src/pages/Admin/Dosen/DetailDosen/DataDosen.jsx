@@ -10,7 +10,7 @@ const DataDosen = () => {
   };
   return (
     <div className="bg-white rounded-xl col-span-3 border border-neutral-200 p-5 ">
-      <h1 className="text-xl font-bold">Data Mahasiswa</h1>
+      <h1 className="text-xl font-bold">Data Dosen</h1>
       <div className="grid grid-cols-2 gap-4 mt-10">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
