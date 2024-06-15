@@ -44,7 +44,7 @@ const MahasiswaBimbingan = () => {
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
       cell: (info) => (
-        <Link to={`logbook-mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
+        <Link to={`/dashboard/admin/mahasiswa/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
           Lihat detail
         </Link>
       ),
