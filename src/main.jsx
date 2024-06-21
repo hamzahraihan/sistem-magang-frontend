@@ -149,6 +149,10 @@ const router = createBrowserRouter([
             element: <AdminLogbookMahasiswa />,
           },
           {
+            path: 'mahasiswa/internship-report/:internship_id',
+            element: <InternshipWeeklyReport />,
+          },
+          {
             path: 'dosen',
             element: <AdminDashboardDosen />,
           },
