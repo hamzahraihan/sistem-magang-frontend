@@ -40,6 +40,15 @@ const AdminLogbookMahasiswa = () => {
       cell: (info) => <span>{formatDate(info.getValue())}</span>,
       header: 'Tanggal',
     }),
+    columnHelper.accessor('internship_id', {
+      id: 'Aksi',
+      cell: (info) => (
+        <Link to={`/dashboard/admin/mahasiswa/internship-report/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
+          Lihat detail
+        </Link>
+      ),
+      header: <span className=" w-full text-center">Aksi</span>,
+    }),
   ];
 
   return (
