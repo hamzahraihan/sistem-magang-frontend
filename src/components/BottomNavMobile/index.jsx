@@ -5,9 +5,21 @@ import Navigation from './Navigation';
 
 const BottomNavMobile = () => {
   const { userLoggedInData } = useUserContext();
+  const NavigationGrid = () => {
+    if (userLoggedInData?.role == 'dosen') {
+      return 'grid-cols-4';
+    }
+    if (userLoggedInData?.role == 'admin') {
+      return 'grid-cols-5';
+    }
+    return 'grid-cols-6';
+  };
+
+  const navGrid = NavigationGrid();
+
   return (
     <div className="fixed bottom-0 left-0 bg-white border-t h-16 w-full m-auto lg:hidden md:hidden sm:hidden">
-      <div className={`grid  ${userLoggedInData?.role == 'dosen' ? 'grid-cols-4' : 'grid-cols-5'} h-full place-items-center`}>
+      <div className={`grid  ${navGrid} h-full place-items-center`}>
         <NavLink to="/" className={({ isActive }) => (isActive ? 'bg-primaryColor hover:bg-hoverColor duration-150 ease-out text-white rounded-full p-4' : 'bg-white')}>
           <HomeIcon />
         </NavLink>
