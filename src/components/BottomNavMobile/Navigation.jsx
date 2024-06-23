@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { DocumentIcon, LecturerIcon, NewsIcon, OfficeBrifcase, UploadIcon, UserIcon } from '../Icons';
+import { DocumentIcon, GuideIcon, LecturerIcon, NewsIcon, OfficeBrifcase, UploadIcon, UserIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
 import ProfileMenu from './ProfileMenu';
 
@@ -25,6 +25,10 @@ const Navigation = () => {
         <NavLink to="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <DocumentIcon />
         </NavLink>
+
+        <NavLink to="https://docs.google.com/presentation/d/1vZLuBXoQ84byioTcmqQkeYT6NGPn47R18V_48OF6g9A/edit?usp=sharing" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+          <GuideIcon />
+        </NavLink>
       </>
     );
   } else if (userLoggedInData.role == 'dosen') {
@@ -45,7 +49,7 @@ const Navigation = () => {
         <NavLink to="/dashboard/admin/mahasiswa" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <UserIcon />
         </NavLink>
-        <ProfileMenu />/
+        <ProfileMenu />
         <NavLink to="/dashboard/admin/dosen" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <LecturerIcon />
         </NavLink>
