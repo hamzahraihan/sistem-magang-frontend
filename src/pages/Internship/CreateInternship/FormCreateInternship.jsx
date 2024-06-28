@@ -3,13 +3,23 @@ import { Datepicker } from 'flowbite-react';
 import PropTypes from 'prop-types';
 
 const FormCreateInternship = ({ formik, allowedExt }) => {
-  const { internFileInputRef, campusFileInputRef, lectureFileInputRef, setInternshipInputData, internshipInputData } = useInternshipContext();
+  const { internFileInputRef, campusFileInputRef, lectureFileInputRef } = useInternshipContext();
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   const handleStartDateChange = (date) => {
-    setInternshipInputData({ ...internshipInputData, start_intern: date });
+    const formattedDate = formatDate(date);
+    console.log('🚀 ~ handleStartDateChange ~ formattedDate:', formattedDate);
+    formik.setFieldValue('start_intern', formattedDate);
   };
   const handleEndDateChange = (date) => {
-    setInternshipInputData({ ...internshipInputData, end_intern: date });
+    const formattedDate = formatDate(date);
+    formik.setFieldValue('end_intern', formattedDate);
   };
 
   const handleInputValue = (event) => {
@@ -45,9 +55,11 @@ const FormCreateInternship = ({ formik, allowedExt }) => {
 
       <label htmlFor="start_intern">Tanggal mulai</label>
       <Datepicker name="start_intern" id="start_intern" language="id-ID" labelTodayButton="Hari ini" showClearButton={false} onSelectedDateChanged={handleStartDateChange} required />
+      <p className="text-xs text-red-800">{formik.errors.start_intern}</p>
 
       <label htmlFor="end_intern">Tanggal akhir</label>
       <Datepicker name="end_intern" id="end_intern" language="id-ID" labelTodayButton="Hari ini" showClearButton={false} onSelectedDateChanged={handleEndDateChange} required />
+      <p className="text-xs text-red-800">{formik.errors.end_intern}</p>
 
       <label htmlFor="lecture_agreement">Surat bersedia dosen magang</label>
       <input
