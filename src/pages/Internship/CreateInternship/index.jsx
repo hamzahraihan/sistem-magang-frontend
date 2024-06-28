@@ -28,6 +28,8 @@ const CreateInternship = () => {
       type: '',
       description: '',
       phone: '',
+      start_intern: '',
+      end_intern: '',
       intern_agreement: null,
       lecture_agreement: null,
       campus_approval: null,
@@ -39,8 +41,10 @@ const CreateInternship = () => {
       instance: yup.string().required(),
       location: yup.string().required().max(255),
       type: yup.string().required(),
-      description: yup.string().max(255),
+      description: yup.string().max(255).required(),
       phone: yup.string().required(),
+      start_intern: yup.date().required(),
+      end_intern: yup.date().required(),
       intern_agreement: yup
         .mixed()
         .required('Wajib diisi')
