@@ -49,8 +49,8 @@ export const InternshipProvider = ({ children }) => {
       formData.append('type', values.type);
       formData.append('description', values.description);
       formData.append('phone', values.phone);
-      formData.append('start_intern', internshipInputData.start_intern);
-      formData.append('end_intern', internshipInputData.end_intern);
+      formData.append('start_intern', values.start_intern);
+      formData.append('end_intern', values.end_intern);
       formData.append('files', internshipFile);
       formData.append('files', lectureFile);
       formData.append('files', campusFile);
