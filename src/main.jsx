@@ -38,6 +38,9 @@ import DashboardAdmin from './pages/Admin/index.jsx';
 import CreateAccountDosen from './pages/Admin/Dosen/ConfigureAccount/CreateAccountDosen.jsx';
 import DetailDosen from './pages/Admin/Dosen/DetailDosen/index.jsx';
 import AdminLogbookMahasiswa from './pages/Admin/Mahasiswa/Detail/index.jsx';
+import InternshipRequirements from './pages/Internship/InternshipRequirements/index.jsx';
+import RequirementMenu from './pages/Internship/InternshipRequirements/RequirementMenu.jsx';
+import RequestInternship from './pages/Internship/InternshipRequirements/RequestInternship/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -77,6 +80,23 @@ const router = createBrowserRouter([
           {
             path: '/kegiatan-magang/update/:internship_id',
             element: <UpdateInternship />,
+          },
+        ],
+      },
+      {
+        path: '/berkas-magang',
+        element: <InternshipRequirements />,
+        children: [
+          {
+            path: '/berkas-magang',
+            element: <RequirementMenu />,
+          },
+          {
+            path: 'permohonan-magang',
+            element: <RequestInternship />,
+          },
+          {
+            path: 'download-files',
           },
         ],
       },
