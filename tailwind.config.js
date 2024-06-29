@@ -8,9 +8,16 @@ export default {
         hoverColor: '#6b0101',
         activeColor: '#570d09',
       },
+      slideDown: {
+        '0%': { transform: 'translateY(-100%)', opacity: '0' },
+        '100%': { transform: 'translateY(0)', opacity: '1' },
+      },
       screens: {
         ssm: '490px',
         xm: '1280px',
+      },
+      animation: {
+        slideDown: 'slideDown 0.5s ease-in-out forwards',
       },
     },
   },
