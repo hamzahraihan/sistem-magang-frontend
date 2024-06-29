@@ -73,7 +73,7 @@ const FormCreateInternship = ({ formik, allowedExt }) => {
       />
       <p className="text-xs text-red-800">{formik.errors.lecture_agreement}</p>
 
-      <label htmlFor="campus_approval">Surat magang dari kampus</label>
+      <label htmlFor="campus_approval">Surat permohonan magang dari kampus</label>
       <input
         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none "
         id="campus_approval"
