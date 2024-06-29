@@ -111,7 +111,7 @@ const DetailInternship = () => {
               </div>
 
               <div className="flex items-baseline gap-2">
-                <p className="text-sm text-gray-500 font-bold">Surat magang dari kampus:</p>
+                <p className="text-sm text-gray-500 font-bold">Surat permohonan magang dari kampus:</p>
                 <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
                   <FileIcon />
                 </button>
