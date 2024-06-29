@@ -20,7 +20,7 @@ const Navigation = () => {
           <UploadIcon />
           <p className="lg:flex hidden">Upload Laporan</p>
         </NavLink>
-        <NavLink to="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-" target="_blank" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)} rel="noopener noreferrer">
+        <NavLink to="/berkas-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)} rel="noopener noreferrer">
           <DocumentIcon />
           <p className="lg:flex hidden">Berkas Magang</p>
         </NavLink>
