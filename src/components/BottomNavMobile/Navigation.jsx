@@ -22,7 +22,7 @@ const Navigation = () => {
           <UploadIcon />
         </NavLink>
 
-        <NavLink to="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+        <NavLink to="/berkas-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <DocumentIcon />
         </NavLink>
 
