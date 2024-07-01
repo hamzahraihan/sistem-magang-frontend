@@ -4,9 +4,11 @@ import FormRequestInternship from './FormRequestInternship';
 import SidebarRequestInternship from './SidebarRequestInternship';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { useInternshipContext } from '../../../../hooks/useInternshipContext';
 
 const RequestInternship = () => {
-  const validFileExt = { files: ['doc', 'docx', 'pdf', 'jpg'] };
+  const { handleRequestInternship, loadingLetter } = useInternshipContext();
+  const validFileExt = { files: ['pdf'] };
   const isValidFileType = (fileName) => {
     return fileName && validFileExt['files'].indexOf(fileName.split('.').pop()) > -1;
   };
@@ -21,6 +23,7 @@ const RequestInternship = () => {
   const formik = useFormik({
     initialValues: {
       mahasiswa_address: '',
+      placeofbirth: '',
       dateofbirth: '',
       religion: '',
       lecture_agreement: '',
@@ -34,9 +37,12 @@ const RequestInternship = () => {
       start_intern: '',
       end_intern: '',
     },
-    onSubmit: () => {},
+    onSubmit: (values) => {
+      handleRequestInternship(values);
+    },
     validationSchema: yup.object().shape({
       mahasiswa_address: yup.string().required().max(255),
+      placeofbirth: yup.string().required().max(30),
       dateofbirth: yup.date().required(),
       religion: yup.string().required().max(255),
       lecture_agreement: yup
@@ -66,10 +72,11 @@ const RequestInternship = () => {
           <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
             <ArrowIcon />
           </Link>
+          <h1 className="text-xl font-bold">Form Permohonan Surat Magang</h1>
           <FormRequestInternship formik={formik} allowedExt={allowedExt} />
         </div>
       </div>
-      <SidebarRequestInternship />
+      <SidebarRequestInternship loading={loadingLetter} />
     </form>
   );
 };
