@@ -3,7 +3,7 @@ import { createContext, useReducer, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useUserContext } from '../hooks/useUserContext';
 import { TOKEN } from '../constant/key';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 export const InternshipContext = createContext();
@@ -14,6 +14,8 @@ export const InternshipProvider = ({ children }) => {
   const token = localStorage.getItem(TOKEN);
   const [loading, setLoading] = useState(false);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
+  const [loadingLetter, setLoadingLetter] = useState(false);
+
   const [internship, dispatch] = useReducer(InternshipReducer, []);
   console.log('🚀 ~ InternshipProvider ~ internship:', internship);
   const [internshipInputData, setInternshipInputData] = useState({
@@ -22,10 +24,14 @@ export const InternshipProvider = ({ children }) => {
   });
   const { userLoggedInData, accessToken } = useUserContext();
   const { internship_id } = useParams();
+  const { letter_id } = useParams();
 
   const campusFileInputRef = useRef(null);
   const lectureFileInputRef = useRef(null);
   const internFileInputRef = useRef(null);
+  const letterOfInternshipFileRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleCreateInternship = async (values) => {
     setLoading(true);
@@ -140,8 +146,6 @@ export const InternshipProvider = ({ children }) => {
   };
 
   const handleFileUpdate = async ({ instance, location, type, description, phone, intern_agreement, lecture_agreement, campus_approval }) => {
-    console.log('🚀 ~ handleFileUpdate ~ instance:', instance);
-
     setLoadingUpdate(true);
     const toastId = toast.loading('Sedang proses upload');
 
@@ -213,6 +217,81 @@ export const InternshipProvider = ({ children }) => {
     }
   };
 
+  const handleRequestInternship = async ({ mahasiswa_address, placeofbirth, dateofbirth, religion, type_internship, instance, letter_receiver, instance_address, instance_contact, description, typeofbusiness, start_intern, end_intern }) => {
+    setLoadingLetter(true);
+    const toastId = toast.loading('Sedang proses upload');
+
+    const lectureFile = lectureFileInputRef.current.files[0];
+    console.log('🚀 ~ InternshipProvider ~ lectureFile:', lectureFile);
+
+    const formData = new FormData();
+
+    formData.append('mahasiswa_id', userLoggedInData?.id);
+    formData.append('mahasiswa_address', mahasiswa_address);
+    formData.append('placeofbirth', placeofbirth);
+    formData.append('dateofbirth', dateofbirth);
+    formData.append('religion', religion);
+    formData.append('type_internship', type_internship);
+    formData.append('instance', instance);
+    formData.append('letter_receiver', letter_receiver);
+    formData.append('instance_address', instance_address);
+    formData.append('instance_contact', instance_contact);
+    formData.append('typeofbusiness', typeofbusiness);
+    formData.append('description', description);
+    formData.append('start_intern', start_intern);
+    formData.append('end_intern', end_intern);
+    formData.append('files', lectureFile);
+
+    try {
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/request-internship`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setLoadingLetter(false);
+      toast.dismiss(toastId);
+      toast.success('Upload Berhasil');
+      navigate('/berkas-magang');
+    } catch (error) {
+      setLoadingLetter(false);
+      toast.dismiss(toastId);
+      toast.error('Upload Gagal');
+      console.log(error);
+    }
+  };
+
+  const handleSendLetterInternship = async () => {
+    setLoadingLetter(true);
+    const toastId = toast.loading('Sedang proses upload');
+
+    const letterOfInternshipFile = letterOfInternshipFileRef.current.files[0];
+
+    const formData = new FormData();
+
+    formData.append('files', letterOfInternshipFile);
+
+    try {
+      await axios.put(`${import.meta.env.VITE_BASE_URL}/request-internship/admin/${letter_id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      setLoadingLetter(false);
+      toast.dismiss(toastId);
+      toast.success('Upload Berhasil');
+      navigate('/dashboard/admin/permohonan-magang');
+    } catch (error) {
+      setLoadingLetter(false);
+      toast.dismiss(toastId);
+      toast.error('Upload Gagal');
+      console.log(error);
+    }
+  };
+
   return (
     <InternshipContext.Provider
       value={{
@@ -224,9 +303,13 @@ export const InternshipProvider = ({ children }) => {
         internFileInputRef,
         campusFileInputRef,
         lectureFileInputRef,
+        letterOfInternshipFileRef,
         loadingUpdate,
+        loadingLetter,
         handleUpdateStatus,
         handleFileUpdate,
+        handleRequestInternship,
+        handleSendLetterInternship,
       }}
     >
       <InternshipDispatch.Provider value={dispatch}>{children}</InternshipDispatch.Provider>
