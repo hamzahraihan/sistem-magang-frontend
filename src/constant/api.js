@@ -15,6 +15,38 @@ export const getUserPostByUserId = async (id) => {
   return data.result;
 };
 
+// get request letter of internship by id
+export const getRequestInternshipByIdAPI = async (letter_id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/request-internship/${letter_id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
+
+// get all request letter of internship
+export const getRequestInternshipAPI = async () => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/request-internship`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return data.result;
+};
+
+// get request letter of internship by mahasiswa id
+export const getRequestInternshipByMahasiswaAPI = async (mahasiswa_id, token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/request-internship/mahasiswa/${mahasiswa_id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
+
 // get internship by user id
 export const getInternshipByUser = async (user_id, mahasiswa_id, token, signal) => {
   let id;
