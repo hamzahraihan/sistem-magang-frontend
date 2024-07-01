@@ -8,7 +8,7 @@ const SidebarRequestInternship = ({ loading }) => {
         <h1 className="text-xl font-bold">Surat Permohonan Magang</h1>
         <p className="text-neutral-500">Semua data yang anda input akan dimasukan kedalam database agar dapat diproses untuk pembuatan surat permohonan magang mandiri</p>
         <div className="w-full">
-          <PrimaryButton text="Kirim" loading={loading} disable={loading} />
+          <PrimaryButton text="Kirim" type="submit" loading={loading} disable={loading} />
         </div>
       </div>
     </div>
