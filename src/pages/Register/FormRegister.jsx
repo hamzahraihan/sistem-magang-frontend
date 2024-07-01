@@ -16,6 +16,7 @@ const FormRegister = () => {
       gender: '',
       email: '',
       nim: '',
+      status: 'Belum magang',
       angkatan: '',
       kelas: '',
       password: '',
