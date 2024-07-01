@@ -41,6 +41,8 @@ import AdminLogbookMahasiswa from './pages/Admin/Mahasiswa/Detail/index.jsx';
 import InternshipRequirements from './pages/Internship/InternshipRequirements/index.jsx';
 import RequirementMenu from './pages/Internship/InternshipRequirements/RequirementMenu.jsx';
 import RequestInternship from './pages/Internship/InternshipRequirements/RequestInternship/index.jsx';
+import AdminRequestInternship from './pages/Admin/Mahasiswa/RequestInternship/index.jsx';
+import DetailRequestInternship from './pages/Admin/Mahasiswa/RequestInternship/Detail/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -171,6 +173,14 @@ const router = createBrowserRouter([
           {
             path: 'mahasiswa/internship-report/:internship_id',
             element: <InternshipWeeklyReport />,
+          },
+          {
+            path: 'permohonan-magang',
+            element: <AdminRequestInternship />,
+          },
+          {
+            path: 'permohonan-magang/detail/:letter_id',
+            element: <DetailRequestInternship />,
           },
           {
             path: 'dosen',
