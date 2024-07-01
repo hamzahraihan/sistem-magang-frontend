@@ -16,6 +16,10 @@ const ModalReport = ({ report, isOpen, closeModal, modalType }) => {
       modalTitle = 'Penilaian dari perusahaan';
       modalContent = report.intern_score_file;
       break;
+    case 'lecture_agreement':
+      modalTitle = 'Surat bersedia dosen membimbing';
+      modalContent = report.lecture_agreement;
+      break;
   }
 
   return (
