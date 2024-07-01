@@ -39,6 +39,31 @@ const DosenMahasiswa = () => {
       cell: (info) => <div className="rounded-lg p-2 text-center w-fit m-auto ">{info.getValue()}</div>,
       header: <span className="w-full text-center">Angkatan</span>,
     }),
+    columnHelper.accessor('status', {
+      id: 'Status',
+      cell: (info) => {
+        let statusColor;
+        let statusText;
+        switch (info.getValue()) {
+          case 'Belum magang':
+            statusColor = ' bg-gray-300 text-black';
+            statusText = 'Belum magang';
+            break;
+          case 'Selesai magang':
+            statusColor = 'bg-green-500 text-white';
+            statusText = 'Selesai magang';
+            break;
+          case 'Sedang magang':
+            statusColor = 'bg-yellow-300 text-black';
+            statusText = 'Sedang magang';
+            break;
+          default:
+            break;
+        }
+        return <div className={`p-2 rounded-md w-full text-center ${statusColor}`}>{statusText}</div>;
+      },
+      header: <span className="w-full text-center">Status</span>,
+    }),
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
       cell: (info) => (
