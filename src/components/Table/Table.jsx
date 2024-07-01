@@ -28,7 +28,7 @@ const Table = ({ columns, data, fileName, loading }) => {
   });
   return (
     <>
-      <div className="flex mb-2 gap-2">
+      <div className="flex mb-2 gap-2 ">
         <div className="flex items-center gap-2">
           <div className="text-gray-400">
             <SearchIcon />
