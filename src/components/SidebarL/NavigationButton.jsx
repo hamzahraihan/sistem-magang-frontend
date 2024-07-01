@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { DocumentIcon, GuideIcon, HomeIcon, LecturerIcon, NewsIcon, OfficeBrifcase, UploadIcon, UserIcon } from '../Icons';
+import { DocumentIcon, EnvelopeIcon, GuideIcon, HomeIcon, LecturerIcon, NewsIcon, OfficeBrifcase, UploadIcon, UserIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
 
 const activeNavButton = 'flex items-center gap-2 p-4 bg-primaryColor active:bg-activeColor hover:bg-hoverColor text-white rounded-[24px] transition-all ease-in-out duration-150 cursor-pointer lg:w-full md:w-full w-fit';
@@ -54,6 +54,10 @@ const Navigation = () => {
         <NavLink to="/dashboard/admin/mahasiswa" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <UserIcon />
           <p className="lg:flex hidden">Mahasiswa</p>
+        </NavLink>
+        <NavLink to="/dashboard/admin/permohonan-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+          <EnvelopeIcon />
+          <p className="lg:flex hidden">Permohonan Magang</p>
         </NavLink>
         <NavLink to="/dashboard/admin/dosen" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <LecturerIcon />
