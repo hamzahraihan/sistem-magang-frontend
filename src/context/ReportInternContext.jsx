@@ -42,6 +42,7 @@ const ReportInternProvider = ({ children }) => {
         return toast.error('Kamu belum login');
       }
       formData.append('internship_id', internship_id);
+      formData.append('dosen_id', userLoggedInData.dosen_id);
       formData.append('mahasiswa_id', userLoggedInData.id);
       formData.append('title', title);
       formData.append('note', note);
