@@ -12,6 +12,10 @@ const Navigation = () => {
   if (userLoggedInData?.role == 'mahasiswa' || !userLoggedInData) {
     return (
       <>
+        <NavLink to="/berkas-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)} rel="noopener noreferrer">
+          <DocumentIcon />
+          <p className="lg:flex hidden">Berkas Magang</p>
+        </NavLink>
         <NavLink to="/kegiatan-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <OfficeBrifcase />
           <p className="lg:flex hidden">Kegiatan Magang</p>
@@ -19,10 +23,6 @@ const Navigation = () => {
         <NavLink to="/report" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <UploadIcon />
           <p className="lg:flex hidden">Upload Laporan</p>
-        </NavLink>
-        <NavLink to="/berkas-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)} rel="noopener noreferrer">
-          <DocumentIcon />
-          <p className="lg:flex hidden">Berkas Magang</p>
         </NavLink>
         <NavLink
           to="https://docs.google.com/presentation/d/1vZLuBXoQ84byioTcmqQkeYT6NGPn47R18V_48OF6g9A/edit?usp=sharing"
