@@ -16,6 +16,14 @@ const AdminRequestInternship = () => {
       header: () => <span className="ps-2">No.</span>,
       size: 20,
     }),
+    columnHelper.accessor('Mahasiswa', {
+      id: 'No.',
+      cell: (info) => {
+        const value = info.getValue();
+        return `${value.first_name} ${value.last_name}`;
+      },
+      header: () => <span>Mahasiswa</span>,
+    }),
     columnHelper.accessor('instance', {
       id: 'Perusahaan / Instansi',
       cell: (info) => info.getValue(),
