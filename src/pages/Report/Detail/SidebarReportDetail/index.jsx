@@ -1,10 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
 import { ArrowIcon } from '../../../../components/Icons';
-import { useReportInternContext } from '../../../../hooks/useReportInternContext';
-import PrimaryButton from '../../../../components/PrimaryButton';
+// import { useReportInternContext } from '../../../../hooks/useReportInternContext';
+// import PrimaryButton from '../../../../components/PrimaryButton';
 
 const SidebarReportDetail = () => {
-  const { handleDeleteReport, loadingUpdate } = useReportInternContext();
+  // const { handleDeleteReport, loadingUpdate } = useReportInternContext();
   const { report_id } = useParams();
   return (
     <div className="lg:col-span-1 gap-4 col-span-3 flex flex-col top-5 lg:items-start  ">
@@ -12,9 +12,20 @@ const SidebarReportDetail = () => {
         <ArrowIcon />
       </Link>
       <div className="flex flex-col w-full gap-8">
-        <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
         <div className="flex flex-col gap-2">
-          <PrimaryButton onClick={() => handleDeleteReport(report_id)} loading={loadingUpdate} text="Hapus laporan" type="button" disable={loadingUpdate} />
+          <h1 className="font-bold text-xl">Laporan Akhir Magang</h1>
+          <div>
+            <p>File laporan yang wajib harus kamu kirim</p>
+            <ul className="list-disc list-inside">
+              <li>File surat selesai magang</li>
+              <li>File laporan akhir magang</li>
+              <li>File penilaian dari perusahaan</li>
+            </ul>
+          </div>
+          <p>Kamu dapat ubah laporan kamu jika laporan perlu revisi.</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          {/* <PrimaryButton onClick={() => handleDeleteReport(report_id)} loading={loadingUpdate} text="Hapus laporan" type="button" disable={loadingUpdate} /> */}
           <Link to={`/report/update/${report_id}`} className="border border-gray-300 hover:bg-gray-200 active:bg-gray-300 bg-white font-bold rounded-xl text-center p-3 duration-150">
             Ubah laporan
           </Link>
