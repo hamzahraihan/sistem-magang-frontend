@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon } from '../../../components/Icons';
+import { ArrowIcon, Spinner } from '../../../components/Icons';
 import FormCreateInternship from './FormCreateInternship';
 import SidebarCreateIntenship from './SidebarCreateInternship';
 import { useInternshipContext } from '../../../hooks/useInternshipContext';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import useFetchRequestInternshipById from '../../../features/internship/useFetchRequestInternshipById';
+import { useEffect } from 'react';
 
 const CreateInternship = () => {
   const { handleCreateInternship, loading } = useInternshipContext();
+  const { requestInternship, loading: loadingLetter } = useFetchRequestInternshipById();
+  console.log('🚀 ~ CreateInternship ~ requestInternship:', requestInternship);
 
   const validFileExt = { files: ['doc', 'docx', 'pdf', 'jpg'] };
   const isValidFileType = (fileName) => {
@@ -23,6 +27,7 @@ const CreateInternship = () => {
 
   const formik = useFormik({
     initialValues: {
+      dosen_id: '',
       instance: '',
       location: '',
       type: '',
@@ -38,6 +43,7 @@ const CreateInternship = () => {
       handleCreateInternship(values);
     },
     validationSchema: yup.object().shape({
+      dosen_id: yup.number().required('Wajib memilih dosen pembimbing'),
       instance: yup.string().required(),
       location: yup.string().required().max(255),
       type: yup.string().required(),
@@ -74,14 +80,33 @@ const CreateInternship = () => {
         }),
     }),
   });
+
+  useEffect(() => {
+    formik.setValues({
+      instance: requestInternship.instance,
+      location: requestInternship.instance_address,
+      type: requestInternship.type_internship,
+      description: requestInternship.description,
+      phone: requestInternship.instance_contact,
+      start_intern: requestInternship.start_intern,
+      end_intern: requestInternship.end_intern,
+    });
+  }, [requestInternship]);
+
   return (
     <form className="grid grid-cols-3 gap-5" onSubmit={formik.handleSubmit}>
       <div className="flex flex-col gap-4 lg:col-span-2 col-span-3">
         <div className="flex flex-col gap-2 text-base ">
-          <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
-            <ArrowIcon />
-          </Link>
-          <FormCreateInternship formik={formik} allowedExt={allowedExt} />
+          {loadingLetter ? (
+            <Spinner />
+          ) : (
+            <>
+              <Link to="/kegiatan-magang" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
+                <ArrowIcon />
+              </Link>
+              <FormCreateInternship formik={formik} allowedExt={allowedExt} />
+            </>
+          )}
         </div>
       </div>
       <SidebarCreateIntenship loading={loading} />
