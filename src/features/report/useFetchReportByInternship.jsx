@@ -20,6 +20,7 @@ const useFetchReportByInternship = () => {
       const token = localStorage.getItem(TOKEN);
       try {
         const data = await getReportByInternshipIdAPI(internship_id, token, signal);
+        console.log('🚀 ~ getReportInternship ~ data:', data);
         dispatch({ type: 'SET_REPORT_DATA', payload: data });
         setLoading(false);
       } catch (error) {
@@ -28,6 +29,7 @@ const useFetchReportByInternship = () => {
         }
         console.error(error);
         setLoading(false);
+        dispatch({ type: 'SET_REPORT_DATA', payload: null });
       }
     };
     getReportInternship();
