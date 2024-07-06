@@ -11,6 +11,7 @@ import useFetchRequestInternshipByMahasiswa from '../../../features/internship/u
 
 const RequirementMenu = () => {
   const { requestInternship, loading } = useFetchRequestInternshipByMahasiswa();
+  console.log('🚀 ~ RequirementMenu ~ requestInternship:', requestInternship);
 
   const columnHelper = createColumnHelper();
 
@@ -51,6 +52,23 @@ const RequirementMenu = () => {
         return <div className="p-2 rounded-md w-fit bg-gray-300">Menunggu</div>;
       },
       header: 'Surat Magang',
+    }),
+    columnHelper.accessor((row) => [row.letter_id, row.status], {
+      id: 'Status',
+      cell: (info) => {
+        const [letter_id, status] = info.getValue();
+        if (status == 'Terkirim') {
+          return (
+            <Link to={`/kegiatan-magang/daftar-magang/${letter_id}`}>
+              <div className="w-fit p-2 rounded-md bg-primaryColor hover:bg-hoverColor duration-150 text-white">Daftar magang</div>
+            </Link>
+          );
+        } else if (status == 'Terdaftar') {
+          return <div className="p-2 rounded-md w-fit bg-green-400 text-white">Sudah mendaftar</div>;
+        }
+        return <div className="p-2 rounded-md w-fit bg-gray-300">Belum bisa mendaftar</div>;
+      },
+      header: 'Status',
     }),
     columnHelper.accessor('createdAt', {
       id: 'Tanggal',
