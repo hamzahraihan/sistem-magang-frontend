@@ -1,26 +1,10 @@
 import { useInternshipContext } from '../../../hooks/useInternshipContext';
-import { Datepicker } from 'flowbite-react';
 import PropTypes from 'prop-types';
+import { useUserContext } from '../../../hooks/useUserContext';
 
 const FormCreateInternship = ({ formik, allowedExt }) => {
   const { internFileInputRef, campusFileInputRef, lectureFileInputRef } = useInternshipContext();
-
-  const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
-  const handleStartDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    console.log('🚀 ~ handleStartDateChange ~ formattedDate:', formattedDate);
-    formik.setFieldValue('start_intern', formattedDate);
-  };
-  const handleEndDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    formik.setFieldValue('end_intern', formattedDate);
-  };
+  const { dosenData } = useUserContext();
 
   const handleInputValue = (event) => {
     const { target } = event;
@@ -29,37 +13,15 @@ const FormCreateInternship = ({ formik, allowedExt }) => {
 
   return (
     <>
-      <label htmlFor="instance">Nama perusahaan</label>
-      <input className="rounded-lg border border-gray-300" type="text" name="instance" id="instance" placeholder="Nama perusahaan" value={formik.values.instance} onChange={handleInputValue} required />
-      <p className="text-xs text-red-800">{formik.errors.instance}</p>
-
-      <label htmlFor="location">Lokasi perusahaan</label>
-      <input className="rounded-lg border border-gray-300" type="text" name="location" id="location" placeholder="Lokasi" value={formik.values.location} onChange={handleInputValue} required />
-      <p className="text-xs text-red-800">{formik.errors.location}</p>
-
-      <label htmlFor="type">Tipe magang</label>
-      <select name="type" className="text-base block w-full border border-gray-300 rounded-lg" value={formik.values.type} onChange={handleInputValue}>
-        <option defaultValue="magang">Pilih tipe magang</option>
-        <option value="perusahaan">Magang Perusahaan</option>
-        <option value="kompetisi">Magang Kompetisi</option>
+      <label htmlFor="dosen_id">Dosen Wali</label>
+      <select id="dosen_id" name="dosen_id" className="text-sm p-3 border border-gray-200 rounded-xl " onChange={handleInputValue} required>
+        <option defaultValue={null}>Pilih dosen wali</option>
+        {dosenData.map((item) => (
+          <option key={item.dosen_id} value={item.dosen_id}>
+            {item.first_name} {item.last_name}
+          </option>
+        ))}
       </select>
-      <p className="text-xs text-red-800">{formik.errors.type}</p>
-
-      <label htmlFor="description">Deskripsi perusahaan</label>
-      <input className="rounded-lg border border-gray-300" type="text" name="description" id="description" placeholder="Deskripsi" value={formik.values.description} onChange={handleInputValue} required />
-      <p className="text-xs text-red-800">{formik.errors.description}</p>
-
-      <label htmlFor="phone">Kontak perusahaan</label>
-      <input className="rounded-lg border border-gray-300" type="text" name="phone" id="phone" placeholder="Kontak" value={formik.values.phone} onChange={handleInputValue} required />
-      <p className="text-xs text-red-800">{formik.errors.phone}</p>
-
-      <label htmlFor="start_intern">Tanggal mulai</label>
-      <Datepicker name="start_intern" id="start_intern" language="id-ID" labelTodayButton="Hari ini" showClearButton={false} onSelectedDateChanged={handleStartDateChange} required />
-      <p className="text-xs text-red-800">{formik.errors.start_intern}</p>
-
-      <label htmlFor="end_intern">Tanggal akhir</label>
-      <Datepicker name="end_intern" id="end_intern" language="id-ID" labelTodayButton="Hari ini" showClearButton={false} onSelectedDateChanged={handleEndDateChange} required />
-      <p className="text-xs text-red-800">{formik.errors.end_intern}</p>
 
       <label htmlFor="lecture_agreement">Surat bersedia dosen magang</label>
       <input
