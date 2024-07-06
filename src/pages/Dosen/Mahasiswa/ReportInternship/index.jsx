@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../../../components/Icons';
 import { createColumnHelper } from '@tanstack/react-table';
 import Table from '../../../../components/Table/Table';
-import useFetchReport from '../../../../features/report/useFetchReport';
 import { formatDate } from '../../../../utils/formatDate';
+import useFetchReportByDosen from '../../../../features/report/useFetchReportByDosen';
 
 const ReportInternship = () => {
-  const { loading, reportIntern } = useFetchReport();
+  const { loading, reportIntern } = useFetchReportByDosen();
 
   const columnHelper = createColumnHelper();
 
