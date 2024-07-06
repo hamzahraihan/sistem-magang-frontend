@@ -132,6 +132,18 @@ export const getReportByInternshipIdAPI = async (id, token, signal) => {
   return data.result;
 };
 
+// get report internship detail by dosen id
+export const getReportByDosenIdAPI = async (id, token, signal) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/dosen/${id}`, {
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return data.result;
+};
+
 // get all report by mahasiswa id
 export const getReportByMahasiswaAPI = async (id, token) => {
   const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/report/mahasiswa/${id}`, {
