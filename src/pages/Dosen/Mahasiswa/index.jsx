@@ -57,6 +57,10 @@ const DosenMahasiswa = () => {
             statusColor = 'bg-yellow-300 text-black';
             statusText = 'Sedang magang';
             break;
+          case 'Permintaan magang':
+            statusColor = 'bg-amber-200 text-black';
+            statusText = 'Permintaan magang';
+            break;
           default:
             break;
         }
