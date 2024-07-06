@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 
 const DashboardAdmin = () => {
   return (
-    <div className="col-span-3 pb-10">
+    <div className="col-span-3 pb-10 min-w-full">
       <MahasiswaProvider>
         <DosenProvider>
           <CategoryProvider>
