@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from '../../../components/Icons';
 import Table from '../../../components/Table/Table';
-
 import useFetchMahasiswa from '../../../features/user/useFetchMahasiswa';
 import { createColumnHelper } from '@tanstack/react-table';
+import { useState } from 'react';
+import FormImportMahasiswa from './ImportMahasiswa/FormImportMahasiswa';
 
 const AdminMahasiswa = () => {
   const { loading, mahasiswa } = useFetchMahasiswa();
-  console.log('🚀 ~ AdminMahasiswa ~ mahasiswa:', mahasiswa);
+  const [openModal, setOpenModal] = useState(false);
 
   const columnHelper = createColumnHelper();
 
@@ -57,12 +58,21 @@ const AdminMahasiswa = () => {
             statusColor = 'bg-yellow-300 text-black';
             statusText = 'Sedang magang';
             break;
+          case 'Permintaan magang':
+            statusColor = 'bg-amber-200 text-black';
+            statusText = 'Permintaan magang';
+            break;
           default:
             break;
         }
         return <div className={`p-2 rounded-md w-fit ${statusColor}`}>{statusText}</div>;
       },
       header: 'Status',
+    }),
+    columnHelper.accessor('angkatan', {
+      id: 'Angkatan',
+      cell: (info) => info.getValue(),
+      header: 'Angkatan',
     }),
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
@@ -79,14 +89,18 @@ const AdminMahasiswa = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:col-span-2 col-span-3">
+      <div className="flex flex-col lg:col-span-2 col-span-3 ">
         <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white mb-2">
           <ArrowIcon />
         </Link>
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <div className="flex flex-col mb-2">
-            <h1 className="text-xl font-bold">Daftar Mahasiswa Yang Mengikuti Magang Mandiri</h1>
+        <div className="bg-white rounded-xl border border-gray-200 p-5 overflow-auto w-full">
+          <div className="flex justify-between mb-2">
+            <h1 className="text-xl font-bold">Daftar Mahasiswa</h1>
+            <button type="file" className="p-2 bg-gray-200 rounded-md hover:bg-gray-300 active:bg-gray-400 duration-150" onClick={() => setOpenModal(true)}>
+              Import data from excel
+            </button>
           </div>
+          {openModal && <FormImportMahasiswa isOpen={openModal} closeModal={() => setOpenModal(false)} />}
           <Table columns={columns} data={mahasiswa} loading={loading} fileName={'daftar_mahasiswa_magang_mandiri'} />
         </div>
       </div>
