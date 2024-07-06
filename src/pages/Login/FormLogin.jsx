@@ -64,11 +64,11 @@ const FormLogin = () => {
         <p className="text-xs text-red-800">{formik.errors.password}</p>
 
         <div className="flex justify-between">
-          {role.roleChoice.toLowerCase() == 'mahasiswa' && (
+          {/* {role.roleChoice.toLowerCase() == 'mahasiswa' && (
             <Link to="/register" className="text-xs text-teal-500 hover:no-underline underline">
               Belum punya akun?
             </Link>
-          )}
+          )} */}
 
           <Link to="/lupa-password" className="text-xs text-teal-500 hover:no-underline underline">
             Lupa password?
