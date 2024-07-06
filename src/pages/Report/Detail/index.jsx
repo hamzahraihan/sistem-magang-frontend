@@ -13,12 +13,12 @@ const DetailReport = () => {
 
   const { reportIntern, loading } = useFetchReportById();
   console.log('🚀 ~ DetailReport ~ reportIntern:', reportIntern);
-  const sanitizeContent = DOMPurify.sanitize(reportIntern.note);
+  const sanitizeContent = DOMPurify.sanitize(reportIntern?.note);
 
   let statusColor;
   let statusText;
   let statusIcon;
-  switch (reportIntern.status) {
+  switch (reportIntern?.status) {
     case 'Belum diterima':
       statusColor = 'border border-gray-400';
       statusText = 'Belum diterima';
@@ -53,8 +53,8 @@ const DetailReport = () => {
             <div className="flex flex-col gap-2 p-4 bg-white rounded-3xl border border-gray-200">
               <div className="flex lg:flex-row flex-col justify-between gap-2">
                 <div className="flex flex-1 flex-col">
-                  <h1 className="text-lg font-bold">{reportIntern.title}</h1>
-                  <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern.updatedAt)}</p>
+                  <h1 className="text-lg font-bold">{reportIntern?.Internship?.instance}</h1>
+                  <p className="text-xs text-gray-400">Dikirim pada hari {weekDay(reportIntern?.updatedAt)}</p>
                 </div>
                 <div className="flex flex-col bg-gray-200 w-fit h-fit p-2 rounded-lg gap-2">
                   <p>Status</p>
@@ -67,13 +67,17 @@ const DetailReport = () => {
               </div>
               <div className="flex flex-col gap-3">
                 <div className="flex flex-col">
+                  <p className="text-sm font-bold">Judul laporan</p>
+                  <p> {reportIntern?.title}</p>
+                </div>
+                <div className="flex flex-col">
                   <p className="text-sm font-bold">Keterangan laporan</p>
                   <p dangerouslySetInnerHTML={{ __html: sanitizeContent }} />
                 </div>
-                {reportIntern.lecturer_note && (
+                {reportIntern?.lecturer_note && (
                   <div className="flex flex-col">
                     <p className="text-sm font-bold">Catatan dosen</p>
-                    <p>{reportIntern.lecturer_note}</p>
+                    <p>{reportIntern?.lecturer_note}</p>
                   </div>
                 )}
                 <h1 className="text-sm font-bold">File Laporan Akhir Magang</h1>
