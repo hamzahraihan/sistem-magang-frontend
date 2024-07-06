@@ -19,6 +19,7 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [loadingRegister, setLoadingRegister] = useState(false);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
+  const [loadingImport, setLoadingImport] = useState(false);
 
   const [userLoggedInData, setUserLoggedInData] = useState(user?.id ? user : undefined);
   const [accessToken, setAccessToken] = useState('');
@@ -313,6 +314,34 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const excelInputRef = useRef(null);
+  console.log('🚀 ~ UserProvider ~ excelInputRef:', excelInputRef);
+  const handleSubmitImportMahasiswa = async () => {
+    setLoadingImport(true);
+    const toastId = toast.loading('Sedang proses import');
+
+    const excelFileRef = excelInputRef.current.files[0];
+    const formData = new FormData();
+    formData.append('file', excelFileRef);
+
+    try {
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa/import/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      toast.dismiss(toastId);
+      toast.success('Import Berhasil');
+      setLoadingImport(false);
+    } catch (error) {
+      console.error(error);
+      setLoadingImport(false);
+      toast.dismiss(toastId);
+      toast.error('Import Gagal');
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -334,6 +363,9 @@ export const UserProvider = ({ children }) => {
         loadingUpdate,
         handleForgotPassword,
         handleResetPassword,
+        handleSubmitImportMahasiswa,
+        loadingImport,
+        excelInputRef,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
