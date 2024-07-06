@@ -49,7 +49,9 @@ export const InternshipProvider = ({ children }) => {
         return false;
       }
 
+      formData.append('letter_id', letter_id);
       formData.append('mahasiswa_id', userLoggedInData.id);
+      formData.append('dosen_id', values.dosen_id);
       formData.append('instance', values.instance);
       formData.append('location', values.location);
       formData.append('type', values.type);
@@ -131,13 +133,14 @@ export const InternshipProvider = ({ children }) => {
           setLoading(false);
           toast.dismiss(toastId);
           toast.success('Berhasil mengajukan magang');
+          navigate('/kegiatan-magang');
         } else {
           setLoading(false);
           toast.dismiss(toastId);
           toast.error('Gagal mengajukan magang');
         }
       } catch (error) {
-        console.error(error.message);
+        console.error(error);
         setLoading(false);
         toast.dismiss(toastId);
         toast.error('Gagal mengajukan magang');
