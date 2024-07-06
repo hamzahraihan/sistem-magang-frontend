@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import PrimaryButton from '../../../components/PrimaryButton';
 import { ArrowIcon } from '../../../components/Icons';
 
 const SidebarInternship = () => {
@@ -11,12 +10,9 @@ const SidebarInternship = () => {
       <div className="flex flex-col items-center w-full gap-2">
         <h1 className="text-xl font-bold text-start w-full">Daftar Magang</h1>
         <p className="text-neutral-500">
-          Setelah anda mendapatkan persetujuan untuk magang, anda wajib mengisi form daftar magang untuk membukan fitur lengkap pada website seperti logbook, dan upload laporan. Hal ini wajib dilakukan oleh mahasiswa karena untuk
-          persyaratan penilaian.
+          Setelah anda mendapatkan persetujuan untuk magang, anda wajib mengisi form daftar magang untuk membuka fitur lengkap pada website seperti logbook, dan upload laporan. Hal ini wajib dilakukan oleh mahasiswa karena untuk persyaratan
+          penilaian.
         </p>
-        <div className="w-full">
-          <PrimaryButton text="Daftar Magang" />
-        </div>
       </div>
     </div>
   );
