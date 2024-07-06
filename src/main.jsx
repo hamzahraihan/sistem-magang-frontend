@@ -72,7 +72,7 @@ const router = createBrowserRouter([
             element: <InternshipActivity />,
           },
           {
-            path: '/kegiatan-magang/daftar-magang',
+            path: '/kegiatan-magang/daftar-magang/:letter_id',
             element: <CreateInternship />,
           },
           {
@@ -96,9 +96,6 @@ const router = createBrowserRouter([
           {
             path: 'permohonan-magang',
             element: <RequestInternship />,
-          },
-          {
-            path: 'download-files',
           },
         ],
       },
