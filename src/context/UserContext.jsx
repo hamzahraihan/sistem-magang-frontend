@@ -366,6 +366,7 @@ export const UserProvider = ({ children }) => {
         handleSubmitImportMahasiswa,
         loadingImport,
         excelInputRef,
+        setUserLoggedInData,
       }}
     >
       <UserDispatch.Provider value={dispatch}>{children}</UserDispatch.Provider>
