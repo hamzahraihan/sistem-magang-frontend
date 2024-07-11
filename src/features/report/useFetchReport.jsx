@@ -17,6 +17,7 @@ const useFetchReport = () => {
         setLoading(false);
       } catch (error) {
         console.error(error);
+        dispatch({ type: 'SET_REPORT_DATA', payload: [] });
       }
     };
     getAllReport();
