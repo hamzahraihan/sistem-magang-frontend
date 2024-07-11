@@ -19,7 +19,7 @@ const DataInternship = ({ data, loading }) => {
   switch (data.status) {
     case 'Belum diterima':
       statusColor = 'bg-gray-300';
-      statusText = 'Belum diterima';
+      statusText = 'Belum disetujui';
       break;
     case 'Disetujui':
       statusColor = 'bg-green-500 text-white';
