@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useUserContext } from '../../../hooks/useUserContext';
 
 const FormCreateInternship = ({ formik, allowedExt }) => {
-  const { internFileInputRef, campusFileInputRef, lectureFileInputRef } = useInternshipContext();
+  const { internFileInputRef, campusFileInputRef } = useInternshipContext();
   const { dosenData } = useUserContext();
 
   const handleInputValue = (event) => {
@@ -22,18 +22,6 @@ const FormCreateInternship = ({ formik, allowedExt }) => {
           </option>
         ))}
       </select>
-
-      <label htmlFor="lecture_agreement">Surat bersedia dosen magang</label>
-      <input
-        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none "
-        id="lecture_agreement"
-        type="file"
-        name="lecture_agreement"
-        accept={allowedExt}
-        onChange={(e) => formik.setFieldValue(e.target.name, e.currentTarget.files[0])}
-        ref={lectureFileInputRef}
-      />
-      <p className="text-xs text-red-800">{formik.errors.lecture_agreement}</p>
 
       <label htmlFor="campus_approval">Surat permohonan magang dari kampus</label>
       <input
