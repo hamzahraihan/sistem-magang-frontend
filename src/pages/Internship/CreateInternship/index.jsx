@@ -36,7 +36,7 @@ const CreateInternship = () => {
       start_intern: '',
       end_intern: '',
       intern_agreement: null,
-      lecture_agreement: null,
+      lecture_agreement: '',
       campus_approval: null,
     },
     onSubmit: (values) => {
@@ -64,9 +64,11 @@ const CreateInternship = () => {
         .mixed()
         .required('Wajib diisi')
         .test('is-valid-type', `Format file salah, file harus berformat .${allowedExt}`, (value) => {
+          if (value == requestInternship.lecture_agreement) return true;
           return isValidFileType(value?.name?.toLowerCase());
         })
         .test('is-valid-size', 'Max allowed size is 10 mb', (value) => {
+          if (value == requestInternship.lecture_agreement) return true;
           return value?.size <= MAX_FILE_SIZE;
         }),
       campus_approval: yup
@@ -88,6 +90,7 @@ const CreateInternship = () => {
       type: requestInternship.type_internship,
       description: requestInternship.description,
       phone: requestInternship.instance_contact,
+      lecture_agreement: requestInternship.lecture_agreement,
       start_intern: requestInternship.start_intern,
       end_intern: requestInternship.end_intern,
     });
