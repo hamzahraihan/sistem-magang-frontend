@@ -16,7 +16,7 @@ const SidebarUpdateReport = () => {
       </div>
       <div className="border-t border-neutral-300 w-full lg:block hidden"></div>
       <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-xl">Baca sebelum mengirim laporan</h1>
+        <h1 className="font-bold text-xl">Ubah laporan akhir</h1>
         <p>Jangan lupa cek lagi file laporan kamu sebelum dikirim.</p>
         <div>
           <p>File laporan yang wajib harus kamu kirim</p>
@@ -26,7 +26,6 @@ const SidebarUpdateReport = () => {
             <li>File penilaian dari perusahaan</li>
           </ul>
         </div>
-        <p>Isi keterangan laporan dengan link google drive laporan kamu untuk dengan mudah kamu ubah jika kamu tidak yakin dengan laporan yang sudah kamu kirim</p>
       </div>
     </div>
   );
