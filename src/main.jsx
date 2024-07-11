@@ -43,6 +43,7 @@ import RequirementMenu from './pages/Internship/InternshipRequirements/Requireme
 import RequestInternship from './pages/Internship/InternshipRequirements/RequestInternship/index.jsx';
 import AdminRequestInternship from './pages/Admin/Mahasiswa/RequestInternship/index.jsx';
 import DetailRequestInternship from './pages/Admin/Mahasiswa/RequestInternship/Detail/index.jsx';
+import GuideInternhsip from './pages/Internship/GuideInternship/index.jsx';
 
 const router = createBrowserRouter([
   {
@@ -196,6 +197,10 @@ const router = createBrowserRouter([
             element: <AdminDashboardPost />,
           },
         ],
+      },
+      {
+        path: '/panduan-magang',
+        element: <GuideInternhsip />,
       },
     ],
   },
