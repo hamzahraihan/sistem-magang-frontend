@@ -7,6 +7,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 
 const AdminRequestInternship = () => {
   const { requestInternship, loading } = useFetchRequestInternship();
+  console.log('🚀 ~ AdminRequestInternship ~ requestInternship:', requestInternship);
   const columnHelper = createColumnHelper();
 
   const columns = [
@@ -60,23 +61,33 @@ const AdminRequestInternship = () => {
       cell: (info) => <span>{weekDay(info.getValue())}</span>,
       header: 'Tanggal',
     }),
-    columnHelper.accessor('letter_id', {
-      id: 'Aksi',
-      cell: (info) => (
-        <Link to={`detail/${info.getValue()}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
-          Lihat detail
-        </Link>
-      ),
-      header: <span className=" w-full text-center">Lihat detail</span>,
+    columnHelper.accessor((row) => [row.letter_id, row.internship_letter_file], {
+      id: 'Status',
+      cell: (info) => {
+        const [letter_id, internship_letter_file] = info.getValue();
+        if (!internship_letter_file) {
+          return (
+            <Link to={`detail/${letter_id}`} className="flex p-2 bg-gray-200 rounded-lg m-auto text-center w-fit hover:bg-gray-300 active:bg-gray-400 duration-150">
+              Lihat detail
+            </Link>
+          );
+        }
+        return (
+          <Link to={`detail/${letter_id}`} className="flex p-2 bg-green-400 rounded-lg m-auto text-center text-white w-fit hover:bg-green-500 active:bg-green-600 duration-150">
+            Terkirim
+          </Link>
+        );
+      },
+      header: <span className=" w-full text-center">Status</span>,
     }),
   ];
   return (
     <>
-      <div className="flex flex-col lg:col-span-2 col-span-3">
+      <div className="flex flex-col lg:col-span-2 col-span-3 min-w-full">
         <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white mb-2">
           <ArrowIcon />
         </Link>
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-white rounded-xl border border-gray-200 p-5 overflow-auto">
           <div className="flex flex-col mb-2">
             <h1 className="text-xl font-bold">Permohonan Surat Magang</h1>
           </div>
