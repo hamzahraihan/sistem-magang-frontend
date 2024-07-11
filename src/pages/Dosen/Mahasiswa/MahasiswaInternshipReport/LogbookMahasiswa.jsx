@@ -33,6 +33,26 @@ const LogbookMahasiswa = () => {
       cell: (info) => info.getValue(),
       header: 'Kontak',
     }),
+    columnHelper.accessor((row) => [row.internship_status, row.status], {
+      id: 'Status magang',
+      cell: (info) => {
+        const [internship_status, status] = info.getValue();
+
+        if (internship_status === 'Berlangsung') {
+          return <div className="p-2 bg-yellow-300 rounded-md text-center">Berlangsung</div>;
+        }
+        if (status == 'Belum diterima') {
+          return <div className="p-2 bg-gray-300 rounded-md text-center">Belum disetujui</div>;
+        }
+        if (status == 'Tidak disetujui') {
+          return <div className="p-2 bg-red-500 text-white rounded-md text-center">Tidak disetujui</div>;
+        }
+        if (internship_status == 'Selesai') {
+          return <div className="p-2 bg-green-400 text-white rounded-md text-center">Selesai</div>;
+        }
+      },
+      header: 'Status magang',
+    }),
     columnHelper.accessor('createdAt', {
       id: 'Tanggal',
       cell: (info) => <span>{formatDate(info.getValue())}</span>,
