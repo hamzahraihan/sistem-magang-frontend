@@ -5,6 +5,7 @@ import useFetchMahasiswa from '../../../features/user/useFetchMahasiswa';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useState } from 'react';
 import FormImportMahasiswa from './ImportMahasiswa/FormImportMahasiswa';
+import { weekDay } from '../../../utils/formatDate';
 
 const AdminMahasiswa = () => {
   const { loading, mahasiswa } = useFetchMahasiswa();
@@ -73,6 +74,11 @@ const AdminMahasiswa = () => {
       id: 'Angkatan',
       cell: (info) => info.getValue(),
       header: 'Angkatan',
+    }),
+    columnHelper.accessor('createdAt', {
+      id: 'Tanggal',
+      cell: (info) => <span>{weekDay(info.getValue())}</span>,
+      header: 'Tanggal',
     }),
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
