@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowIcon, FileIcon } from '../../../components/Icons';
+import { ArrowIcon, FileIcon, Spinner } from '../../../components/Icons';
 import ModalInternshipDocs from '../../../components/ModalInternshipDocument/ModalInternshipDocs';
 import { formatDate } from '../../../utils/formatDate';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import useFetchInternshipById from '../../../features/internship/useFetchInterns
 import _ from 'lodash';
 
 const handleCheckLogbook = (logbookWeekly) => {
-  const checkCompleteLog = logbookWeekly.every((element) => element.status == 'Sudah disetujui');
+  const checkCompleteLog = logbookWeekly.every((element) => element.status === 'Sudah disetujui');
 
   console.log('🚀 ~ handleCheckLogbook ~ checkCompleteLog:', checkCompleteLog);
   if (!checkCompleteLog) {
@@ -40,7 +40,7 @@ const DetailCard = () => {
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const { internshipByID } = useFetchInternshipById();
+  const { internshipByID, loading } = useFetchInternshipById();
   const { reportIntern, loading: loadingLog } = useFetchReportByInternship();
 
   let status = getStatusStyle(internshipByID.status);
@@ -53,16 +53,25 @@ const DetailCard = () => {
 
   const { userLoggedInData } = useUserContext();
   const checkLogbook = handleCheckLogbook(logbookWeekly);
+  console.log('🚀 ~ DetailCard ~ checkLogbook:', checkLogbook);
 
   const renderInternshipLinks = () => {
     if (internshipByID.status === 'Belum diterima') {
       return null;
+    } else if (loadingLog) {
+      return <LoadingLogbookPlaceholder />;
     }
 
     return (
       <>
         <LogbookLink userID={userLoggedInData?.id} internshipID={internshipByID?.internship_id} />
-        {loadingLog ? <LoadingLogbookPlaceholder /> : checkLogbook && <ReportLink internshipID={internshipByID?.internship_id} reportIntern={reportIntern} />}
+        {checkLogbook ? (
+          <ReportLink internshipID={internshipByID?.internship_id} reportIntern={reportIntern} />
+        ) : (
+          <div className="flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white active:bg-activeColor transition-all">
+            <p className="flex flex-1 font-bold text-base">Seluruh logbook mingguan wajib disetujui untuk mengunggah laporan akhir</p>
+          </div>
+        )}
       </>
     );
   };
@@ -108,76 +117,82 @@ const DetailCard = () => {
     internshipID: PropTypes.number,
   };
   return (
-    <div className="flex flex-col gap-4 bg-white border border-gray-300 rounded-xl p-4">
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-2 ">
-          <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
-          <div className="flex items-end shrink-0 flex-col gap-2">
-            <div className="rounded-xl border border-gray-300 p-2 bg-gray-100">
-              <h1>Status</h1>
-              <div className={`h-fit p-2 rounded-md w-fit ${status.color}`}>{status.text}</div>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="flex flex-col gap-4 bg-white border border-gray-300 rounded-xl p-4">
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between gap-2 ">
+              <h1 className="font-bold text-2xl">{_.capitalize(internshipByID.instance)}</h1>
+              <div className="flex items-end shrink-0 flex-col gap-2">
+                <div className="rounded-xl border border-gray-300 p-2 bg-gray-100">
+                  <h1>Status</h1>
+                  <div className={`h-fit p-2 rounded-md w-fit ${status.color}`}>{status.text}</div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col text-sm">
+              <p className="text-gray-400">Periode magang</p>
+              <p className="font-bold">
+                {formatDate(internshipByID.start_intern)} - {formatDate(internshipByID.end_intern)}
+              </p>
+            </div>
+            <div className="flex flex-col text-sm">
+              <p className="text-gray-400">Kontak Perusahaan</p>
+              <p className="font-bold">{internshipByID.phone}</p>
+            </div>
+            <div className="flex flex-col text-sm">
+              <p className="text-gray-400">Lokasi</p>
+              <p className="font-bold">{internshipByID.location}</p>
+            </div>
+            <div className="flex flex-col text-sm">
+              <p className="text-gray-400">Tipe Magang</p>
+              <p className="font-bold">{internshipByID.type}</p>
+            </div>
+            <div className="flex flex-col text-sm">
+              <p className="text-gray-400">Deskripsi Perusahaan</p>
+              <p className="font-bold">{internshipByID.description}</p>
+            </div>
+            {internshipByID.lecturer_note && (
+              <div className="flex flex-col text-sm">
+                <p className="text-gray-400">Catatan dosen</p>
+                <p className="font-bold">{internshipByID.lecturer_note}</p>
+              </div>
+            )}
+          </div>
+
+          <h1 className="font-bold text-base">Dokumen Persyaratan Magang</h1>
+          <div className="flex flex-col gap-2 col-span-2">
+            <div className="flex items-baseline gap-2">
+              <p className="text-sm text-gray-500 font-bold">Surat bersedia dosen magang:</p>
+              <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('lecture_docu')}>
+                <FileIcon />
+              </button>
+            </div>
+
+            <div className="flex items-baseline gap-2">
+              <p className="text-sm text-gray-500 font-bold">Surat permohonan magang dari kampus:</p>
+              <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
+                <FileIcon />
+              </button>
+            </div>
+
+            <div className="flex items-baseline gap-2">
+              <p className="text-sm text-gray-500 font-bold">Surat magang dari perusahaan:</p>
+              <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('instance_docu')}>
+                <FileIcon />
+              </button>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col text-sm">
-          <p className="text-gray-400">Periode magang</p>
-          <p className="font-bold">
-            {formatDate(internshipByID.start_intern)} - {formatDate(internshipByID.end_intern)}
-          </p>
-        </div>
-        <div className="flex flex-col text-sm">
-          <p className="text-gray-400">Kontak Perusahaan</p>
-          <p className="font-bold">{internshipByID.phone}</p>
-        </div>
-        <div className="flex flex-col text-sm">
-          <p className="text-gray-400">Lokasi</p>
-          <p className="font-bold">{internshipByID.location}</p>
-        </div>
-        <div className="flex flex-col text-sm">
-          <p className="text-gray-400">Tipe Magang</p>
-          <p className="font-bold">{internshipByID.type}</p>
-        </div>
-        <div className="flex flex-col text-sm">
-          <p className="text-gray-400">Deskripsi Perusahaan</p>
-          <p className="font-bold">{internshipByID.description}</p>
-        </div>
-        {internshipByID.lecturer_note && (
-          <div className="flex flex-col text-sm">
-            <p className="text-gray-400">Catatan dosen</p>
-            <p className="font-bold">{internshipByID.lecturer_note}</p>
-          </div>
-        )}
-      </div>
 
-      <h1 className="font-bold text-base">Dokumen Persyaratan Magang</h1>
-      <div className="flex flex-col gap-2 col-span-2">
-        <div className="flex items-baseline gap-2">
-          <p className="text-sm text-gray-500 font-bold">Surat bersedia dosen magang:</p>
-          <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('lecture_docu')}>
-            <FileIcon />
-          </button>
+          {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
+
+          {/* Render internship link */}
+          {renderInternshipLinks()}
         </div>
-
-        <div className="flex items-baseline gap-2">
-          <p className="text-sm text-gray-500 font-bold">Surat permohonan magang dari kampus:</p>
-          <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('campus_docu')}>
-            <FileIcon />
-          </button>
-        </div>
-
-        <div className="flex items-baseline gap-2">
-          <p className="text-sm text-gray-500 font-bold">Surat magang dari perusahaan:</p>
-          <button className="w-fit bg-primaryColor text-white p-2 rounded-xl hover:bg-hoverColor active:bg-activeColor duration-150 " type="button" onClick={() => handleOpenModal('instance_docu')}>
-            <FileIcon />
-          </button>
-        </div>
-      </div>
-
-      {openModal && <ModalInternshipDocs id={internshipByID} isOpen={openModal} closeModal={() => setOpenModal(false)} modalType={modalType} />}
-
-      {/* Render internship link */}
-      {renderInternshipLinks()}
-    </div>
+      )}
+    </>
   );
 };
 
