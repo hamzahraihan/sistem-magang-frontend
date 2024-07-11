@@ -31,7 +31,7 @@ const FormUploadReport = ({ formik, getAllowedExt }) => {
       />
       <p className="text-xs text-red-800">{formik.errors.intern_complete_file}</p>
 
-      <label htmlFor="file_url">Penilaian dari perushaan</label>
+      <label htmlFor="file_url">Penilaian dari perusahaan</label>
       <input
         className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer  focus:outline-none "
         id="file_url"
