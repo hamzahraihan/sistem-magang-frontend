@@ -24,12 +24,7 @@ const Navigation = () => {
           <UploadIcon />
           <p className="lg:flex hidden">Upload Laporan</p>
         </NavLink>
-        <NavLink
-          to="https://docs.google.com/presentation/d/1vZLuBXoQ84byioTcmqQkeYT6NGPn47R18V_48OF6g9A/edit?usp=sharing"
-          target="_blank"
-          className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}
-          rel="noopener noreferrer"
-        >
+        <NavLink to="/panduan-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <GuideIcon />
           <p className="lg:flex hidden">Panduan Magang</p>
         </NavLink>
