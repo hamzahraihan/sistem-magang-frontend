@@ -26,7 +26,7 @@ const Navigation = () => {
           <DocumentIcon />
         </NavLink>
 
-        <NavLink to="https://docs.google.com/presentation/d/1vZLuBXoQ84byioTcmqQkeYT6NGPn47R18V_48OF6g9A/edit?usp=sharing" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
+        <NavLink to="/panduan-magang" className={({ isActive }) => (isActive ? activeNavButton : notActiveNavButton)}>
           <GuideIcon />
         </NavLink>
       </>
