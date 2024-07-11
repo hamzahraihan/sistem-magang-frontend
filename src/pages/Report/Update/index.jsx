@@ -50,7 +50,6 @@ const ReportUpdateForm = () => {
     },
     validationSchema: yup.object().shape({
       title: yup.string().required('Wajib diisi'),
-      note: yup.string().required('Wajib diisi'),
       intern_complete_file: yup
         .mixed()
         .required('Wajib diisi')
