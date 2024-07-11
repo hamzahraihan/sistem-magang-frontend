@@ -37,7 +37,7 @@ const ReportForm = () => {
     validationSchema: yup.object().shape({
       internship_id: yup.number().required(),
       title: yup.string().required('Wajib diisi'),
-      note: yup.string().required('Wajib diisi'),
+      note: yup.string(),
       intern_complete_file: yup
         .mixed()
         .required('Wajib diisi')
@@ -47,12 +47,12 @@ const ReportForm = () => {
         .mixed()
         .required('Wajib diisi')
         .test('is-valid-type', `Format file salah, file harus berformat .${allowedExt}`, (value) => isValidFileType(value?.name?.toLowerCase()))
-        .test('is-valid-size', 'Max allowed size is 10 mb', (value) => value?.size <= MAX_FILE_SIZE),
+        .test('is-valid-size', 'Max allowed size is 3 mb', (value) => value?.size <= MAX_FILE_SIZE),
       intern_final_report: yup
         .mixed()
         .required('Wajib diisi')
         .test('is-valid-type', `Format file salah, file harus berformat .${allowedExt}`, (value) => isValidFileType(value?.name?.toLowerCase()))
-        .test('is-valid-size', 'Max allowed size is 10 mb', (value) => value?.size <= MAX_FILE_SIZE),
+        .test('is-valid-size', 'Max allowed size is 3 mb', (value) => value?.size <= MAX_FILE_SIZE),
     }),
   });
 
