@@ -18,6 +18,7 @@ const useFetchWeeklyLogbook = () => {
     const getWeeklyLog = async () => {
       setLoading(true);
       const token = localStorage.getItem(TOKEN);
+
       try {
         const data = await getWeeklyLogAPI(internship_id, token, signal);
         dispatch({ type: 'SET_WEEKLYLOG', payload: data });
