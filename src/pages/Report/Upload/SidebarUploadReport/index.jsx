@@ -26,7 +26,6 @@ const SidebarUploadReport = () => {
             <li>File penilaian dari perusahaan</li>
           </ul>
         </div>
-        <p>Isi keterangan laporan dengan link google drive laporan kamu untuk dengan mudah kamu ubah jika kamu tidak yakin dengan laporan yang sudah kamu kirim</p>
       </div>
     </div>
   );
