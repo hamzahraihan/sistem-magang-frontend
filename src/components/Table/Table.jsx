@@ -8,9 +8,15 @@ import PropTypes from 'prop-types';
 
 const Table = ({ columns, data, fileName, loading }) => {
   const [globalFilter, setGlobalFilter] = useState('');
-  const [sorting, setSorting] = useState([]);
+  const [sorting, setSorting] = useState([
+    {
+      id: 'Tanggal',
+      desc: false,
+    },
+  ]);
   const [columnVisibility, setColumnVisibility] = useState({});
 
+  console.log('🚀 ~ Table ~ sorting:', sorting);
   const table = useReactTable({
     data,
     columns,
