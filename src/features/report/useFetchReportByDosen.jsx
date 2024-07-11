@@ -29,7 +29,7 @@ const useFetchReportByDosen = () => {
         }
         console.error(error);
         setLoading(false);
-        dispatch({ type: 'SET_REPORT_DATA', payload: null });
+        dispatch({ type: 'SET_REPORT_DATA', payload: [] });
       }
     };
     getReportInternship();
