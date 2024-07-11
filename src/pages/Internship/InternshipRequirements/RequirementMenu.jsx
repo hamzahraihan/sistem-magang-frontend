@@ -3,6 +3,7 @@ import { ArrowIcon, DownloadIcon } from '../../../components/Icons';
 import SidebarInternshipRequirements from './SidebarInternshipRequirements';
 import FormsVector from '../../../assets/svg/forms.svg';
 import DownloadVector from '../../../assets/svg/filesdownload.svg';
+// import InternshipVector from '../../../assets/svg/Internship-bro.svg';
 import RequirementCard from './RequirementCard';
 import Table from '../../../components/Table/Table';
 import { createColumnHelper } from '@tanstack/react-table';
@@ -53,18 +54,22 @@ const RequirementMenu = () => {
       },
       header: 'Surat Magang',
     }),
-    columnHelper.accessor((row) => [row.letter_id, row.status], {
+    columnHelper.accessor((row) => [row.letter_id, row.status, row.internship_id], {
       id: 'Status',
       cell: (info) => {
-        const [letter_id, status] = info.getValue();
+        const [letter_id, status, internship_id] = info.getValue();
         if (status == 'Terkirim') {
           return (
             <Link to={`/kegiatan-magang/daftar-magang/${letter_id}`}>
-              <div className="w-fit p-2 rounded-md bg-primaryColor hover:bg-hoverColor duration-150 text-white">Daftar magang</div>
+              <div className="w-fit p-2 rounded-md bg-primaryColor hover:bg-hoverColor duration-150 text-white text-center">Daftar magang</div>
             </Link>
           );
         } else if (status == 'Terdaftar') {
-          return <div className="p-2 rounded-md w-fit bg-green-400 text-white">Sudah mendaftar</div>;
+          return (
+            <Link to={`/kegiatan-magang/detail/${internship_id}`}>
+              <div className="p-2 rounded-md w-fit bg-green-400 hover:bg-green-500 text-white duration-150 text-center">Sudah mendaftar</div>
+            </Link>
+          );
         }
         return <div className="p-2 rounded-md w-fit bg-gray-300">Belum bisa mendaftar</div>;
       },
@@ -86,6 +91,7 @@ const RequirementMenu = () => {
         <h1 className="font-bold text-xl">Berkas Magang</h1>
         <div className="grid grid-cols-2 gap-2">
           <RequirementCard vector={FormsVector} link="/berkas-magang/permohonan-magang" title="Form Permohonan Magang" />
+          {/* <RequirementCard vector={InternshipVector} link="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-" title="Perpanjang Magang" /> */}
           <RequirementCard vector={DownloadVector} link="https://drive.google.com/drive/u/1/folders/13_CQ53O0eIKVCQsuSVlHAqvMFFQD7m6-" title="Unduh Berkas Magang" />
         </div>
         <h1 className="font-bold text-xl">Surat Permohonan Magang</h1>
