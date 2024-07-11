@@ -9,7 +9,7 @@ const SidebarReport = () => {
         <ArrowIcon />
       </Link>
       <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-xl">Segera kirim laporan akhir</h1>
+        <h1 className="font-bold text-xl">Laporan Akhir</h1>
         <div>
           <p>File laporan yang wajib harus kamu kirim</p>
           <ul className="list-disc list-inside">
@@ -18,10 +18,10 @@ const SidebarReport = () => {
             <li>File penilaian dari perusahaan</li>
           </ul>
         </div>
-        <p>Isi keterangan laporan dengan link google drive laporan kamu untuk dengan mudah kamu ubah jika kamu tidak yakin dengan laporan yang sudah kamu kirim</p>
+        <p>Isi form laporan akhir setelah seluruh logbook disetujui oleh dosen pembimbing</p>
       </div>
       <div className="lg:block w-full ">
-        <PrimaryButton text="Buat laporan magang" />
+        <PrimaryButton text="Buat Laporan Magang" />
       </div>
     </div>
   );
