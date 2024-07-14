@@ -1,9 +1,12 @@
 import { Datepicker } from 'flowbite-react';
 import PropTypes from 'prop-types';
 import { useInternshipContext } from '../../../../hooks/useInternshipContext';
+import { useUserContext } from '../../../../hooks/useUserContext';
 
 const FormRequestInternship = ({ formik, allowedExt }) => {
   const { lectureFileInputRef } = useInternshipContext();
+
+  const { dosenData } = useUserContext();
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -35,6 +38,22 @@ const FormRequestInternship = ({ formik, allowedExt }) => {
   return (
     <>
       <h1 className="text-gray-400">Data diri Mahasiswa</h1>
+
+      <label htmlFor="dosen_id">Dosen Wali</label>
+      <select id="dosen_id" name="dosen_id" className="text-sm p-3 border border-gray-200 rounded-xl " onChange={handleInputValue} required>
+        <option defaultValue={null}>Pilih dosen wali</option>
+        {dosenData.map((item) => (
+          <option key={item.dosen_id} value={item.dosen_id}>
+            {item.first_name} {item.last_name}
+          </option>
+        ))}
+      </select>
+      <p className="text-xs text-red-800">{formik.errors.dosen_id}</p>
+
+      <label htmlFor="phone">Nomor Whatsapp</label>
+      <input className="rounded-lg border border-gray-300" type="number" name="phone" id="phone" placeholder="Kontak" value={formik.values.phone} onChange={handleInputValue} required />
+      <p className="text-xs text-red-800">{formik.errors.phone}</p>
+
       <label htmlFor="mahasiswa_address">Alamat Mahasiswa</label>
       <input className="rounded-lg border border-gray-300" type="text" name="mahasiswa_address" id="mahasiswa_address" placeholder="Alamat Mahasiswa" value={formik.values.mahasiswa_address} onChange={handleInputValue} required />
       <p className="text-xs text-red-800">{formik.errors.mahasiswa_address}</p>
