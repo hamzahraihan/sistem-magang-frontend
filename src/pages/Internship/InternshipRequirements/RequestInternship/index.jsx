@@ -22,10 +22,12 @@ const RequestInternship = () => {
 
   const formik = useFormik({
     initialValues: {
+      dosen_id: '',
       mahasiswa_address: '',
       placeofbirth: '',
       dateofbirth: '',
       religion: '',
+      phone: '',
       lecture_agreement: '',
       type_internship: '',
       instance: '',
@@ -41,10 +43,12 @@ const RequestInternship = () => {
       handleRequestInternship(values);
     },
     validationSchema: yup.object().shape({
+      dosen_id: yup.number().required('Wajib memilih dosen pembimbing'),
       mahasiswa_address: yup.string().required().max(255),
       placeofbirth: yup.string().required().max(30),
       dateofbirth: yup.date().required(),
       religion: yup.string().required().max(255),
+      phone: yup.string().required().max(18),
       lecture_agreement: yup
         .mixed()
         .required('Wajib diisi')
