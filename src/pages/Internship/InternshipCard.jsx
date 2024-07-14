@@ -6,7 +6,17 @@ import _ from 'lodash';
 
 const InternshipCard = () => {
   const { loading, internship } = useFetchInternship();
-  console.log('🚀 ~ InternshipCard ~ internship:', internship);
+
+  const handleStatusInternship = (status) => {
+    switch (status) {
+      case 'Belum diterima':
+        return 'bg-gray-300';
+      case 'Disetujui':
+        return 'bg-green-500 text-white';
+      case 'Tidak disetujui':
+        return 'bg-red-500 text-white';
+    }
+  };
 
   return (
     <>
@@ -30,7 +40,7 @@ const InternshipCard = () => {
                   </p>
                 </div>
               </div>
-              <div className={`mt-auto p-2 h-fit rounded-md text-black ${item.status == 'Belum diterima' ? 'bg-gray-300' : 'bg-green-400 text-white'}`}>{item.status}</div>
+              <div className={`mt-auto p-2 h-fit rounded-md text-black ${handleStatusInternship(item.status)}`}>{item.status}</div>
             </div>
           </Link>
         ))
