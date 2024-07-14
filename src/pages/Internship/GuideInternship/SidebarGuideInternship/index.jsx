@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
+import { ArrowIcon } from '../../../../components/Icons';
 
 const SidebarGuideInternship = () => {
   return (
-    <div className="lg:flex lg:col-span-1 col-span-3 flex-col top-5 lg:items-start">
+    <div className="lg:flex lg:col-span-1 col-span-3 flex-col top-5 lg:order-last order-first">
+      <Link to="/" className="flex items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white lg:hidden mb-2">
+        <ArrowIcon />
+      </Link>
       <div className="flex flex-col w-full gap-5">
         <h1 className="text-xl font-bold">Panduan Magang</h1>
         <p className="text-neutral-500">
