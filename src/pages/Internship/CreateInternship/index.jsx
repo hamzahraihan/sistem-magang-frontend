@@ -27,7 +27,6 @@ const CreateInternship = () => {
 
   const formik = useFormik({
     initialValues: {
-      dosen_id: '',
       instance: '',
       location: '',
       type: '',
@@ -43,7 +42,6 @@ const CreateInternship = () => {
       handleCreateInternship(values);
     },
     validationSchema: yup.object().shape({
-      dosen_id: yup.number().required('Wajib memilih dosen pembimbing'),
       instance: yup.string().required(),
       location: yup.string().required().max(255),
       type: yup.string().required(),
