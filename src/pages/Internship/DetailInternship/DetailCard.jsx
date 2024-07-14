@@ -49,7 +49,7 @@ const DetailCard = () => {
     setModalType(type);
   };
 
-  const { logbookWeekly } = useFetchWeeklyLogbook();
+  const { logbookWeekly, loading: loadingWeek } = useFetchWeeklyLogbook();
 
   const { userLoggedInData } = useUserContext();
   const checkLogbook = handleCheckLogbook(logbookWeekly);
@@ -65,7 +65,9 @@ const DetailCard = () => {
     return (
       <>
         <LogbookLink userID={userLoggedInData?.id} internshipID={internshipByID?.internship_id} />
-        {checkLogbook ? (
+        {loadingWeek ? (
+          <LoadingLogbookPlaceholder />
+        ) : checkLogbook ? (
           <ReportLink internshipID={internshipByID?.internship_id} reportIntern={reportIntern} />
         ) : (
           <div className="flex border items-center border-gray-400 bg-white rounded-xl p-4 hover:bg-hoverColor hover:text-white active:bg-activeColor transition-all">
