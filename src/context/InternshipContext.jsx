@@ -54,7 +54,6 @@ export const InternshipProvider = ({ children }) => {
 
     formData.append('letter_id', letter_id);
     formData.append('mahasiswa_id', userLoggedInData.id);
-    formData.append('dosen_id', values.dosen_id);
     formData.append('instance', values.instance);
     formData.append('location', values.location);
     formData.append('type', values.type);
@@ -133,23 +132,6 @@ export const InternshipProvider = ({ children }) => {
         }
       }
       if (data) {
-        const updateValues = {
-          id: userLoggedInData.id,
-          role: userLoggedInData.role,
-          dosen_id: _.toNumber(values.dosen_id),
-          first_name: userLoggedInData.first_name,
-          last_name: userLoggedInData.last_name,
-          email: userLoggedInData.email,
-          jurusan: userLoggedInData.jurusan,
-          angkatan: userLoggedInData.angkatan,
-          kelas: userLoggedInData.kelas,
-          gender: userLoggedInData.gender,
-          image: userLoggedInData.id.image,
-          phone: userLoggedInData.phone,
-          iat: userLoggedInData.iat,
-        };
-        setUserLoggedInData(updateValues);
-        dispatchUser({ type: 'SET_USER_DATA', payload: updateValues });
         setLoading(false);
         toast.dismiss(toastId);
         toast.success('Berhasil mengajukan magang');
@@ -334,7 +316,23 @@ export const InternshipProvider = ({ children }) => {
     }
   };
 
-  const handleRequestInternship = async ({ mahasiswa_address, placeofbirth, dateofbirth, religion, type_internship, instance, letter_receiver, instance_address, instance_contact, description, typeofbusiness, start_intern, end_intern }) => {
+  const handleRequestInternship = async ({
+    dosen_id,
+    phone,
+    mahasiswa_address,
+    placeofbirth,
+    dateofbirth,
+    religion,
+    type_internship,
+    instance,
+    letter_receiver,
+    instance_address,
+    instance_contact,
+    description,
+    typeofbusiness,
+    start_intern,
+    end_intern,
+  }) => {
     setLoadingLetter(true);
     const toastId = toast.loading('Sedang proses upload');
 
@@ -343,6 +341,8 @@ export const InternshipProvider = ({ children }) => {
 
     const formData = new FormData();
 
+    formData.append('dosen_id', dosen_id);
+    formData.append('phone', phone);
     formData.append('mahasiswa_id', userLoggedInData?.id);
     formData.append('mahasiswa_address', mahasiswa_address);
     formData.append('placeofbirth', placeofbirth);
@@ -367,6 +367,23 @@ export const InternshipProvider = ({ children }) => {
         },
       });
 
+      const updateValues = {
+        id: userLoggedInData.id,
+        role: userLoggedInData.role,
+        dosen_id: _.toNumber(dosen_id),
+        first_name: userLoggedInData.first_name,
+        last_name: userLoggedInData.last_name,
+        email: userLoggedInData.email,
+        jurusan: userLoggedInData.jurusan,
+        angkatan: userLoggedInData.angkatan,
+        kelas: userLoggedInData.kelas,
+        gender: userLoggedInData.gender,
+        image: userLoggedInData.id.image,
+        phone: userLoggedInData.phone,
+        iat: userLoggedInData.iat,
+      };
+      setUserLoggedInData(updateValues);
+      dispatchUser({ type: 'SET_USER_DATA', payload: updateValues });
       setLoadingLetter(false);
       toast.dismiss(toastId);
       toast.success('Upload Berhasil');
