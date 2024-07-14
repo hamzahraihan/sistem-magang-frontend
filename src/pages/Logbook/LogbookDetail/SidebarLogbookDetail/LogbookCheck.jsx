@@ -120,7 +120,7 @@ const LogbookOverallCard = () => {
       {weeklyActivity.status == 'Tidak disetujui' && (
         <div className="flex flex-col gap-2 border border-neutral-300 bg-white rounded-[24px] p-4 w-full">
           <h1 className="text-sm text-gray-400">Catatan dari dosen</h1>
-          <span className="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi molestias quisquam voluptas, sequi nam possimus sunt illum incidunt dolore quaerat!</span>
+          <span className="">{weeklyActivity.lecturer_note}</span>
         </div>
       )}
     </>
