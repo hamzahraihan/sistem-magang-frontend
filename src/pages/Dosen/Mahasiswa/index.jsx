@@ -4,6 +4,7 @@ import { useUserContext } from '../../../hooks/useUserContext';
 import Table from '../../../components/Table/Table';
 import { createColumnHelper } from '@tanstack/react-table';
 import useFetchMahasiswaByDosen from '../../../features/user/useFetchMahasiswaByDosen';
+import { weekDay } from '../../../utils/formatDate';
 
 // Logbook view for dosen role
 const DosenMahasiswa = () => {
@@ -68,6 +69,11 @@ const DosenMahasiswa = () => {
       },
       header: <span className="w-full text-center">Status</span>,
     }),
+    columnHelper.accessor('createdAt', {
+      id: 'Tanggal',
+      cell: (info) => <span>{weekDay(info.getValue())}</span>,
+      header: <span className="w-full text-center">Tanggal</span>,
+    }),
     columnHelper.accessor('mahasiswa_id', {
       id: 'Aksi',
       cell: (info) => (
@@ -80,8 +86,8 @@ const DosenMahasiswa = () => {
   ];
 
   const filteredData = mahasiswaDosen.map((item) => {
-    const { mahasiswa_id, first_name, last_name, email, role, nim, jurusan, angkatan, status, kelas, phone } = item;
-    return { mahasiswa_id, first_name, last_name, email, role, nim, jurusan, angkatan, status, kelas, phone };
+    const { mahasiswa_id, first_name, last_name, email, role, nim, jurusan, angkatan, status, kelas, phone, createdAt } = item;
+    return { mahasiswa_id, first_name, last_name, email, role, nim, jurusan, angkatan, status, kelas, phone, createdAt };
   });
 
   return (
