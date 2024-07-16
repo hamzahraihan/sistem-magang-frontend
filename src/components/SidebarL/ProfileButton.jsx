@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { ArrowIcon, UserIcon } from '../Icons';
 import { useUserContext } from '../../hooks/useUserContext';
 import _ from 'lodash';
@@ -14,7 +14,7 @@ const ProfileButton = () => {
   };
 
   return (
-    <Link
+    <NavLink
       to={userLoggedInData ? `/profile/${userLoggedInData?.role}/${_.kebabCase(slugify())}` : '/login'}
       state={{ userId: userLoggedInData?.id }}
       className="flex flex-row lg:gap-2  p-4 items-center lg:border rounded-[32px] border-neutral-200 border-0 cursor-pointer lg:w-full w-fit bg-white"
@@ -41,7 +41,7 @@ const ProfileButton = () => {
       <div className="xl:flex lg:hidden hidden ms-auto">
         <ArrowIcon />
       </div>
-    </Link>
+    </NavLink>
   );
 };
 
