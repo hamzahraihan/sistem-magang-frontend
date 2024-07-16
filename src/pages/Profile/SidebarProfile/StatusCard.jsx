@@ -21,8 +21,8 @@ const StatusCard = ({ type, title, status }) => {
   }
   return (
     <div className="flex gap-2 items-center border border-neutral-300 rounded-3xl w-full p-4 bg-white">
-      <div className={`flex justify-center items-center rounded-full ${color} h-12 w-12`}>{icon}</div>
-      <div className="flex flex-col">
+      <div className={`flex flex-shrink-0 justify-center items-center rounded-full ${color} h-12 w-12`}>{icon}</div>
+      <div className="flex flex-col overflow-hidden">
         <h1 className="lg:text-base text-sm">{title}</h1>
         <p className="text-xs text-neutral-400">{_.capitalize(status)}</p>
       </div>
