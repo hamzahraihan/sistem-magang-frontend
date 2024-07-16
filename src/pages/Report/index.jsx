@@ -4,19 +4,20 @@ import SidebarReport from './SidebarReport';
 import ReportList from './ReportList';
 import ReportNotFound from './ReportNotFound';
 import useFetchReportByMahasiswa from '../../features/report/useFetchReportByMahasiswa';
+import { ReportPlaceholderList } from './ReportPlaceholder';
 
 const UploadIntern = () => {
-  const { reportIntern } = useFetchReportByMahasiswa();
+  const { reportIntern, loading } = useFetchReportByMahasiswa();
 
   return (
     <div className="col-span-3 pb-10">
       <div className="grid grid-cols-3 gap-5">
-        <div className="lg:order-first flex flex-col gap-4 lg:col-span-2 col-span-3 order-last">
+        <div className="lg:order-first flex flex-col gap-2 lg:col-span-2 col-span-3 order-last">
           <Link to="/" className="lg:flex hidden items-center justify-center rotate-180 border border-neutral-300 rounded-full h-10 w-10 hover:bg-neutral-100 transition-all bg-white">
             <ArrowIcon />
           </Link>
           <h1 className="text-xl font-bold">Laporan Akhir Magang</h1>
-          {reportIntern.length == 0 ? <ReportNotFound /> : <ReportList />}
+          {loading ? <ReportPlaceholderList /> : reportIntern.length == 0 ? <ReportNotFound /> : <ReportList />}
         </div>
         <SidebarReport />
       </div>
