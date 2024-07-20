@@ -74,10 +74,12 @@ const DataInternship = ({ data, loading }) => {
             {loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : <p className="text-sm font-bold text-gray-500">{data.internship_id}</p>}
           </div>
         </div>
-        <div className="flex flex-col col-span-2">
-          <h1 className="text-sm text-gray-400">Catatan dosen</h1>
-          <p className="text-sm font-bold text-gray-500">{data.lecturer_note}</p>
-        </div>
+        {data.lecturer_note && (
+          <div className="flex flex-col col-span-2">
+            <h1 className="text-sm text-gray-400">Catatan dosen</h1>
+            <p className="text-sm font-bold text-gray-500">{data.lecturer_note}</p>
+          </div>
+        )}
 
         <h1 className="text-sm text-gray-400">Dokumen Magang Mandiri</h1>
 
