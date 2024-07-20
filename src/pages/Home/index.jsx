@@ -5,7 +5,6 @@ import SidebarHome from './SidebarHome';
 
 const Home = () => {
   const { loadingPost, post, searchParams } = usePostContext();
-  console.log('🚀 ~ Home ~ post:', post);
 
   const searchInput = searchParams.get('search');
   const categoryInput = searchParams.get('category_name');
