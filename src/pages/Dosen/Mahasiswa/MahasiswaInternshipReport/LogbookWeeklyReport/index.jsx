@@ -8,6 +8,9 @@ import * as yup from 'yup';
 import { useLogbookWeeklyActivityContext } from '../../../../../hooks/useLogbookWeeklyActivityContext';
 import useFetchDailyLogbook from '../../../../../features/logbook/useFetchDailyLogbook';
 import _ from 'lodash';
+import { useState } from 'react';
+import { Modal } from 'flowbite-react';
+import LogbookDaily from './LogbookDaily';
 
 const LogbookWeeklyReport = () => {
   const { logbookDaily } = useFetchDailyLogbook();
@@ -15,6 +18,7 @@ const LogbookWeeklyReport = () => {
   const { weeklyActivity } = useFetchWeeklyActivity();
   const { loading, userByID } = useFetchUserByID(weeklyActivity.mahasiswa_id);
   const { loadingUpdate, handleStatusLogbook } = useLogbookWeeklyActivityContext();
+  const [openModal, setOpenModal] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -87,6 +91,26 @@ const LogbookWeeklyReport = () => {
           <h1 className="text-sm text-gray-300 font-bold ">Minggu Kegiatan</h1>
           <p className="text-sm text-gray-500 font-bold">{`Minggu ke- ${loading ? '' : weeklyActivity.week + 1}`}</p>
         </div>
+
+        <div className="flex flex-col gap-2">
+          <h1 className="text-sm text-gray-300 font-bold ">Lihat rinci logbook harian</h1>
+          <button className="p-2 bg-gray-200 hover:bg-gray-300 active:bg-gray-400 duration-150 w-fit rounded-lg font-bold text-gray-700" onClick={() => setOpenModal(true)}>
+            Lihat logbook harian
+          </button>
+        </div>
+
+        <Modal position="center" size="6xl" dismissible show={openModal} onClose={() => setOpenModal(false)}>
+          <Modal.Header>
+            <h1 className="text-sm py-2 px-3 bg-hoverColor w-fit rounded-lg text-gray-50">Logbook Harian Mahasiswa</h1>
+          </Modal.Header>
+          <Modal.Body>
+            {logbookDaily.slice(0, 5).map((item) => (
+              <div className="mb-4" key={item.logday_id}>
+                <LogbookDaily logbook={item} />
+              </div>
+            ))}
+          </Modal.Body>
+        </Modal>
 
         <div className="flex flex-col">
           <h1 className="text-sm text-gray-300 font-bold">Hasil Kegiatan</h1>
