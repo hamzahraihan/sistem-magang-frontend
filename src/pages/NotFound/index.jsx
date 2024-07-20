@@ -13,7 +13,7 @@ const NotFound = () => {
       <footer className="text-center">
         {new Date().getFullYear()} &copy; hamzahraihan6@gmail.com{' '}
         <a className="text-blue-700" href="https://github.com/HamzahRaihan">
-          github💖
+          github
         </a>
       </footer>
     </>
