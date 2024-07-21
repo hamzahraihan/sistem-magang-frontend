@@ -167,8 +167,13 @@ export const getReportByIdAPI = async (id, token) => {
 };
 
 // get all mahasiswa data
-export const getAllMahasiswaAPI = async () => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa`);
+export const getAllMahasiswaAPI = async (token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/mahasiswa`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
@@ -184,8 +189,13 @@ export const getMahasiswaByDosenAPI = async (id, token) => {
 };
 
 // get all mahasiswa data
-export const getAllDosenAPI = async () => {
-  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/dosen`);
+export const getAllDosenAPI = async (token) => {
+  const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/dosen`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return data.result;
 };
 
