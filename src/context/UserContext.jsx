@@ -103,8 +103,14 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const handleGetDosen = async () => {
+      const token = localStorage.getItem(TOKEN);
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/dosen`);
+        const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/dosen`, {
+          headers: {
+            'Content-Type': `application/json`,
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setDosenData(data.result);
       } catch (error) {
         console.error(error);
