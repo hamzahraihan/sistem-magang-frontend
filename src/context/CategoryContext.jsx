@@ -28,12 +28,11 @@ const CategoryProvider = ({ children }) => {
           },
         }
       );
-      // console.log('🚀 ~ handleCreateCategory ~ data:', data);
+
       dispatch({ type: 'ADD_CATEGORY', payload: data.result });
       toast.success('Berhasil ditambah');
       setLoadingCategory(false);
     } catch (error) {
-      // console.log(error);
       toast.error(error.message);
       setLoadingCategory(false);
     }
@@ -57,7 +56,6 @@ const CategoryProvider = ({ children }) => {
       }));
       toast.success('Berhasil dihapus');
     } catch (error) {
-      // console.log(error);
       toast.success(error.message);
       setLoadingDelete((prevState) => ({
         ...prevState,

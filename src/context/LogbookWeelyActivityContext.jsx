@@ -21,7 +21,7 @@ const LogbookWeeklyActivityProvider = ({ children }) => {
   const handleUpdateWeeklyLog = async ({ logbook_id, log_description, status }) => {
     setLoadingUpdate(true);
     try {
-      const response = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_BASE_URL}/logbook/weekly/edit/${logbook_id}`,
         {
           logbook_id,
@@ -35,10 +35,8 @@ const LogbookWeeklyActivityProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
       setLoadingUpdate(false);
     } catch (error) {
-      console.error(error);
       setLoadingUpdate(false);
     }
   };
@@ -56,13 +54,12 @@ const LogbookWeeklyActivityProvider = ({ children }) => {
           },
         }
       );
-      console.log('🚀 ~ handleStatusLogbook ~ data:', data);
+
       dispatch({ type: 'EDIT_WEEK_ACTIVITY', payload: data.result });
       toast.success('Berhasil diubah');
       setLoadingUpdate(false);
     } catch (error) {
       if (error.response.status === 400) {
-        console.error(error);
         toast.error('Gagal diubah');
       }
       setLoading(false);

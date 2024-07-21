@@ -7,7 +7,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 
 const AdminRequestInternship = () => {
   const { requestInternship, loading } = useFetchRequestInternship();
-  // console.log('🚀 ~ AdminRequestInternship ~ requestInternship:', requestInternship);
+
   const columnHelper = createColumnHelper();
 
   const columns = [

@@ -38,7 +38,6 @@ const DosenProvider = ({ children }) => {
       setLoading(false);
     } catch (error) {
       toast.error(error);
-      // console.log(error);
       setLoading(false);
     }
   };

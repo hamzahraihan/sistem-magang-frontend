@@ -11,7 +11,7 @@ export const ReportInternDispatch = createContext(null);
 
 const ReportInternProvider = ({ children }) => {
   const [reportIntern, dispatch] = useReducer(ReportInternReducer, []);
-  console.log('🚀 ~ ReportInternProvider ~ reportIntern:', reportIntern);
+
   const [loadingUpload, setLoadingUpload] = useState(false);
   const [loadingUpdate, setLoadingUpdate] = useState(false);
 
@@ -51,19 +51,18 @@ const ReportInternProvider = ({ children }) => {
       formData.append('files', finalReportFile);
 
       try {
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/report/upload-report`, formData, {
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/report/upload-report`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log('file uploaded', response);
+
         toast.success('Upload berhasil');
         toast.dismiss(toastId);
         setLoadingUpload(false);
         navigate('/report');
       } catch (error) {
-        console.error(error);
         toast.dismiss(toastId);
         toast.error('Upload gagal');
         setLoadingUpload(false);
@@ -75,7 +74,6 @@ const ReportInternProvider = ({ children }) => {
   };
 
   const handleFileUpdate = async (values) => {
-    console.log('🚀 ~ handleFileUpdate ~ values:', values);
     const { title, note, intern_complete_file, intern_score_file, intern_final_report } = values;
 
     try {
@@ -108,24 +106,23 @@ const ReportInternProvider = ({ children }) => {
       }
 
       try {
-        const response = await axios.put(`${import.meta.env.VITE_BASE_URL}/report/${report_id}`, formData, {
+        await axios.put(`${import.meta.env.VITE_BASE_URL}/report/${report_id}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        console.log('file uploaded', response);
+
         toast.success('Upload berhasil');
         toast.dismiss(toastId);
         setLoadingUpdate(false);
       } catch (error) {
-        console.error(error);
         toast.dismiss(toastId);
         toast.error('Upload gagal');
         setLoadingUpdate(false);
       }
     } catch (error) {
-      console.error(error);
+      toast.error('Upload gagal');
     }
   };
 
@@ -145,7 +142,6 @@ const ReportInternProvider = ({ children }) => {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log('🚀 ~ handleStatusReport ~ response:', response);
 
       if (response.status == 201) {
         dispatch({
@@ -159,7 +155,6 @@ const ReportInternProvider = ({ children }) => {
       if (error.response.status == 500) {
         toast.error(error.message);
       }
-      console.error(error);
       setLoadingUpdate(false);
     }
   };
@@ -175,7 +170,6 @@ const ReportInternProvider = ({ children }) => {
       navigate('/report');
     } catch (error) {
       toast.error('Gagal dihapus');
-      console.error(error);
     }
   };
 

@@ -18,7 +18,7 @@ const LogbookDailyProvider = ({ children }) => {
   const editLogbook = async ({ logday_id, log_description }) => {
     setLoadingUpdate(true);
     try {
-      const response = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_BASE_URL}/logbook/daily/edit/${logday_id}`,
         {
           log_description,
@@ -30,13 +30,11 @@ const LogbookDailyProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
       setLoadingUpdate(false);
     } catch (error) {
       if (error.response.status === 403) {
         toast.error('Data tidak disimpan karena kamu belum login');
       }
-      console.error(error);
       setLoadingUpdate(false);
     }
   };

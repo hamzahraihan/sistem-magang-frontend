@@ -18,7 +18,7 @@ export const InternshipProvider = ({ children }) => {
   const [loadingLetter, setLoadingLetter] = useState(false);
 
   const [internship, dispatch] = useReducer(InternshipReducer, []);
-  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
+
   const [internshipInputData, setInternshipInputData] = useState({
     start_intern: '',
     end_intern: '',
@@ -142,107 +142,11 @@ export const InternshipProvider = ({ children }) => {
         toast.error('Gagal mengajukan magang');
       }
     } catch (error) {
-      console.error(error);
       setLoading(false);
       toast.dismiss(toastId);
       toast.error('Gagal mengajukan magang');
     }
   };
-
-  // const handleExtendInternship = async (values) => {
-  //   const toastId = toast.loading('Sedang proses upload');
-  //   setLoading(true);
-
-  //   const formData = new FormData();
-  //   formData.append('start_intern', values.start_intern);
-  //   formData.append('end_intern', values.end_intern);
-
-  //   try {
-  //     const { data } = await axios.put(`${import.meta.env.VITE_BASE_URL}/internship`, formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     const { start_intern, end_intern } = data.result;
-
-  //     const startIntern = new Date(start_intern);
-  //     const endIntern = new Date(end_intern);
-
-  //     const weeksArray = [];
-
-  //     let currentWeek = [];
-  //     let currentDate = new Date(startIntern);
-
-  //     while (currentDate <= endIntern) {
-  //       // Check if the current day is not Saturday (6) or Sunday (0)
-  //       if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-  //         currentWeek.push(new Date(currentDate));
-
-  //         // If it's Friday or the last day of the month, add the week array to the result array
-  //         if (currentDate.getDay() === 5 || currentDate.getMonth() !== new Date(currentDate.getTime() + 86400000).getMonth()) {
-  //           weeksArray.push(currentWeek);
-  //           currentWeek = [];
-  //         }
-  //       }
-
-  //       // Move to the next day
-  //       currentDate.setDate(currentDate.getDate() + 1);
-  //     }
-
-  //     for (const [index, week] of weeksArray.entries()) {
-  //       const { data: LogbookData } = await axios.post(
-  //         `${import.meta.env.VITE_BASE_URL}/logbook/weekly/create`,
-  //         {
-  //           internship_id: data.result.internship_id,
-  //           mahasiswa_id: userLoggedInData?.id,
-  //           log_description: '',
-  //           week: index,
-  //         },
-  //         {
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-
-  //       for (const [index, day] of week.entries()) {
-  //         await axios.post(
-  //           `${import.meta.env.VITE_BASE_URL}/logbook/daily/create`,
-  //           {
-  //             logbook_id: LogbookData.result.logbook_id,
-  //             isComplete: false,
-  //             mahasiswa_id: userLoggedInData?.id,
-  //             log_description: '',
-  //             date_intern: day,
-  //           },
-  //           {
-  //             headers: {
-  //               'Content-Type': 'application/json',
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //       }
-  //     }
-  //     if (data) {
-  //       setLoading(false);
-  //       toast.dismiss(toastId);
-  //       toast.success('Berhasil memperpanjang magang');
-  //       navigate('/kegiatan-magang');
-  //     } else {
-  //       setLoading(false);
-  //       toast.dismiss(toastId);
-  //       toast.error('Gagal mengajukan perpanjangan magang');
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     toast.dismiss(toastId);
-  //     console.error(error);
-  //   }
-  // };
 
   const handleFileUpdate = async ({ instance, location, type, description, phone, intern_agreement, lecture_agreement, campus_approval }) => {
     setLoadingUpdate(true);
@@ -286,7 +190,6 @@ export const InternshipProvider = ({ children }) => {
       setLoadingUpdate(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
     }
   };
 
@@ -312,7 +215,6 @@ export const InternshipProvider = ({ children }) => {
     } catch (error) {
       setLoadingUpdate(false);
       toast.error(error.message);
-      console.error(error);
     }
   };
 
@@ -337,7 +239,6 @@ export const InternshipProvider = ({ children }) => {
     const toastId = toast.loading('Sedang proses upload');
 
     const lectureFile = lectureFileInputRef.current.files[0];
-    console.log('🚀 ~ InternshipProvider ~ lectureFile:', lectureFile);
 
     const formData = new FormData();
 
@@ -392,7 +293,6 @@ export const InternshipProvider = ({ children }) => {
       setLoadingLetter(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
     }
   };
 
@@ -422,7 +322,6 @@ export const InternshipProvider = ({ children }) => {
       setLoadingLetter(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
     }
   };
 

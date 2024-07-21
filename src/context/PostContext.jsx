@@ -52,7 +52,6 @@ export const PostProvider = ({ children }) => {
         setPostById(data);
         setLoadingPostByID(false);
       } catch (error) {
-        console.error(error);
         setLoadingPostByID(false);
       }
     };
@@ -67,7 +66,6 @@ export const PostProvider = ({ children }) => {
         setLoadingPost(false);
         return dispatch({ type: 'SET_POST_DATA', payload: data });
       } catch (error) {
-        console.error(error);
         setLoadingPost(false);
       }
     };
@@ -82,7 +80,6 @@ export const PostProvider = ({ children }) => {
         setLoadingPostByUser(false);
         setPostByUser(data);
       } catch (error) {
-        console.error(error);
         setLoadingPostByUser(false);
       }
     };
@@ -128,14 +125,14 @@ export const PostProvider = ({ children }) => {
         },
       });
       dispatch({ type: 'ADD_NEW_POST', payload: data.result });
-      console.log('image uploaded', data);
+
       setLoadingPost(false);
       navigate('/');
     } catch (error) {
       if (error.response.status == 403) {
         toast.error('Kamu belum login');
       }
-      console.error(error);
+
       setLoadingPost(false);
     }
   };
@@ -153,7 +150,6 @@ export const PostProvider = ({ children }) => {
       dispatch({ type: 'DELETE_POST_BY_ID', payload: id });
       setLoadingDelete(false);
     } catch (error) {
-      console.log(error);
       setLoadingDelete(false);
     }
   };

@@ -47,7 +47,6 @@ export const UserProvider = ({ children }) => {
     setAccessToken(undefined);
     localStorage.clear();
     dispatch({ type: 'REMOVE_USER_DATA', payload: undefined });
-    console.log('Local storage has been deleted');
   };
 
   useEffect(() => {
@@ -74,7 +73,7 @@ export const UserProvider = ({ children }) => {
         dispatch({ type: 'SET_USER_DATA', payload: undefined });
       }
     } catch (error) {
-      console.error('Must login');
+      return null;
     }
   }, [cookies]);
 
@@ -95,7 +94,6 @@ export const UserProvider = ({ children }) => {
       if (error.response.status == 404) {
         toast.error('Password atau email salah');
       }
-      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -113,7 +111,7 @@ export const UserProvider = ({ children }) => {
         });
         setDosenData(data.result);
       } catch (error) {
-        console.error(error);
+        toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
       }
     };
     handleGetDosen();
@@ -152,7 +150,6 @@ export const UserProvider = ({ children }) => {
       setLoadingRegister(false);
       navigate('/login');
     } catch (error) {
-      console.error(error);
       setLoadingRegister(false);
     }
   };
@@ -177,7 +174,6 @@ export const UserProvider = ({ children }) => {
           }
         )
         .then((response) => {
-          console.log(response);
           setLoadingUpdate(false);
           if (response.status == 201) {
             toast.success('Password berhasil diubah');
@@ -187,7 +183,7 @@ export const UserProvider = ({ children }) => {
       if (error.response.status == 401) {
         toast.error('Password salah');
       }
-      console.error(error);
+
       setLoadingUpdate(false);
     }
   };
@@ -195,7 +191,6 @@ export const UserProvider = ({ children }) => {
   const imageInputRef = useRef(null);
   const handleUpdateProfile = async (values) => {
     const { dosen_id, first_name, last_name, email, nim, nidn, jurusan, old_password, angkatan, kelas, gender, image, phone } = values;
-    console.log('🚀 ~ handleUpdateProfile ~ image:', values);
 
     const imageRef = imageInputRef.current.files[0];
 
@@ -219,8 +214,6 @@ export const UserProvider = ({ children }) => {
     } else {
       formData.append('image', ''); // Default value if both image and imageRef are not set
     }
-
-    console.log(formData.get('image'));
 
     if (userLoggedInData.role == 'mahasiswa') {
       formData.append('nim', nim);
@@ -258,13 +251,12 @@ export const UserProvider = ({ children }) => {
             };
             setUserLoggedInData(updateValues);
             dispatch({ type: 'SET_USER_DATA', payload: updateValues });
-            console.log(response);
+
             toast.success('Profil berhasil diubah');
             setLoadingUpdate(false);
           }
         });
     } catch (error) {
-      console.error(error);
       setLoadingUpdate(false);
     }
   };
@@ -273,7 +265,7 @@ export const UserProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/forgot-password`, { email });
-      console.log(response);
+
       if (response.status == 201) {
         toast.success('Email berhasil terkirim');
       }
@@ -282,7 +274,7 @@ export const UserProvider = ({ children }) => {
       if (error.response.status == 404) {
         toast.error('Email belum terdaftar');
       }
-      console.error(error);
+
       setLoading(false);
     }
   };
@@ -303,7 +295,7 @@ export const UserProvider = ({ children }) => {
           },
         }
       );
-      console.log(response);
+
       if (response.status == 201) {
         toast.success('Password berhasil diganti');
         setTimeout(() => {
@@ -315,13 +307,13 @@ export const UserProvider = ({ children }) => {
       if (error.response.status == 403) {
         toast.error('Durasi link untuk ganti password sudah habis');
       }
-      console.error(error);
+
       setLoading(false);
     }
   };
 
   const excelInputRef = useRef(null);
-  console.log('🚀 ~ UserProvider ~ excelInputRef:', excelInputRef);
+
   const handleSubmitImportMahasiswa = async () => {
     setLoadingImport(true);
     const toastId = toast.loading('Sedang proses import');
@@ -341,7 +333,6 @@ export const UserProvider = ({ children }) => {
       toast.success('Import Berhasil');
       setLoadingImport(false);
     } catch (error) {
-      console.error(error);
       setLoadingImport(false);
       toast.dismiss(toastId);
       toast.error('Import Gagal');
