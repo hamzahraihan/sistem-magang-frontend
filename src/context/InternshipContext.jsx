@@ -18,7 +18,7 @@ export const InternshipProvider = ({ children }) => {
   const [loadingLetter, setLoadingLetter] = useState(false);
 
   const [internship, dispatch] = useReducer(InternshipReducer, []);
-  console.log('🚀 ~ InternshipProvider ~ internship:', internship);
+
   const [internshipInputData, setInternshipInputData] = useState({
     start_intern: '',
     end_intern: '',
@@ -142,7 +142,7 @@ export const InternshipProvider = ({ children }) => {
         toast.error('Gagal mengajukan magang');
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       setLoading(false);
       toast.dismiss(toastId);
       toast.error('Gagal mengajukan magang');
@@ -286,7 +286,7 @@ export const InternshipProvider = ({ children }) => {
       setLoadingUpdate(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -312,7 +312,7 @@ export const InternshipProvider = ({ children }) => {
     } catch (error) {
       setLoadingUpdate(false);
       toast.error(error.message);
-      console.error(error);
+      // console.error(error);
     }
   };
 
@@ -337,7 +337,6 @@ export const InternshipProvider = ({ children }) => {
     const toastId = toast.loading('Sedang proses upload');
 
     const lectureFile = lectureFileInputRef.current.files[0];
-    console.log('🚀 ~ InternshipProvider ~ lectureFile:', lectureFile);
 
     const formData = new FormData();
 
@@ -392,7 +391,7 @@ export const InternshipProvider = ({ children }) => {
       setLoadingLetter(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -422,7 +421,7 @@ export const InternshipProvider = ({ children }) => {
       setLoadingLetter(false);
       toast.dismiss(toastId);
       toast.error('Upload Gagal');
-      console.log(error);
+      // console.log(error);
     }
   };
 
