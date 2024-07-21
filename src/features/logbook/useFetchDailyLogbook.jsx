@@ -28,7 +28,7 @@ const useFetchDailyLogbook = () => {
           toast.error('Anda tidak mempunyai hak akses. Pastikan Anda sudah login dengan akun dan role yang benar.');
         }
         dispatch({ type: 'SET_DAILYLOG', payload: [] });
-        console.error(error);
+
         setLoading(false);
       }
     };

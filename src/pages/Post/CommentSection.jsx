@@ -5,7 +5,7 @@ import UserComment from './UserComment';
 
 const Comment = () => {
   const { comment } = useFetchComment();
-  console.log('🚀 ~ CommentSection ~ comment:', comment);
+
   if (comment.length > 0) {
     return (
       <>

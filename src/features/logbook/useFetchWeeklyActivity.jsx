@@ -29,7 +29,7 @@ const useFetchWeeklyActivity = () => {
         if (error.name == 'CanceledError') {
           console.error('Previous request was aborted');
         } else {
-          console.error(error);
+          console.error('Error');
         }
         setLoading(false);
       }

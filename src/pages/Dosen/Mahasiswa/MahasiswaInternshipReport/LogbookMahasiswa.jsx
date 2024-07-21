@@ -6,7 +6,6 @@ import useFetchInternship from '../../../../features/internship/useFetchInternsh
 
 const LogbookMahasiswa = () => {
   const { loading, internship } = useFetchInternship();
-  console.log('🚀 ~ LogbookMahasiswa ~ internship:', internship);
 
   const columnHelper = createColumnHelper();
 

@@ -7,7 +7,6 @@ import useFetchReportByDosen from '../../../../features/report/useFetchReportByD
 
 const ReportInternship = () => {
   const { loading, reportIntern } = useFetchReportByDosen();
-  console.log('🚀 ~ ReportInternship ~ reportIntern:', reportIntern);
 
   const columnHelper = createColumnHelper();
 

@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 const AdminLogbookMahasiswa = () => {
   const { loading, internship } = useFetchInternship();
-  console.log('🚀 ~Admin LogbookMahasiswa ~ internship:', internship);
 
   const columnHelper = createColumnHelper();
 

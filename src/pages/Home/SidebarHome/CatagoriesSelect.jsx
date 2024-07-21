@@ -8,8 +8,6 @@ const CatagoriesSelect = () => {
   const { loading, category } = useFetchCategory();
   const { post } = usePostContext();
 
-  console.log('🚀 ~ CatagoriesSelect ~ category:', category);
-
   const handleClick = (category) => {
     setSearchParams((prev) => {
       prev.set('category_name', category);

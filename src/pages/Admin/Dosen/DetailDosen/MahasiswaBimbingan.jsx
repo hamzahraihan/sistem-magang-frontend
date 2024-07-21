@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const MahasiswaBimbingan = () => {
   const { loading, userByID } = useFetchUserByID();
   const { mahasiswaDosen } = useFetchMahasiswaByDosen();
-  console.log('🚀 ~ MahasiswaBimbingan ~ mahasiswaDosen:', mahasiswaDosen);
+
   const fullName = {
     value: loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : _.upperCase(` ${userByID.first_name} ${userByID.last_name}`),
   };

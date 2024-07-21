@@ -13,7 +13,6 @@ import _ from 'lodash';
 const handleCheckLogbook = (logbookWeekly) => {
   const checkCompleteLog = logbookWeekly.every((element) => element.status === 'Sudah disetujui');
 
-  console.log('🚀 ~ handleCheckLogbook ~ checkCompleteLog:', checkCompleteLog);
   if (!checkCompleteLog) {
     console.log('some data are not validated by dosen');
     return false;
@@ -53,7 +52,6 @@ const DetailCard = () => {
 
   const { userLoggedInData } = useUserContext();
   const checkLogbook = handleCheckLogbook(logbookWeekly);
-  console.log('🚀 ~ DetailCard ~ checkLogbook:', checkLogbook);
 
   const renderInternshipLinks = () => {
     if (internshipByID.status === 'Belum diterima') {

@@ -6,7 +6,6 @@ import { createColumnHelper } from '@tanstack/react-table';
 
 const AdminDashboardDosen = () => {
   const { loading, dosen } = useFetchDosen();
-  console.log('🚀 ~ AdminDashboardDosen ~ dosen:', dosen);
 
   const columnHelper = createColumnHelper();
 

@@ -7,7 +7,6 @@ import * as yup from 'yup';
 
 const FormLogin = () => {
   const { loading, setloading, role, handleLogin } = useUserContext();
-  console.log('🚀 ~ FormLogin ~ role:', role);
 
   const { roleUrl } = useParams();
 

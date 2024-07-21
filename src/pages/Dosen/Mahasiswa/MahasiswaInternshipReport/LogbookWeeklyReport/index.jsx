@@ -14,7 +14,7 @@ import LogbookDaily from './LogbookDaily';
 
 const LogbookWeeklyReport = () => {
   const { logbookDaily } = useFetchDailyLogbook();
-  console.log('🚀 ~ LogbookWeeklyReport ~ logbookDaily:', logbookDaily);
+
   const { weeklyActivity } = useFetchWeeklyActivity();
   const { loading, userByID } = useFetchUserByID(weeklyActivity.mahasiswa_id);
   const { loadingUpdate, handleStatusLogbook } = useLogbookWeeklyActivityContext();

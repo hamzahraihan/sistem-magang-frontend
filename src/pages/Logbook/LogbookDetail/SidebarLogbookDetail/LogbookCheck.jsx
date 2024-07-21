@@ -63,10 +63,8 @@ const LogbookOverallCard = () => {
   const handleDisableButton = () => {
     const checkCompleteLog = logbookDaily.slice(0, 5).every((element) => element.isComplete);
     if (checkCompleteLog) {
-      console.log('all data is complete');
       return false;
     } else {
-      console.log('some data is not compelete');
       return true;
     }
   };

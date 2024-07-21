@@ -6,7 +6,6 @@ import useFetchInternship from '../../../../../features/internship/useFetchInter
 
 const InternshipWeeklyReport = () => {
   const { loading, internship } = useFetchInternship();
-  console.log('🚀 ~ InternshipWeeklyReport ~ internship:', internship);
 
   return (
     <div className="flex flex-col col-span-3 gap-4">

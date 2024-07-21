@@ -12,7 +12,6 @@ import useFetchRequestInternshipByMahasiswa from '../../../features/internship/u
 
 const RequirementMenu = () => {
   const { requestInternship, loading } = useFetchRequestInternshipByMahasiswa();
-  console.log('🚀 ~ RequirementMenu ~ requestInternship:', requestInternship);
 
   const columnHelper = createColumnHelper();
 

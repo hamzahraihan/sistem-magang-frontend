@@ -4,7 +4,7 @@ import { Tooltip } from 'flowbite-react';
 
 const DataDosen = () => {
   const { loading, userByID } = useFetchUserByID();
-  console.log('🚀 ~ DataDosen ~ userByID:', userByID);
+
   const fullName = {
     value: loading ? <p className="bg-gray-500 h-5 animate-pulse rounded-md w-full"></p> : _.upperCase(` ${userByID.first_name} ${userByID.last_name}`),
   };

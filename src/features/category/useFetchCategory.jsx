@@ -15,7 +15,6 @@ const useFetchCategory = () => {
         dispatch({ type: 'SET_CATEGORY', payload: data });
         setLoading(false);
       } catch (error) {
-        console.error(error);
         setLoading(false);
       }
     };

@@ -9,7 +9,6 @@ const useFetchUserByID = (props) => {
   const { state } = useLocation();
 
   const { roleUrl, mahasiswa_id, dosen_id } = useParams();
-  console.log('🚀 ~ useFetchUserByID ~ dosen_id:', dosen_id);
 
   const id = useMemo(() => {
     if (state) {

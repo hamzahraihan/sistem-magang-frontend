@@ -17,7 +17,7 @@ const useFetchDosen = () => {
         dispatch({ type: 'SET_DOSEN_DATA', payload: data });
         setLoading(false);
       } catch (error) {
-        console.log(error);
+      
         setLoading(false);
       }
     };

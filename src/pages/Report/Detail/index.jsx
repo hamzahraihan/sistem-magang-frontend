@@ -12,7 +12,7 @@ const DetailReport = () => {
   const [modalType, setModalType] = useState('');
 
   const { reportIntern, loading } = useFetchReportById();
-  console.log('🚀 ~ DetailReport ~ reportIntern:', reportIntern);
+
   const sanitizeContent = DOMPurify.sanitize(reportIntern?.note);
 
   let statusColor;

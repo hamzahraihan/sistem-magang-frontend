@@ -6,7 +6,7 @@ import useFetchUserByID from '../../../../../features/user/useFetchUserById';
 
 const WeeklyReport = () => {
   const { loading, logbookWeekly } = useFetchWeeklyLogbook();
-  console.log('🚀 ~ WeeklyReport ~ logbookWeekly:', logbookWeekly);
+
   const columnHelper = createColumnHelper();
 
   const { userByID } = useFetchUserByID(logbookWeekly?.mahasiswa_id);

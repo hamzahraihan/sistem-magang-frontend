@@ -7,7 +7,7 @@ import { TOKEN } from '../../constant/key';
 const useFetchReportByMahasiswa = () => {
   const [loading, setLoading] = useState(false);
   const [reportIntern, setReportIntern] = useState([]);
-  console.log('🚀 ~ useFetchReportByMahasiswa ~ reportIntern:', reportIntern);
+
   const { userLoggedInData } = useUserContext();
 
   useEffect(() => {
@@ -21,7 +21,6 @@ const useFetchReportByMahasiswa = () => {
         setReportIntern(data);
         setLoading(false);
       } catch (error) {
-        console.error(error);
         setLoading(false);
       }
     };

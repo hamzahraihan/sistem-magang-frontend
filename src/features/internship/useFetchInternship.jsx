@@ -26,14 +26,13 @@ const useFetchInternship = () => {
         } else if (internship_id) {
           const data = await getInternshipByIdAPI(internship_id, signal, token);
           dispatch({ type: 'SET_INTERNSHIP_DATA', payload: data });
-          console.log('🚀 ~ getUserInternship ~ data:', data);
         }
         setLoading(false);
       } catch (error) {
         if (error.response.status == 404) {
           dispatch({ type: 'SET_INTERNSHIP_DATA', payload: [] });
         }
-        console.error(error);
+
         setLoading(false);
       }
     };

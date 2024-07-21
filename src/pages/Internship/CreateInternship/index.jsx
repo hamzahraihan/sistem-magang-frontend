@@ -11,7 +11,6 @@ import { useEffect } from 'react';
 const CreateInternship = () => {
   const { handleCreateInternship, loading } = useInternshipContext();
   const { requestInternship, loading: loadingLetter } = useFetchRequestInternshipById();
-  console.log('🚀 ~ CreateInternship ~ requestInternship:', requestInternship);
 
   const validFileExt = { files: ['doc', 'docx', 'pdf', 'jpg'] };
   const isValidFileType = (fileName) => {

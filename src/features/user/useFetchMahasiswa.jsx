@@ -18,7 +18,6 @@ const useFetchMahasiswa = () => {
         dispatch({ type: 'SET_MAHASISWA_DATA', payload: data });
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     };

@@ -8,7 +8,6 @@ import { DiscussionEmbed } from 'disqus-react';
 
 const DetailPost = () => {
   const { loadingPostByID, postById } = usePostContext();
-  console.log('🚀 ~ DetailPost ~ postById:', postById);
 
   return (
     <div className="col-span-3">

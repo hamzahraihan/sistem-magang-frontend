@@ -23,7 +23,6 @@ const ReportUpdateForm = () => {
   const allowedExt = getAllowedExt();
 
   const { report_id } = useParams();
-  console.log('🚀 ~ ReportUpdateForm ~ report_id:', report_id);
 
   const MAX_FILE_SIZE = 10485760; //max 10 mb file size
 
