@@ -16,7 +16,6 @@ const Table = ({ columns, data, fileName, loading }) => {
   ]);
   const [columnVisibility, setColumnVisibility] = useState({});
 
-  console.log('🚀 ~ Table ~ sorting:', sorting);
   const table = useReactTable({
     data,
     columns,

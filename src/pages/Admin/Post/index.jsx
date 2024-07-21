@@ -9,7 +9,7 @@ import AdminPostCategory from './Category';
 
 const AdminDashboardPost = () => {
   const { loadingPost: loading, post, handleDeletePost, loadingDelete } = usePostContext();
-  console.log('🚀 ~ AdminDashboardPost ~ post:', post);
+  // console.log('🚀 ~ AdminDashboardPost ~ post:', post);
 
   const columnHelper = createColumnHelper();
 
