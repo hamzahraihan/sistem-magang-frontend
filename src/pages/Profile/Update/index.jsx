@@ -113,6 +113,7 @@ const UpdateProfile = () => {
       gender: userByID ? userByID.gender : '',
       phone: userByID ? userByID.phone : '',
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userByID]);
 
   const handleInputForm = (event) => {
